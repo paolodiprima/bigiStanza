@@ -17,7 +17,7 @@ const moviesGenres = [
     {id:3, genres:"thriller"}
     ];
 app.get('/', (req,res) => {
-    res.render('index',{moviesG : moviesGenres});
+    res.render('index',{}); //passare oggetto lista appartamenti
 });
 
 //app.get()
