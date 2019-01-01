@@ -14,39 +14,17 @@
 
 </head>
 <body data-spy="scroll" data-target="#navbar"> <!-- data-offset="50" -->
- <!-- navigation bar -->   
-    <nav class="navbar navbar-expand-md navbar-dark bg-secondary sticky-top" id="navbar">
-        <div class="container-fluid">
-            <div class="col-sx-6">
-                <a href="#" class="navbar-brand"><img src="../img/newBrand.jpg"></a>
-            </div> <!-- first col-sx-6 -->
-
-            <div class="col-sx-6">
-                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                     <ul class="nav navbar-nav nav-pills ml-auto">
-                        <li class="nav-item pill-1"><a class="nav-link active" href="#jumbo1">Home</a></li>
-                        <li class="nav-item pill-1"><a class="nav-link" href="#stanze">Stanze</a></li>
-                        <li class="nav-item pill-1"><a class="nav-link" href="#contatti">Contatti</a></li>
-                    </ul>
-                </div>
-            </div> <!-- second col-sx-6 -->
-        </div> <!-- container-fluid navbar-->
-    </nav>
-<!-- jumbotron -->
-    <div class="jumbotron d-none d-sm-block" id="jumbo1"> <!-- not visible in xs -->
-        <p class="display-2 text-center text-responsive">BiGi Stanza</p>
-        <hr class="my-2">
-        <p class="lead display-4 text-center text-responsive">Fell At Home When You're Away</p>
-    </div>
+  <!-- navigation bar --> 
+    <% include ../views/home-nav.ejs %>
+  <!-- jumbotron -->  
+    <% include ../views/home-jumbotron.ejs %>
 
 <!-- main container -->
 
     <div class="container-fluid" id="stanze">
        <!-- <div class="container container-fluid" id="stanze"> -->
 
+        <!-- start list of rooms -->
         <div class="row">
             <div class="col-lg-8 d-flex">
                 <div id="carouselIndicator1" class="carousel slide border  shadow flex-fill">
@@ -98,8 +76,7 @@
             
                             <p> <img class="icon" src="../img/icon/icons8-lavastoviglie-50.png"><span class="text-center px-4">LAVASTOVIGLIE</span></p>
                             <p> <img class="icon" src="../img/icon/icons8-inverno-50.png"><span class="text-center px-4">CLIMA</span></p>
-                            
-            
+                              
                             <p> <img class="icon" src="../img/icon/icons8-wi-fi-50.png"><span class="text-center px-4">INTERNET</span></p>
                             <p> <img class="icon" src="../img/icon/icons8-parcheggio-50.png"><span class="text-center px-4">PARCHEGGIO</span></p>
                             
@@ -109,6 +86,8 @@
                 </div>
             </div>
         </div> <!-- row -->
+        <!-- end list of rooms -->
+        
     </div> <!-- appart container -->
 
     <div class="container-fluid">
@@ -116,6 +95,7 @@
             <div class="col-12 ">
                 <div class="card">
                     <div class="card-body">
+                    <%= appartList[0].rooms[0].img %> 
                     Disponibile ampia stanza singola arredata a soli 15 minuti 
                     a piedi dall'università di via dei Caniana e 5 minuti a piedi da piazza Pontida. 
                     Posizione centrale, molto comoda ma anche tranquilla in bella e verde zona 
@@ -127,6 +107,9 @@
             </div>
         </div>
     </div> <!-- container annuncio-->
+
+
+
     <h3 class="text-center">Tieniti in Contatto</h3>
     <div class="container-fluid">
         <div class="row">
@@ -216,6 +199,7 @@
             imgPath="../img/bg/imgBg"+randomNumber+".jpg";
          //   $('#jumbo1').css('background', ('url("'+imgPath+'")'));
             $('#jumbo1').css('background-size', 'cover');
+
         });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
