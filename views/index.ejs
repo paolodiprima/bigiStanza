@@ -25,33 +25,36 @@
        <!-- <div class="container container-fluid" id="stanze"> -->
 
         <!-- start list of rooms -->
+        <% for (indexAppart in appartList) {  %>
         <div class="row">
             <div class="col-lg-8 d-flex">
                 <div id="carouselIndicator1" class="carousel slide border  shadow flex-fill">
                     <ol class="carousel-indicators">
-                        <li data-target="#carouselIndicator1" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselIndicator1" data-slide-to="1"></li>
-                        <li data-target="#carouselIndicator1" data-slide-to="2"></li>
+                        <% for (indexImgAppart in appartList[indexAppart].imgAppart) { %>
+
+                        <li data-target="#carouselIndicator1" data-slide-to="<%=indexImgAppart%>"  ></li>
+                        <% } %>
+                        <!-- <li data-target="#carouselIndicator1" data-slide-to="1" class="active"></li>
+                        <li data-target="#carouselIndicator1" data-slide-to="2"></li> -->
                     </ol>                    
                     <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active">
-                            <div class="img">
-                                <img class="d-block img-fluid" src="../img/app01-01.jpg" alt="first slide">
-                            </div>
-                        </div>
-                    
-                        <div class="carousel-item">
-                            <div class="img">
-                                <img class="d-block img-fluid" src="../img/app01-02.jpg" alt="second slide">
-                            </div>
-                        </div>
-                    
-                        <div class="carousel-item">
+                    <% for (indexImgAppart in appartList[indexAppart].imgAppart){ %>
+                        <% if (indexImgAppart==0){ %>
+                            <div class="carousel-item active">
                                 <div class="img">
-                                    <img class="d-block img-fluid" src="../img/app01-03.jpg" alt="thrid slide">
+                                    <img class="d-block img-fluid" src="../img/<%= appartList[indexAppart].imgAppart[indexImgAppart] %>" >
+                                </div>
+                            </div>
+                        <% } else { %>
+                            <div class="carousel-item">
+                                <div class="img">
+                                    <img class="d-block img-fluid" src="../img/<%= appartList[indexAppart].imgAppart[indexImgAppart] %>" >
                                 </div>
                         </div>
+                            <% } %> <!-- else -->
+                        <% } %> <!-- for -->
                     </div> <!-- carousel-inner -->
+
                     <a class="carousel-control-prev" href="#carouselIndicator1" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
@@ -86,8 +89,9 @@
                 </div>
             </div>
         </div> <!-- row -->
-        <!-- end list of rooms -->
         
+        <!-- end list of rooms -->
+
     </div> <!-- appart container -->
 
     <div class="container-fluid">
@@ -95,18 +99,20 @@
             <div class="col-12 ">
                 <div class="card">
                     <div class="card-body">
-                    <%= appartList[0].rooms[0].img %> 
-                    Disponibile ampia stanza singola arredata a soli 15 minuti 
-                    a piedi dall'università di via dei Caniana e 5 minuti a piedi da piazza Pontida. 
-                    Posizione centrale, molto comoda ma anche tranquilla in bella e verde zona 
-                    residenziale. Proprio sotto casa è presente il supermercato Coop, 
-                    la fermata per bus, e tutti i servizi che un centro città può offrire.
-                </div>
+                        <%= appartList[0].rooms[0].img %> 
+                        <%= indexAppart %>
+                        Disponibile ampia stanza singola arredata a soli 15 minuti 
+                        a piedi dall'università di via dei Caniana e 5 minuti a piedi da piazza Pontida. 
+                        Posizione centrale, molto comoda ma anche tranquilla in bella e verde zona 
+                        residenziale. Proprio sotto casa è presente il supermercato Coop, 
+                        la fermata per bus, e tutti i servizi che un centro città può offrire.
+                    </div>
                 </div>
                 
             </div>
-        </div>
+        </div>  <!-- row description -->
     </div> <!-- container annuncio-->
+    <% } %> <!-- main for -->
 
 
 

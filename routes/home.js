@@ -22,7 +22,7 @@ router.get('/', (req,res) => {
         .then((data)=>{
             
             const dataJSON = JSON.parse(JSON.stringify(data));
-            console.log(dataJSON[0].rooms[0].img);
+            console.log(dataJSON);
             res.render('index',{appartList:dataJSON});
     //  res.json(data);
         })
