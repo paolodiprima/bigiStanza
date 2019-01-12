@@ -17,11 +17,11 @@ app.use(express.static('public'));
 app.set('view engine','ejs');
 app.set('views',path.resolve(__dirname,'views'));  //setup rendering engine ejs
 
-const moviesGenres = [
-     {id:1, genres:"action"},
-    {id:2, genres:"dramma"},
-    {id:3, genres:"thriller"}
-    ];
+// const moviesGenres = [
+//      {id:1, genres:"action"},
+//     {id:2, genres:"dramma"},
+//     {id:3, genres:"thriller"}
+//     ];
 
 app.use('/api-appartlist',appartList);   
 app.use('/',home);
