@@ -1,13 +1,16 @@
 const express = require('express');
 const app = new express();
 const appartList = require('./routes/appartList');
+const infoRequest = require('./routes/insertRequestInfo');
 const home = require('./routes/home');
+const stanze = require('./routes/stanze');
 const bodyParser = require('body-parser');
 //const Joi = require('joi');
 const path = require('path');
 const mongoose = require('mongoose');
 const appartModel = require('./models/appartamentiModel');
 
+app.use(bodyParser.urlencoded({ extended:true}));
 app.use(express.json());  //adding middlewere (provided by Express)
 app.use(express.static('public'));
 
@@ -22,10 +25,8 @@ const moviesGenres = [
 
 app.use('/api-appartlist',appartList);   
 app.use('/',home);
-// app.get('/', (req,res) => {
-//     res.render('index',{}); //passare oggetto lista appartamenti
-// });
-
+app.use('/stanze',stanze);
+app.use('/api-insert-info',infoRequest);
 
 
 var port = process.env.PORT || 3000 ;

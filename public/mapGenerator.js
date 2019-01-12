@@ -12,7 +12,7 @@ function initMap() {
             var  coords =  await findLatLng(address[mapIndex], geocoder);  
             var map = createMap(mapsContainerIds[mapIndex],coords.lat,coords.lng,14);
             var marker = createMarker(map,coords.lat,coords.lng,address[mapIndex]);
-            addInfo(address[mapIndex],map,marker);
+            //addInfo(address[mapIndex],map,marker);
           
             }
         }
@@ -23,7 +23,8 @@ function initMap() {
 // add info on a marker of a given map
 function addInfo(info,map,marker){
     var infoAddress = new google.maps.InfoWindow({
-         content: info  
+         content: info,
+         icon: '../public/img/icon/homeicon.png'
         });    
     infoAddress.open(map,marker);
 }
@@ -49,7 +50,13 @@ function createMarker(map,lat,lng,address){
     var options = {
         position : {lat:lat,lng:lng},
         map : map,
-        title: address
+        title: address,
+        label: 
+         {
+            text: address,
+            fontSize: "16px",
+            color: "#19325b"
+        }
     }
     return new google.maps.Marker(options);
 }
