@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>BiGi Stanza Admin</title>
+    
+    <!-- <link rel="stylesheet" href="../css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css" media="all">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+
+</head>
+<body class="bg-info">
+ 
+  <div class="container bg-light mt-4" id="tableAppart">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <h4 class="mt-1"><a href="#" class="btn btn-secondary"><i class="fa fa-plus"></i>
+             AGGIUNGI APPARTAMETO</a><span class="text-center pl-3">LISTA APPARTAMENTI</span></h4>
+        <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th scope="col">id</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">CAP</th>
+                      <th scope="col" class="text-center">Stanze</th>
+                      <th scope="col" class="text-center">Bagni</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <% for (appartIndex in appartList){ %>
+                  <tr>
+                      <td><%= appartList[appartIndex].internalName %></td>
+                      <td><%= appartList[appartIndex].address %></td>
+                      <td><%= appartList[appartIndex].cap %></td>
+                      <td  class="text-center"><%= appartList[appartIndex].numRooms %></td>
+                      <td class="text-center"><%= appartList[appartIndex].numBathRooms %></td>
+                      <td class="d-none" hidden="true"><%= appartList[appartIndex]._id %></td>
+                      <td><a class="fa fa-pen fa-lg"  href=""></a></td>
+                      <td><a class="fa fa-trash fa-lg" href=""></a></td>
+                  </tr>
+                  <% } %>
+
+              </tbody>
+        </table> 
+      </div>
+    </div> <!--row-->
+</div> <!-- container tableAppart-->
+    
+</body>
+</html>

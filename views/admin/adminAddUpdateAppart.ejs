@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>BiGi Stanza Admin</title>
+    
+    <!-- <link rel="stylesheet" href="../css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css" media="all">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+
+</head>
+<body class="bg-info">
+ 
+  <div class="container bg-light mt-4" id="formAppart">
+    <!-- <div class="row"> -->
+        <form action="#" method="POST"  id="mainform">
+        
+        
+            <div class="form-row ">
+                <div class="form-group col-md-1">
+                    <label for="internalName">Id</label>
+                    <input type="text" class="form-control" name="internalName" id="internalName">
+                </div>
+                <div class="form-group col-md-8">
+                        <label for="address">Indirizzo</label>
+                        <input type="text" class="form-control" name="address" id="address">
+                </div>
+                <div class="form-group col-md-1">
+                        <label for="cap">CAP</label>
+                        <input type="text" class="form-control" name="cap" id="cap">
+                </div>         
+                <div class="form-group col-md-2 mt-auto">
+                        
+                    <a href="#" class="btn   btn-secondary d-block d-flex" id="addImg1"><i class="fa fa-images"></i>
+                    + IMMAGINI</a>
+                </div> 
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                        <label for="floor">Piano</label>
+                        <input type="number" class="form-control" name="floor" id="floor">
+                </div>
+                <div class="form-group col-md-3">
+                        <label for="floor">Stanze</label>
+                        <input type="number" class="form-control" name="numRooms" id="numRooms" disabled value="1">
+                </div>  
+                <div class="form-group col-md-3">
+                        <label for="numRooms">Bagni</label>
+                        <input type="number" class="form-control" name="numBathrooms" id="numBathrooms" >
+                </div> 
+                <div class="form-group col-md-3">
+                        <label for="appartsize">Dimensioni(mq)</label>
+                        <input type="number" class="form-control" name="appartsize" id="appartsize">
+                </div>  
+            </div>
+            <div class="form-row ">
+                <div class="form-group col-md-3">
+                        <label for="services">Servizi</label>
+                        <select multiple class="form-control" name="services" size="6" id="services" >
+                            <option value="">tv</option>
+                            <option value="">wi-fi</option>
+                            <option value="">lavatrice</option>
+                            <option value="">lavastoviglie</option>
+                            <option value="">parcheggio</option>
+                            <option value="">clima</option>
+                            <option value="">mobiliata</option>
+                        </select> 
+                </div>
+                <div class="form-group col-md-9">
+                    <label for="description">Descrizione</label>
+                    <textarea name="description" id="description" class="form-control" rows="4" ></textarea> <!--h-100-->
+                </div>
+            </div>
+            <fieldset class="form-group stanze" >
+            <div class="form-row border align-items-center">
+            
+                
+                        <legend class="col-form-label">STANZA 1 
+                            <a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza1Add"><i class="fa fa-plus" ></i></a>
+                            <a href="#" class="btn btn-sm btn-secondary removebtn" id="btnStanza1Remove"><i class="fa fa-minus" ></i></a>
+                        </legend>
+                        <div class="form-group col-md-3">
+                            <label for="roomsize">Dimensioni(mq)</label>
+                            <input type="number" class="form-control" name="roomsize" id="roomsize">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="price">Prezzo</label>
+                            <input type="number" class="form-control" name="price1" id="price">
+                        </div>
+                        <div class="form-check col-md-3  offset-md-1  ">
+                                <label for="window" class="form-check-label mx-3"></label>
+                                <input type="radio" class="form-check-input " id="window" name="accesso1">
+                                Finestra</label>
+                                <label for="balcon" class="form-check-label mx-3"></label>
+                                <input type="radio" class="form-check-input" id="balcon" name="accesso1">
+                                Balcone</label>
+                        </div>
+                        <div class="form-group col-md-2  mt-auto "> 
+                            <label for=""></label>
+                                <a href="#" class="btn  btn-secondary d-block " id="addImg1"><i class="fa fa-image"></i>
+                                    + IMMAGINI</a>
+                        </div>
+                    </div>    
+            </fieldset>
+        
+                
+                    <button id="btninvia" class="btn btn-primary mb-2" type="submit">INVIA</button>
+                
+            
+        </form>
+     
+    <!-- </div> row tutto il form 1--10--1  -->
+</div> <!-- container formAppart-->
+
+<script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('#mainform').trigger("reset");
+        $('#numRooms').val("1");
+        $(document).on('click','.addbtn',function () {
+            var temp = '<a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza"><i class="fa fa-plus" ></i></a><a href="#" class="btn btn-sm btn-secondary removebtn  pull-right" id="btnStanza1Add"><i class="fa fa-minus pull-right " ></i></a>'
+            var nstanze = parseInt($('#numRooms').val());
+            if (nstanze==6){
+                alert("RAGGIUNTO NUMERO MASSIMO DI STANZE!")
+                return false;
+            }
+            // prepare new line for room    
+            var newRoomLine = `<fieldset class="form-group stanze" >
+                                <div class="form-row border align-items-center">
+                                    <legend class="col-form-label">STANZA ${nstanze+1}
+                                    <a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza${nstanze+1}Add"><i class="fa fa-plus" ></i></a>
+                                    <a href="#" class="btn btn-sm btn-secondary removebtn" id="btnStanza${nstanze+1}Remove"><i class="fa fa-minus" ></i></a></legend>
+                                
+                                    <div class="form-group col-md-3">
+                                        <label for="roomsize">Dimensioni Stanza(mq)</label>
+                                        <input type="number" class="form-control" name="roomsize" id="roomsize${nstanze+1}">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="price">Prezzo</label>
+                                        <input type="number" class="form-control" name="price${nstanze+1}" id="price${nstanze+1}">
+                                    </div>
+                                    <div class="form-check col-md-3  offset-md-1  ">
+                                            <label for="window" class="form-check-label mx-3"></label>
+                                            <input type="radio" class="form-check-input " id="window" name="accesso${nstanze+1}">
+                                            Finestra</label>
+                                            <label for="balcon" class="form-check-label mx-3"></label>
+                                            <input type="radio" class="form-check-input" id="balcon" name="accesso${nstanze+1}">
+                                            Balcone</label>
+                                    </div>
+                                    <div class="form-group col-md-2  mt-auto "> <!--d-flex-->
+                                        <label for=""></label>
+                                            <a href="#${nstanze+1}" class="btn  btn-secondary btn-block " id="addImg1"><i class="fa fa-image"></i>
+                                                + IMMAGINI</a>
+                                    </div>
+                                </div> 
+                            </filedset>`;
+            
+            // remove button from  current last subform stanze
+            $('#btnStanza'+(nstanze)+'Add').remove();
+            $('#btnStanza'+(nstanze)+'Remove').remove();
+
+            // add subform stanze and update stanze value                
+            $("#mainform").append(newRoomLine);
+            $('#numRooms').val(++nstanze);
+        
+            // move button submit at the end
+            $('#btninvia').remove();
+            var invia = `<button id="btninvia" class="btn btn-primary mb-2" type="submit">INVIA</button> `;
+            $('#mainform').append(invia)          
+        });
+
+
+        $(document).on('click','.removebtn',function () {
+            var nstanze = parseInt($('#numRooms').val())-1;
+            if (nstanze==0){
+                alert("NECESSARIA ALMENO UNA STANZA!")
+                return false;
+            }
+            // prepare html tag for buttons + and -
+            var btns = ` <a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza${nstanze}Add"><i class="fa fa-plus" ></i></a>
+                         <a href="#" class="btn btn-sm btn-secondary removebtn" id="btnStanza${nstanze}Remove"><i class="fa fa-minus" ></i></a>`
+            
+            // remove button submit and last row
+            $('#btninvia').remove();
+           
+            // remove last form stanze (elem:filedset)            
+            $('.form-group.stanze:last').remove();
+
+
+            // add button + and - to last remaing subform stanze
+            $('.form-row .col-form-label:last').append(btns);
+            $('#numRooms').val(nstanze);
+            
+            // add button submit at the end
+            var invia = ` <button id="btninvia" class="btn btn-primary mb-2" type="submit">INVIA</button>`;
+            $("#mainform").append(invia);
+
+          
+        });
+    });
+</script> 
+</body>
+</html>
