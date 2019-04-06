@@ -15,12 +15,9 @@ mongoose.connect(uri2,function(err){
     }
   });
 
-
 router.post('/', (req,res) => {
 
-    //console.log(req.body,"da server");
-  
-    async function addInfoRequest() {
+     async function addInfoRequest() {
         const newInfoRequest = new infoRequest({
             name : req.body.name,
             surname: req.body.cognome,

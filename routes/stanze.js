@@ -18,11 +18,6 @@ mongoose.connect(uri2,function(err){
 
 router.get('/:appartid', (req,res) => {
 
-
-    const today = new Date();
- //   var query = "{'id': ObjectId('+"req.params.appartid"+')})";
-  
-
     var id = req.params.appartid;
     console.log(id);
     

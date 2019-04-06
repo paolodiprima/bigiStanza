@@ -7,24 +7,29 @@
     
     <title>BiGi Stanza Admin</title>
     
-    <!-- <link rel="stylesheet" href="../css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css" media="all">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
-
+    <link rel="stylesheet" href="../../public/css/style.css" media="all">
 </head>
 <body class="bg-info">
  
   <div class="container bg-light mt-4" id="formAppart">
     <!-- <div class="row"> -->
-        <form action="#" method="POST"  id="mainform">
-        
+        <form action="/api-add-update-appart" method="POST"  id="mainform">
+        <!-- chiamare AJAX per fare inserimento nel db, dopo abilitare 
+        il bottone immagini -->
         
             <div class="form-row ">
                 <div class="form-group col-md-1">
                     <label for="internalName">Id</label>
-                    <input type="text" class="form-control" name="internalName" id="internalName">
+                    <input type="text" class="form-control" name="internalName" id="internalName"
+                    <% if (typeof appart !== 'undefined') { %> 
+                        <!-- manca fetch valori in caso di mode = update -->
+                        value="ATPPP";
+                    <% } %>
+                    >
                 </div>
                 <div class="form-group col-md-8">
                         <label for="address">Indirizzo</label>
@@ -47,7 +52,7 @@
                 </div>
                 <div class="form-group col-md-3">
                         <label for="floor">Stanze</label>
-                        <input type="number" class="form-control" name="numRooms" id="numRooms" disabled value="1">
+                        <input type="number" class="form-control" name="numRooms" id="numRooms" readonly value="1">
                 </div>  
                 <div class="form-group col-md-3">
                         <label for="numRooms">Bagni</label>
@@ -62,68 +67,66 @@
                 <div class="form-group col-md-3">
                         <label for="services">Servizi</label>
                         <select multiple class="form-control" name="services" size="6" id="services" >
-                            <option value="">tv</option>
-                            <option value="">wi-fi</option>
-                            <option value="">lavatrice</option>
-                            <option value="">lavastoviglie</option>
-                            <option value="">parcheggio</option>
-                            <option value="">clima</option>
-                            <option value="">mobiliata</option>
+                            <!-- <option value=""></option> -->
+                            <option >tv</option>
+                            <option >wi-fi</option>
+                            <option >lavatrice</option>
+                            <option >lavastoviglie</option>
+                            <option >parcheggio</option>
+                            <option >clima</option>
+                            <option >mobiliata</option>
                         </select> 
                 </div>
                 <div class="form-group col-md-9">
                     <label for="description">Descrizione</label>
-                    <textarea name="description" id="description" class="form-control" rows="4" ></textarea> <!--h-100-->
+                    <textarea name="description" id="description" name="description" class="form-control" rows="4" ></textarea> <!--h-100-->
                 </div>
             </div>
-            <fieldset class="form-group stanze" >
-            <div class="form-row border align-items-center">
+            <fieldset class="form-group stanze">
+                <div class="form-row border align-items-center">
+                    <legend class="col-form-label">STANZA 1
+                        <a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza1Add"><i class="fa fa-plus"></i></a>
+                        <a href="#" class="btn btn-sm btn-secondary removebtn" id="btnStanza1Remove"><i class="fa fa-minus"></i></a>
+                    </legend>
+                    <div class="form-group col-md-3">
+                        <label for="roomsize">Dimensioni(mq)</label>
+                        <input type="number" class="form-control" name="roomsize1" id="roomsize">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="price">Prezzo</label>
+                        <input type="number" class="form-control" name="price1" id="price">
+                    </div>
             
-                
-                        <legend class="col-form-label">STANZA 1 
-                            <a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza1Add"><i class="fa fa-plus" ></i></a>
-                            <a href="#" class="btn btn-sm btn-secondary removebtn" id="btnStanza1Remove"><i class="fa fa-minus" ></i></a>
-                        </legend>
-                        <div class="form-group col-md-3">
-                            <label for="roomsize">Dimensioni(mq)</label>
-                            <input type="number" class="form-control" name="roomsize" id="roomsize">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="price">Prezzo</label>
-                            <input type="number" class="form-control" name="price1" id="price">
-                        </div>
-                        <div class="form-check col-md-3  offset-md-1  ">
-                                <label for="window" class="form-check-label mx-3"></label>
-                                <input type="radio" class="form-check-input " id="window" name="accesso1">
-                                Finestra</label>
-                                <label for="balcon" class="form-check-label mx-3"></label>
-                                <input type="radio" class="form-check-input" id="balcon" name="accesso1">
-                                Balcone</label>
-                        </div>
-                        <div class="form-group col-md-2  mt-auto "> 
-                            <label for=""></label>
-                                <a href="#" class="btn  btn-secondary d-block " id="addImg1"><i class="fa fa-image"></i>
-                                    + IMMAGINI</a>
-                        </div>
-                    </div>    
+                    <div class="form-check col-md-3  text-center">                   
+                        <label for="window" class="form-check-label "></label>
+                        <input type="radio" class="form-check-input " id="window" value="finestra" checked name="accesso1">
+                        Finestra</label>
+                    </div>
+                    <div class="form-check col-md-3  text-center ">
+                        <label for="balcon" class="form-check-label "></label>
+                        <input type="radio" class="form-check-input" id="balcon" value="balcone" name="accesso1">
+                        Balcone</label>
+                    </div>
+
+                </div>
             </fieldset>
         
                 
-                    <button id="btninvia" class="btn btn-primary mb-2" type="submit">INVIA</button>
+            <button id="btninvia" class="btn btn-primary mb-2" type="submit">INVIA</button>
                 
             
         </form>
-     
-    <!-- </div> row tutto il form 1--10--1  -->
+   
 </div> <!-- container formAppart-->
 
 <script
 src="https://code.jquery.com/jquery-3.3.1.min.js"
 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 crossorigin="anonymous"></script>
+
 <script>
     $(document).ready(function () {
-        $('#mainform').trigger("reset");
+      //  $('#mainform').trigger("reset");
         $('#numRooms').val("1");
         $(document).on('click','.addbtn',function () {
             var temp = '<a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza"><i class="fa fa-plus" ></i></a><a href="#" class="btn btn-sm btn-secondary removebtn  pull-right" id="btnStanza1Add"><i class="fa fa-minus pull-right " ></i></a>'
@@ -140,8 +143,8 @@ crossorigin="anonymous"></script>
                                     <a href="#" class="btn btn-sm btn-secondary removebtn" id="btnStanza${nstanze+1}Remove"><i class="fa fa-minus" ></i></a></legend>
                                 
                                     <div class="form-group col-md-3">
-                                        <label for="roomsize">Dimensioni Stanza(mq)</label>
-                                        <input type="number" class="form-control" name="roomsize" id="roomsize${nstanze+1}">
+                                        <label for="roomsize">Dimensioni(mq)</label>
+                                        <input type="number" class="form-control" name="roomsize${nstanze+1}" id="roomsize${nstanze+1}">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="price">Prezzo</label>
@@ -149,15 +152,15 @@ crossorigin="anonymous"></script>
                                     </div>
                                     <div class="form-check col-md-3  offset-md-1  ">
                                             <label for="window" class="form-check-label mx-3"></label>
-                                            <input type="radio" class="form-check-input " id="window" name="accesso${nstanze+1}">
+                                            <input type="radio" class="form-check-input " id="window" value="finestra" checked name="accesso${nstanze+1}">
                                             Finestra</label>
                                             <label for="balcon" class="form-check-label mx-3"></label>
-                                            <input type="radio" class="form-check-input" id="balcon" name="accesso${nstanze+1}">
+                                            <input type="radio" class="form-check-input" id="balcon" value="balcone" name="accesso${nstanze+1}">
                                             Balcone</label>
                                     </div>
                                     <div class="form-group col-md-2  mt-auto "> <!--d-flex-->
                                         <label for=""></label>
-                                            <a href="#${nstanze+1}" class="btn  btn-secondary btn-block " id="addImg1"><i class="fa fa-image"></i>
+                                            <a href="#${nstanze+1}" class="btn  btn-secondary btn-block immaginiroom" id="addImg1"><i class="fa fa-image"></i>
                                                 + IMMAGINI</a>
                                     </div>
                                 </div> 
@@ -176,7 +179,6 @@ crossorigin="anonymous"></script>
             var invia = `<button id="btninvia" class="btn btn-primary mb-2" type="submit">INVIA</button> `;
             $('#mainform').append(invia)          
         });
-
 
         $(document).on('click','.removebtn',function () {
             var nstanze = parseInt($('#numRooms').val())-1;
@@ -202,9 +204,58 @@ crossorigin="anonymous"></script>
             // add button submit at the end
             var invia = ` <button id="btninvia" class="btn btn-primary mb-2" type="submit">INVIA</button>`;
             $("#mainform").append(invia);
-
-          
+     
         });
+        $(document).on('click','.immaginiroom',function () {
+
+            var id = $(".immaginiroom").attr('id');
+            alert('#labelImmagini'+id);
+          //  $('#labelImmagini1').append(`<option value="prova.jpg">riprova.jpg</option>`);
+
+        });
+         $('#1').on('change',function(){
+       
+                //get the file name
+                var idRoom = $(this).attr('id');
+                var fileName = $(this).val();
+            
+                console.log(fileName);
+                fileName = fileName.substring(fileName.lastIndexOf("\\") + 1, fileName.length);
+                console.log('file info');
+
+                //replace the "Choose a file" label
+                $(this).next('.custom-file-label').html(fileName);
+                //select the last element inserted
+                
+                $('#labelImmagini'+idRoom).each(function(){
+                    $('#labelImmagini'+idRoom).attr('selected','false');
+                });
+                $('#labelImmagini'+idRoom).prepend(`<option selected="selected" value="${fileName}">${fileName}</option>`);
+                // chiamata ajax per upload immagine
+          
+            })
+
+    });
+    $('form#mainform').submit(function(event){
+        event.preventDefault();
+        var data = $(this).serialize();
+        console.log("dentro evento di chiamata ajax");
+        console.log(data);
+        var goToInsertImg = confirm("Vuoi continuare con inserimento immagini?");
+        if (goToInsertImg==true) {  window.open('/admin/imgappart/5ca8879fbdcd4176e24b3e22',"_self")};
+        // $.ajax({
+        //     dataType: 'JSON',
+        //     data: data,
+        //     type: 'POST',
+        //     url: '/api-add-update-appart',
+        //     success: function(dataj,status){
+        //         alert("DATI MEMORIZZATI");
+        //     },
+        //     error : function(){
+        //         alert("Si è verificato un errore durante l'invio");
+        //     }
+        // }); // ajax
+
     });
 </script> 
 </body>

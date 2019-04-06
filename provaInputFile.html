@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Custom File Input test</title>
+    <style>
+        #divimg {
+            margin:200px;
+            border: 1px solid grey;
+            height: 400px;
+        }
+        
+    </style>
+</head>
+
+  <body>
+
+    <div class="container">
+        <input type="file" >
+
+    </div>
+    <div id="divimg">
+        <img src="./public/img/app01-03.jpg" alt="..." id="immagine" style="width:30%">
+    </div>
+    <script>
+            const input = document.querySelector('input[type="file"]');
+            input.addEventListener('change',function(evt){
+                console.log(input.files);
+                const reader = new FileReader();
+                reader.onload = function (event){
+                    img = new Image();
+                    img.src = reader.result
+                    document.getElementById("divimg").appendChild(img);
+                    var im =  document.getElementById("divimg").lastElementChild
+                    im.setAttribute('style','width:30%');
+
+
+                  //  document.body.appendChild(img);
+                   // console.log(reader.result);
+                    // console.log('file caricato');
+                    // var dataURL = event.target.result;
+                    // console.log('dataURL = '+dataURL);
+                    // document.getElementById("immagine").src = "./public/img/app01-01.jpg";
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            },false);
+
+    </script>
+  </body>
+</html>

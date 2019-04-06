@@ -219,7 +219,7 @@
     $('form#contatti').submit(function(event){
         event.preventDefault();
         var data = $(this).serialize();
-       // console.log('dati inviati con POST prima: '+data);
+       // console.log('dati inviati con POST : '+data);
         
         $.ajax({
             dataType: 'JSON',

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 var contract = new mongoose.Schema({
-    id : mongoose.Schema.Types.ObjectId,
+  //  id : mongoose.Schema.Types.ObjectId,
     holderName:     String,
     holderSurname:  String,
     holderDoB:      Date,
@@ -10,13 +10,14 @@ var contract = new mongoose.Schema({
     outDate:        Date
 });
 var room = new mongoose.Schema({
+  //  _id:mongoose.Schema.Types.ObjectId,
     size:   Number,
     price:  Number,
     img:    [String],
     contracts: [contract]
 });
 var appartSchema = new mongoose.Schema({
-    _id:mongoose.Schema.Types.ObjectId,
+  //  _id:mongoose.Schema.Types.ObjectId,
     internalName :  String,
     address :       String,
     cap :           Number,

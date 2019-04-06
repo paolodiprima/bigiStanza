@@ -1,5 +1,6 @@
 body {
-	background-color: white
+	/* background-color: white */
+	background-color: rgb(175, 125, 125)  !important
 }
 
 .text-responsive {
@@ -19,12 +20,7 @@ body {
 	background-color: white;
 
 }
-.card-deck {
-/*
-	margin-left: 10%;
-	margin-right: 10%;
-*/
-}
+
 
 
 p.lead{
@@ -57,6 +53,8 @@ p.lead{
 	color:white
 }
 
+
+
 .nav-pills .pill-1 .nav-link{
     background-color: rgb(25,50,91);
     color: white;
@@ -71,3 +69,5 @@ p.lead{
 #map-container {
 	height:100%; 
 }
+
+
