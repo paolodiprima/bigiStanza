@@ -2,6 +2,16 @@ const express = require('express');
 const router = new express.Router();
 const mongoose = require('mongoose');
 const infoRequest = require('../../models/infoRequestModel');
+const API_KEY = '***REMOVED***';
+const DOMAIN = '***REMOVED***';
+const mailgun = require('mailgun-js')({apiKey: API_KEY, domain: DOMAIN});
+
+const dataMail = {
+    from: 'BGStanza User <me@samples.mailgun.org>',
+    to: 'paolo.diprima@gmail.com',
+    subject: 'richiesta info da BGStanza',
+    text: ''
+  };
 
 var uri2 = "mongodb://paoloDemoAtlas:***REMOVED***@cluster0-shard-00-00-0ega5.azure.mongodb.net:27017,cluster0-shard-00-01-0ega5.azure.mongodb.net:27017,cluster0-shard-00-02-0ega5.azure.mongodb.net:27017/BGStanza?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true"
 var uri = "mongodb+srv://paoloDemoAtlas:***REMOVED***@cluster0-0ega5.azure.mongodb.net/BGStanza?retryWrites=true"
@@ -16,8 +26,11 @@ mongoose.connect(uri2,function(err){
   });
 
 router.post('/', (req,res) => {
-
-     async function addInfoRequest() {
+    dataMail.text = "msg from:" +req.body.email+"\n\n"+req.body.msg;
+    mailgun.messages().send(dataMail, (error, body) => {
+        console.log(body);
+    });
+    async function addInfoRequest() {
         const newInfoRequest = new infoRequest({
             name : req.body.name,
             surname: req.body.cognome,

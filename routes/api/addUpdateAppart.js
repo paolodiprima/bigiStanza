@@ -15,7 +15,6 @@ mongoose.connect(uri2,function(err){
     }
   });
 
-
 router.post('/', (req,res) => {
 
     async function addAppart(){
@@ -32,6 +31,9 @@ router.post('/', (req,res) => {
                 description : req.body.description,
                 rooms : []
             });
+
+            // insert array of rooms and append into the Model
+
             var objRoom = {};
             for (i=1;i<=parseInt(req.body.numRooms);i++) {
               
@@ -41,7 +43,7 @@ router.post('/', (req,res) => {
                
                 objRoom.size = req.body["roomsize"+i];
                 objRoom.price = req.body["price"+i];
-                objRoom.accesso = req.body["accesso"+i];
+                objRoom.extAccess = req.body["accesso"+i];
                 newAppart.rooms[i-1] = objRoom;
             }
 
@@ -50,7 +52,7 @@ router.post('/', (req,res) => {
             console.log("result id = "+id);
 
             res.send(result);
-             mongoose.connection.close();
+            
         }
         catch (error) {
             console.error(error);
@@ -58,10 +60,52 @@ router.post('/', (req,res) => {
         }
     }
   addAppart();   
-  
-
 });
 
+router.post('/:idappart', (req,res) => {
+
+    async function updateAppart(){
+        try{
+            
+            var    idappart = req.body.appartid;
+            var    internalName = req.body.internalName ;
+            var    address =  req.body.address;
+            var    cap =  req.body.cap;
+            var    floor =  req.body.floor;
+            var    numRooms =  req.body.numRooms;
+            var    numBathRooms =  req.body.numBathrooms;
+            var    appartSize =  req.body.appartsize;
+            var    services =  req.body.services;
+            var    description =  req.body.description;
+                        
+            // update data appartment
+
+            var result = await newAppartModel.findOneAndUpdate({"_id" : idappart},{$set : { "description":description}});  
+            
+            // update data rooms
+            // one update for each room
+                        
+            for (var i=0;i<parseInt(req.body.numRooms);i++) {
+                var roomsize = req.body["roomsize"+(i+1)];
+                var price = req.body["price"+(i+1)];
+                var accesso = req.body["accesso"+(i+1)];
+                var query = `{"_id" : "${idappart}"}`;
+                var jsonquery = JSON.parse(query);
+                var update = `{ "rooms.${i}.size": ${roomsize},"rooms.${i}.price":${price},"rooms.${i}.extAccess":"${accesso}"}`;
+                var jsonupdate = JSON.parse(update);
+              // var result = await newAppartModel.findOneAndUpdate({"_id" : idappart}, {$set: { "rooms.0.size":roomsize,"rooms.0.price":price,"rooms.0.extAccess":accesso}});
+                result = await newAppartModel.findOneAndUpdate(jsonquery,jsonupdate);
+            }
+            res.send(result);
+          //  mongoose.connection.close();
+         }
+         catch (error) {
+             console.error(error);
+             res.send('error',err);
+         }
+    }
+    updateAppart();  
+});
 module.exports = router;
     
 

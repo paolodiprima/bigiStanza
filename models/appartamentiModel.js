@@ -13,6 +13,7 @@ var room = new mongoose.Schema({
   //  _id:mongoose.Schema.Types.ObjectId,
     size:   Number,
     price:  Number,
+    extAccess: String,
     img:    [String],
     contracts: [contract]
 });

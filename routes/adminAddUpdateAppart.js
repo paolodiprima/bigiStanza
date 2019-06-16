@@ -16,20 +16,19 @@ mongoose.connect(uri2,function(err){
   });
 
 
-// appartment data mangement in mode update
+// appartment data mangement in mode update = true
 router.get('/:appartid', (req,res) => {
 
   var id = req.params.appartid;
-  console.log(id);
-  
+    
   adminAppartModel.findById(id)
       .then((data)=>{
           data.update = true;
           const dataJSON = JSON.parse(JSON.stringify(data));
-          console.log(dataJSON);
-          console.log("DENTRO RENDER DI adminAddUpdateAppart UPDATE");
-          res.render('adminAddUpdateAppart',{appart:dataJSON}); //passo oggetto lista appartamento
-        //  res.json(data);
+          
+          //console.log("DENTRO RENDER DI adminAddUpdateAppart UPDATE");
+          res.render('adminAddUpdateAppart',{appart:dataJSON}); //append object appartment list
+        
       })
       .catch((err)=>{
           console.log("ERRORE",err);
@@ -38,7 +37,7 @@ router.get('/:appartid', (req,res) => {
 
 });
 
-// appartment data mangement in mode update in mode false
+// appartment data mangement in mode update = false
 router.get('/', (req,res) => {
   console.log("DENTRO RENDER DI adminAddUpdateAppart INSERT");
   res.render('adminAddUpdateAppart');

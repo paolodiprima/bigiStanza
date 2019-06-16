@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="../css/style.css" media="all">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
-    <link rel="stylesheet" href="../../public/css/style.css" media="all">
+    <link rel="stylesheet" href="../../css/style.css" media="all">
 </head>
-<body class="bg-info">
+<body class="bg-info" id=<%= (typeof appart == "undefined") ? "" : appart._id  ;%>>
  
   <div class="container bg-light mt-4" id="formAppart">
     <!-- <div class="row"> -->
@@ -24,43 +24,54 @@
             <div class="form-row ">
                 <div class="form-group col-md-1">
                     <label for="internalName">Id</label>
-                    <input type="text" class="form-control" name="internalName" id="internalName"
-                    <% if (typeof appart !== 'undefined') { %> 
-                        <!-- manca fetch valori in caso di mode = update -->
-                        value="ATPPP";
-                    <% } %>
+                    <input type="text" class="form-control" name="internalName" id="internalName" 
+                    value="<%= (typeof appart == "undefined") ? "" : appart.internalName  ;%>"  
                     >
+  
+                  
                 </div>
                 <div class="form-group col-md-8">
                         <label for="address">Indirizzo</label>
-                        <input type="text" class="form-control" name="address" id="address">
+                        <input type="text" class="form-control" name="address" id="address" 
+                        value="<%= (typeof appart == "undefined") ? "" : appart.address  ;%>"  
+                        >
                 </div>
                 <div class="form-group col-md-1">
                         <label for="cap">CAP</label>
-                        <input type="text" class="form-control" name="cap" id="cap">
+                        <input type="text" class="form-control" name="cap" id="cap"
+                        value="<%= (typeof appart == "undefined") ? "" : appart.cap  ;%>"
+                        >
                 </div>         
                 <div class="form-group col-md-2 mt-auto">
                         
-                    <a href="#" class="btn   btn-secondary d-block d-flex" id="addImg1"><i class="fa fa-images"></i>
+                    <a href="<%= (typeof appart == "undefined") ? "#" : '/admin/imgappart/'+appart._id ;%>" class="btn   btn-secondary d-block d-flex" id="addImg1"><i class="fa fa-images"></i>
                     + IMMAGINI</a>
                 </div> 
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
                         <label for="floor">Piano</label>
-                        <input type="number" class="form-control" name="floor" id="floor">
+                        <input type="number" class="form-control" name="floor" id="floor"
+                        value="<%= (typeof appart == "undefined") ? "" : appart.floor  ;%>"
+                        >
                 </div>
                 <div class="form-group col-md-3">
-                        <label for="floor">Stanze</label>
-                        <input type="number" class="form-control" name="numRooms" id="numRooms" readonly value="1">
+                        <label for="numRooms">Stanze</label>
+                        <input type="number" class="form-control" name="numRooms" id="numRooms" readonly 
+                        value="<%= (typeof appart == "undefined") ? "1" : appart.numRooms  ;%>"
+                        >
                 </div>  
                 <div class="form-group col-md-3">
-                        <label for="numRooms">Bagni</label>
-                        <input type="number" class="form-control" name="numBathrooms" id="numBathrooms" >
+                        <label for="numBathrooms">Bagni</label>
+                        <input type="number" class="form-control" name="numBathrooms" id="numBathrooms" 
+                        value="<%= (typeof appart == "undefined") ? "" : appart.numBathRooms  ;%>"
+                        >
                 </div> 
                 <div class="form-group col-md-3">
                         <label for="appartsize">Dimensioni(mq)</label>
-                        <input type="number" class="form-control" name="appartsize" id="appartsize">
+                        <input type="number" class="form-control" name="appartsize" id="appartsize"
+                        value="<%= (typeof appart == "undefined") ? "" : appart.appartSize  ;%>"
+                        >
                 </div>  
             </div>
             <div class="form-row ">
@@ -68,20 +79,22 @@
                         <label for="services">Servizi</label>
                         <select multiple class="form-control" name="services" size="6" id="services" >
                             <!-- <option value=""></option> -->
-                            <option >tv</option>
-                            <option >wi-fi</option>
-                            <option >lavatrice</option>
-                            <option >lavastoviglie</option>
-                            <option >parcheggio</option>
-                            <option >clima</option>
-                            <option >mobiliata</option>
+                            <option <%= !(typeof appart == "undefined") && (appart.services.includes("tv"))  ? "selected":" "%> >tv </option>
+                            <option <%= !(typeof appart == "undefined") && appart.services.includes("wi-fi") ? "selected":""%> >wi-fi</option>
+                            <option <%= !(typeof appart == "undefined") && appart.services.includes("lavatrice") ? "selected":""%> >lavatrice</option>
+                            <option <%= !(typeof appart == "undefined") && appart.services.includes("lavastoviglie") ? "selected":""%> >lavastoviglie</option>
+                            <option <%= !(typeof appart == "undefined") && appart.services.includes("parcheggio") ? "selected":""%> >parcheggio</option>
+                            <option <%= !(typeof appart == "undefined") && appart.services.includes("clima") ? "selected":""%> >clima</option>
+                            <option <%= !(typeof appart == "undefined") && appart.services.includes("mobiliata") ? "selected":""%> >mobiliata</option>
                         </select> 
                 </div>
                 <div class="form-group col-md-9">
                     <label for="description">Descrizione</label>
-                    <textarea name="description" id="description" name="description" class="form-control" rows="4" ></textarea> <!--h-100-->
+                    <textarea name="description" id="description"  class="form-control" rows="4"><%= (typeof appart == "undefined") ? "":appart.description ;%> 
+                    </textarea> <!--h-100-->
                 </div>
             </div>
+            <% if (typeof appart == "undefined") { %>
             <fieldset class="form-group stanze">
                 <div class="form-row border align-items-center">
                     <legend class="col-form-label">STANZA 1
@@ -97,22 +110,64 @@
                         <input type="number" class="form-control" name="price1" id="price">
                     </div>
             
-                    <div class="form-check col-md-3  text-center">                   
-                        <label for="window" class="form-check-label "></label>
+                    <div class="form-check col-md-3 offset-md-1  ">                   
+                        <label for="window" class="form-check-label mx-3 ">
                         <input type="radio" class="form-check-input " id="window" value="finestra" checked name="accesso1">
                         Finestra</label>
-                    </div>
-                    <div class="form-check col-md-3  text-center ">
-                        <label for="balcon" class="form-check-label "></label>
+                    
+                        <label for="balcon" class="form-check-label mx-3 ">
                         <input type="radio" class="form-check-input" id="balcon" value="balcone" name="accesso1">
                         Balcone</label>
                     </div>
 
+                    <div class="form-group col-md-2  mt-auto "> <!--d-flex-->
+                        <label for=""></label>
+                            <a href="#1" class="btn  btn-secondary btn-block immaginiroom" id="addImg1"><i class="fa fa-image"></i>
+                                + IMMAGINI</a>
+                    </div>
                 </div>
-            </fieldset>
+             </fieldset>
+             <%  }; %>
+            <% if (!(typeof appart == "undefined")) { %>
+                <%   for (stanzaIndex in appart.rooms){ %>
+                <% var index = parseInt(stanzaIndex) + 1%>    
+                <fieldset class="form-group stanze" >
+                        <div class="form-row border align-items-center">
+                            <legend class="col-form-label">STANZA <%= index %>
+                            <!-- <a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza2Add"><i class="fa fa-plus" ></i></a>
+                            <a href="#" class="btn btn-sm btn-secondary removebtn" id="btnStanza2Remove"><i class="fa fa-minus" ></i></a> -->
+                        </legend>
+                        
+                            <div class="form-group col-md-3">
+                                <label for="roomsize">Dimensioni(mq)</label>
+                                <input type="number" class="form-control" name="roomsize<%=index%>" id="roomsize<%=index%>" value=<%=appart.rooms[stanzaIndex].size %> >
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="price">Prezzo</label>
+                                <input type="number" class="form-control" name="price<%=index%>" id="price<%=index%>" value=<%=appart.rooms[stanzaIndex].price %> >
+                            </div>
+                            <div class="form-check col-md-3  offset-md-1  ">
+                                    <label for="window" class="form-check-label mx-3">
+                                    <input type="radio" class="form-check-input " id="window<%=index%>" value="finestra" 
+                                    <%= appart.rooms[stanzaIndex].extAccess=="finestra" ? "checked" : " " %> name="accesso<%=index%>">
+                                    Finestra</label>
+                                    <label for="balcon" class="form-check-label mx-3">
+                                    <input type="radio" class="form-check-input" id="balcon<%=index%>" value="balcone" 
+                                    <%= appart.rooms[stanzaIndex].extAccess=="balcone" ? "checked" : " " %>  name="accesso<%=index%>">
+                                    Balcone</label>
+                            </div>
+                            <div class="form-group col-md-2  mt-auto "> 
+                                <label for=""></label>
+                                    <a href="#2" class="btn  btn-secondary btn-block immaginiroom" id="addImg<%=index%>"><i class="fa fa-image"></i>
+                                        + IMMAGINI</a>
+                            </div>
+                        </div> 
+                    </fieldset>
+                    <% }; %> 
+                <% }; %> 
         
                 
-            <button id="btninvia" class="btn btn-primary mb-2" type="submit">INVIA</button>
+            <button id="btninvia" class="btn btn-primary mb-1" type="submit">INVIA</button>
                 
             
         </form>
@@ -125,9 +180,17 @@ integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 crossorigin="anonymous"></script>
 
 <script>
+
     $(document).ready(function () {
-      //  $('#mainform').trigger("reset");
-        $('#numRooms').val("1");
+        $('#addImg1').on('click',function(event){
+            if ($(this).attr('href')=="#") {
+                alert("PRIMA DI INSERIRE IMMAGINI \n BISOGNA MEMORIZZARE L'APPARTAMENTO");
+            }
+            event.preventDefault = false;
+        });
+
+
+        //alert($("body").attr("id"));
         $(document).on('click','.addbtn',function () {
             var temp = '<a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza"><i class="fa fa-plus" ></i></a><a href="#" class="btn btn-sm btn-secondary removebtn  pull-right" id="btnStanza1Add"><i class="fa fa-minus pull-right " ></i></a>'
             var nstanze = parseInt($('#numRooms').val());
@@ -208,9 +271,9 @@ crossorigin="anonymous"></script>
         });
         $(document).on('click','.immaginiroom',function () {
 
-            var id = $(".immaginiroom").attr('id');
+            var id = $(this).attr('id');
             alert('#labelImmagini'+id);
-          //  $('#labelImmagini1').append(`<option value="prova.jpg">riprova.jpg</option>`);
+         
 
         });
          $('#1').on('change',function(){
@@ -236,25 +299,42 @@ crossorigin="anonymous"></script>
             })
 
     });
+
     $('form#mainform').submit(function(event){
         event.preventDefault();
+        var idappart = $("body").attr("id");
+        var url = "/api-add-update-appart";
         var data = $(this).serialize();
+        //alert(data);
         console.log("dentro evento di chiamata ajax");
-        console.log(data);
+        data += "&appartid="+idappart;
+       
+        // check if user is going to insert imgs
         var goToInsertImg = confirm("Vuoi continuare con inserimento immagini?");
-        if (goToInsertImg==true) {  window.open('/admin/imgappart/5ca8879fbdcd4176e24b3e22',"_self")};
-        // $.ajax({
-        //     dataType: 'JSON',
-        //     data: data,
-        //     type: 'POST',
-        //     url: '/api-add-update-appart',
-        //     success: function(dataj,status){
-        //         alert("DATI MEMORIZZATI");
-        //     },
-        //     error : function(){
-        //         alert("Si è verificato un errore durante l'invio");
-        //     }
-        // }); // ajax
+        if (goToInsertImg==true) {  window.open('/admin/imgappart/'+idappart,"_self")};
+        
+        // if there is an id appart then pass to mode update
+        if (idappart != "") { url = url + "/" + idappart ;}
+     
+        // DA RIVEDERE, ABILITARE IMMAGINI SOLO DOPO SUBMIT DATI APPARTAMENTO
+        $.ajax({
+             dataType: 'JSON',
+             data: data, 
+             type: 'POST',
+             url: url ,
+             success: function(dataj,status){
+                 // abilitare bottom +IMMAGINI
+                 // aggiungere link '/admin/imgappart/'+idappart
+                 $("#addImg1").attr('href','/admin/imgappart/'+dataj._id);
+                 $('#addImg1').trigger('click');
+                  
+              //   alert("result = "+dataj._id);
+                 alert("DATI MEMORIZZATI");
+             },
+             error : function(){
+                 alert("Si è verificato un errore durante l'invio");
+             }
+        }); // ajax
 
     });
 </script> 
