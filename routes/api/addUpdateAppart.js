@@ -99,7 +99,7 @@ router.post('/:idappart', (req,res) => {
                 result = await newAppartModel.findOneAndUpdate(jsonquery,jsonupdate);
             }
             res.send(result);
-          //  mongoose.connection.close();
+           
          }
          catch (error) {
              console.error(error);
