@@ -8,13 +8,13 @@
     <title>BiGi Stanza Admin</title>
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css" media="all">
+    <link rel="stylesheet" href="../../css/style.css" media="all">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/style.css" media="all">
+   
 </head>
-<body class="bg-info" id=<%= (typeof appart == "undefined") ? "" : appart._id  ;%>>
- 
+<body class="bg-info" id="<%= (typeof appart == "undefined") ? "" :  appart._id  ;%>">
+  <% include ../views/admin/admin-nav.ejs %>
   <div class="container bg-light mt-4" id="formAppart">
     <!-- <div class="row"> -->
         <form action="/api-add-update-appart" method="POST"  id="mainform">
@@ -95,12 +95,14 @@
                 </div>
             </div>
             <% if (typeof appart == "undefined") { %>
-            <fieldset class="form-group stanze">
-                <div class="form-row border align-items-center">
+            <fieldset class="form-group stanze border px-1">
+                <div class="form-row">
                     <legend class="col-form-label">STANZA 1
                         <a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza1Add"><i class="fa fa-plus"></i></a>
                         <a href="#" class="btn btn-sm btn-secondary removebtn" id="btnStanza1Remove"><i class="fa fa-minus"></i></a>
                     </legend>
+                </div>
+                    <div class="form-row" >    
                     <div class="form-group col-md-3">
                         <label for="roomsize">Dimensioni(mq)</label>
                         <input type="number" class="form-control" name="roomsize1" id="roomsize">
@@ -109,18 +111,18 @@
                         <label for="price">Prezzo</label>
                         <input type="number" class="form-control" name="price1" id="price">
                     </div>
-            
-                    <div class="form-check col-md-3 offset-md-1  ">                   
-                        <label for="window" class="form-check-label mx-3 ">
-                        <input type="radio" class="form-check-input " id="window" value="finestra" checked name="accesso1">
-                        Finestra</label>
+                   
+                    <div class="form-group col-md-4 align-self-center  text-center ">
+                        <div class="form-check   ">
+                            <!-- offset-md-1 -->
+                            <label for="window" class="form-check-label  "> 
+                                <input type="radio" class="form-check-input   " id="window" value="finestra" checked name="accesso1">Finestra</label>
                     
-                        <label for="balcon" class="form-check-label mx-3 ">
-                        <input type="radio" class="form-check-input" id="balcon" value="balcone" name="accesso1">
-                        Balcone</label>
+                            <label for="balcon" class="form-check-label pl-4 ">
+                                <input type="radio" class="form-check-input " id="balcon" value="balcone" name="accesso1">Balcone</label>   
+                        </div>
                     </div>
-
-                    <div class="form-group col-md-2  mt-auto "> <!--d-flex-->
+                    <div class="form-group col-md-2   mt-auto "> <!--d-flex-->
                         <label for=""></label>
                             <a href="#1" class="btn  btn-secondary btn-block immaginiroom" id="addImg1"><i class="fa fa-image"></i>
                                 + IMMAGINI</a>
@@ -151,8 +153,8 @@
                                     <input type="radio" class="form-check-input " id="window<%=index%>" value="finestra" 
                                     <%= appart.rooms[stanzaIndex].extAccess=="finestra" ? "checked" : " " %> name="accesso<%=index%>">
                                     Finestra</label>
-                                    <label for="balcon" class="form-check-label mx-3">
-                                    <input type="radio" class="form-check-input" id="balcon<%=index%>" value="balcone" 
+                                    <label for="balcon" class="form-check-label mx-3"> <!-- value="balcone"  -->
+                                    <input type="radio" class="form-check-input" id="balcon<%=index%>" value="balcone"
                                     <%= appart.rooms[stanzaIndex].extAccess=="balcone" ? "checked" : " " %>  name="accesso<%=index%>">
                                     Balcone</label>
                             </div>
@@ -182,6 +184,7 @@ crossorigin="anonymous"></script>
 <script>
 
     $(document).ready(function () {
+        if($('body').attr('id') == "" ) {$('#numRooms').val(1);}
         $('#addImg1').on('click',function(event){
             if ($(this).attr('href')=="#") {
                 alert("PRIMA DI INSERIRE IMMAGINI \n BISOGNA MEMORIZZARE L'APPARTAMENTO");
@@ -199,34 +202,39 @@ crossorigin="anonymous"></script>
                 return false;
             }
             // prepare new line for room    
-            var newRoomLine = `<fieldset class="form-group stanze" >
-                                <div class="form-row border align-items-center">
-                                    <legend class="col-form-label">STANZA ${nstanze+1}
-                                    <a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza${nstanze+1}Add"><i class="fa fa-plus" ></i></a>
-                                    <a href="#" class="btn btn-sm btn-secondary removebtn" id="btnStanza${nstanze+1}Remove"><i class="fa fa-minus" ></i></a></legend>
+            var newRoomLine = `<fieldset class="form-group stanze border px-1" >
                                 
-                                    <div class="form-group col-md-3">
-                                        <label for="roomsize">Dimensioni(mq)</label>
-                                        <input type="number" class="form-control" name="roomsize${nstanze+1}" id="roomsize${nstanze+1}">
+                                    <div class="form-row">
+                                        <legend class="col-form-label">STANZA ${nstanze+1}
+                                        <a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza${nstanze+1}Add"><i class="fa fa-plus" ></i></a>
+                                        <a href="#" class="btn btn-sm btn-secondary removebtn" id="btnStanza${nstanze+1}Remove"><i class="fa fa-minus" ></i></a></legend>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="price">Prezzo</label>
-                                        <input type="number" class="form-control" name="price${nstanze+1}" id="price${nstanze+1}">
-                                    </div>
-                                    <div class="form-check col-md-3  offset-md-1  ">
-                                            <label for="window" class="form-check-label mx-3"></label>
-                                            <input type="radio" class="form-check-input " id="window" value="finestra" checked name="accesso${nstanze+1}">
-                                            Finestra</label>
-                                            <label for="balcon" class="form-check-label mx-3"></label>
-                                            <input type="radio" class="form-check-input" id="balcon" value="balcone" name="accesso${nstanze+1}">
-                                            Balcone</label>
-                                    </div>
-                                    <div class="form-group col-md-2  mt-auto "> <!--d-flex-->
-                                        <label for=""></label>
-                                            <a href="#${nstanze+1}" class="btn  btn-secondary btn-block immaginiroom" id="addImg1"><i class="fa fa-image"></i>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="roomsize">Dimensioni(mq)</label>
+                                            <input type="number" class="form-control" name="roomsize${nstanze+1}" id="roomsize${nstanze+1}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="price">Prezzo</label>
+                                            <input type="number" class="form-control" name="price${nstanze+1}" id="price${nstanze+1}">
+                                        </div>
+                                        <div class="form-group col-md-4 align-self-center  text-center ">
+                                            <div class="form-check">
+                                                <label for="window" class="form-check-label   "></label>
+                                                <input type="radio" class="form-check-input" id="window" value="finestra" checked name="accesso${nstanze+1}">
+                                                Finestra</label>
+                                                <label for="balcon" class="form-check-label  pl-4 "></label>
+                                                <input type="radio" class="form-check-input" id="balcon" value="balcone" name="accesso${nstanze+1}">
+                                                Balcone</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2  mt-auto "> <!--d-flex-->
+                                            <label for=""></label>
+                                                <a href="#${nstanze+1}" class="btn  btn-secondary btn-block immaginiroom" id="addImg1"><i class="fa fa-image"></i>
                                                 + IMMAGINI</a>
+                                        </div>
                                     </div>
-                                </div> 
+                                 
                             </filedset>`;
             
             // remove button from  current last subform stanze
@@ -259,6 +267,7 @@ crossorigin="anonymous"></script>
             // remove last form stanze (elem:filedset)            
             $('.form-group.stanze:last').remove();
 
+            $('.fieldset:last').remove();
 
             // add button + and - to last remaing subform stanze
             $('.form-row .col-form-label:last').append(btns);
@@ -310,12 +319,12 @@ crossorigin="anonymous"></script>
         data += "&appartid="+idappart;
        
         // check if user is going to insert imgs
-        var goToInsertImg = confirm("Vuoi continuare con inserimento immagini?");
-        if (goToInsertImg==true) {  window.open('/admin/imgappart/'+idappart,"_self")};
+        // var goToInsertImg = confirm("Vuoi continuare con inserimento immagini?");
+        // if (goToInsertImg==true) {  window.open('/admin/imgappart/'+idappart,"_self")};
         
         // if there is an id appart then pass to mode update
         if (idappart != "") { url = url + "/" + idappart ;}
-     
+        alert(data);
         // DA RIVEDERE, ABILITARE IMMAGINI SOLO DOPO SUBMIT DATI APPARTAMENTO
         $.ajax({
              dataType: 'JSON',
@@ -327,8 +336,9 @@ crossorigin="anonymous"></script>
                  // aggiungere link '/admin/imgappart/'+idappart
                  $("#addImg1").attr('href','/admin/imgappart/'+dataj._id);
                  $('#addImg1').trigger('click');
+                 var goToInsertImg = confirm("Vuoi continuare con inserimento immagini?");
+                 if (goToInsertImg==true) {  window.open('/admin/imgappart/'+dataj._id,"_self")};
                   
-              //   alert("result = "+dataj._id);
                  alert("DATI MEMORIZZATI");
              },
              error : function(){

@@ -28,7 +28,7 @@ mongoose.connect(uri2,function(err){
 router.post('/', (req,res) => {
     dataMail.text = "msg from:" +req.body.email+"\n\n"+req.body.msg;
     mailgun.messages().send(dataMail, (error, body) => {
-        console.log(body);
+        //console.log(body);
     });
     async function addInfoRequest() {
         const newInfoRequest = new infoRequest({

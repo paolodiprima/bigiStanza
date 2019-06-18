@@ -49,7 +49,7 @@ router.post('/', (req,res) => {
 
             const result = await newAppart.save();
             var id = result._id;
-            console.log("result id = "+id);
+            //console.log("result id = "+id);
 
             res.send(result);
             
@@ -94,6 +94,8 @@ router.post('/:idappart', (req,res) => {
                 var update = `{ "rooms.${i}.size": ${roomsize},"rooms.${i}.price":${price},"rooms.${i}.extAccess":"${accesso}"}`;
                 var jsonupdate = JSON.parse(update);
               // var result = await newAppartModel.findOneAndUpdate({"_id" : idappart}, {$set: { "rooms.0.size":roomsize,"rooms.0.price":price,"rooms.0.extAccess":accesso}});
+              //  console.log("query"+query);
+              //  console.log("update"+update);
                 result = await newAppartModel.findOneAndUpdate(jsonquery,jsonupdate);
             }
             res.send(result);

@@ -48,7 +48,7 @@ router.post('/', (req,res) => {
             });
         
     } else {
-        console.log("dentro cancellazione file immagine1");
+        // console.log("dentro cancellazione file immagine1");
         // remove link image room from db
         appartModel.findOneAndUpdate({ _id: appartId, 'rooms._id': roomId }, 
                                     { $pull: { 'rooms.$.img': nameImg }})

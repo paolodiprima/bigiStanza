@@ -1,53 +1,53 @@
 <!doctype html>
 <html lang="en">
-  <head>
+ <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title> Custom File Input test</title>
-    <style>
-        #divimg {
-            margin:200px;
-            border: 1px solid grey;
-            height: 400px;
-        }
-        
-    </style>
-</head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+ </head>
 
   <body>
 
     <div class="container">
+        <div class="form-row mt-3">
+       <div class="col-md-6 flex"> 
+        <select class="js-example-basic-multiple" name="states[]" multiple="multiple"  style="width: 18em" id="myselect">
+          <option value="primo">primo</option>
+          <option value="secondo">secondo</option>
+          <option value="terzo">terzo</option>
+
+        </select>
+      </div>
+      <div  class="col-md-6 flex">
+          <button class="btn btn-secondary" id="btntest">  test </button>
+      </div>
+      </div>
+    </div>
         <input type="file" >
 
-    </div>
+    
     <div id="divimg">
         <img src="./public/img/app01-03.jpg" alt="..." id="immagine" style="width:30%">
     </div>
     <script>
-            const input = document.querySelector('input[type="file"]');
-            input.addEventListener('change',function(evt){
-                console.log(input.files);
-                const reader = new FileReader();
-                reader.onload = function (event){
-                    img = new Image();
-                    img.src = reader.result
-                    document.getElementById("divimg").appendChild(img);
-                    var im =  document.getElementById("divimg").lastElementChild
-                    im.setAttribute('style','width:30%');
+      $(document).ready(function() {
+        $('.js-example-basic-multiple').select2({
+            placeholder: 'selezione servizi'
+        });
+        $("#btntest").on('click',function(){
+          alert($('#myselect').val());
 
-
-                  //  document.body.appendChild(img);
-                   // console.log(reader.result);
-                    // console.log('file caricato');
-                    // var dataURL = event.target.result;
-                    // console.log('dataURL = '+dataURL);
-                    // document.getElementById("immagine").src = "./public/img/app01-01.jpg";
-                }
-                
-                reader.readAsDataURL(input.files[0]);
-            },false);
-
+        });
+      });
+ 
     </script>
   </body>
 </html>

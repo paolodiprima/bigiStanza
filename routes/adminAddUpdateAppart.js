@@ -39,7 +39,7 @@ router.get('/:appartid', (req,res) => {
 
 // appartment data mangement in mode update = false
 router.get('/', (req,res) => {
-  console.log("DENTRO RENDER DI adminAddUpdateAppart INSERT");
+  // console.log("DENTRO RENDER DI adminAddUpdateAppart INSERT");
   res.render('adminAddUpdateAppart');
 });
 module.exports = router;

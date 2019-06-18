@@ -90,7 +90,7 @@ router.post('/',function(req,res){
 
                 } else{ 
                    //  query insert img appart in db mongo
-                    console.log("dati per db"+req.body.appartId+" nomeImg "+req.file.filename);
+                    //console.log("dati per db"+req.body.appartId+" nomeImg "+req.file.filename);
                     appartModel.findOneAndUpdate({_id : req.body.appartId},{$push: { imgAppart: req.file.filename }},{new:true})
                         .then((data)=>{
                         })
@@ -99,7 +99,7 @@ router.post('/',function(req,res){
                         });
                 }
        
-                console.log('successo:file uploaded');
+                //console.log('successo:file uploaded');
                 res.send('File uploaded');
             }  
         }     
