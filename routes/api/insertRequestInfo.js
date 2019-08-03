@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const API_KEY =  process.env.MAILGUN_KEY;
-const DOMAIN = '***REMOVED***';
+const DOMAIN = process.env.DOMAIN;
 const mailgun = require('mailgun-js')({apiKey: API_KEY, domain: DOMAIN});
 
 const dataMail = {

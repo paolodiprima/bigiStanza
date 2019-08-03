@@ -1,2 +1,5 @@
 # remove env variables
 .env
+
+# remove send mail test with apy key
+sendMail.js
