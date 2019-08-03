@@ -2,7 +2,10 @@ const express = require('express');
 const router = new express.Router();
 const mongoose = require('mongoose');
 const infoRequest = require('../../models/infoRequestModel');
-const API_KEY = '***REMOVED***';
+const dotenv = require('dotenv');
+dotenv.config();
+
+const API_KEY =  process.env.MAILGUN_KEY;
 const DOMAIN = '***REMOVED***';
 const mailgun = require('mailgun-js')({apiKey: API_KEY, domain: DOMAIN});
 
@@ -18,7 +21,7 @@ const dataMail = {
 router.post('/', (req,res) => {
     dataMail.text = "msg from:" +req.body.email+"\n\n"+req.body.msg;
     mailgun.messages().send(dataMail, (error, body) => {
-        //console.log(body);
+        console.log(body);
     });
     async function addInfoRequest() {
         const newInfoRequest = new infoRequest({

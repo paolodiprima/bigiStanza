@@ -52,7 +52,6 @@ app.set('view engine','ejs');
 
 app.use('/api-appartlist',appartList);   
 app.use('/api-admin-appart',adminAppart);
-app.use('/api-insert-info',infoRequest);
 app.use('/api-add-update-appart',apiAaddUpdateAppart);
 app.use('/api-upload',apiUpload);
 app.use('/api/admin/img/delete',delImgAppart);
@@ -64,6 +63,7 @@ app.use('/api-insertContract',apiAdminInsertContract);
 
 app.use('/',home);
 app.use('/stanze',stanze);
+app.use('/api-insert-info',infoRequest);
 app.use('/admin/appartlist',homeAdminAppart);
 app.use('/admin/add-update-appart',addUpdateAppart);
 app.use('/admin/imgappart',adminImgAppart);
