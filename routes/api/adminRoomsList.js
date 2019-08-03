@@ -1,20 +1,23 @@
 const express = require('express');
 const router = new express.Router();
 const mongoose = require('mongoose');
+const appartModel = require('../../models/appartamentiModel');
 
+// return array rooms from appartment id
 router.get('/:appartid', (req,res) => {
 
     var id = req.params.appartid;
     
-     appartModel.findById(id)
+    // find appartment by id
+    appartModel.findById(id)
         .then((data)=>{
             
-            const dataJSON = JSON.parse(JSON.stringify(data));
-            res.render('adminImgAppart',{appart:dataJSON}); //pass obj with appartmes selected
-          
+        // return array of rooms
+            res.send({ "appartId": data.internalName , "rooms": data.rooms});  
+  
         })
         .catch((err)=>{
-            
+            console.log("ERRORE",err);
             res.send('error',err);
         });
 

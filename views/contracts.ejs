@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title> Custom File Input test</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+</head>
+
+<body class="bg-info">
+
+<div class="container bg-light mt-2">
+  
+  <div class="form-row">
+  
+  
+    <div class="col-md-6    form-group offset-md-3"> <!-- offset-md-2 -->
+      <h4 class="mt-1"><span class="text-center pl-3">LISTA STANZE </span></h4>
+    </div>
+    <div class="col-md-1 form-group">
+    <label for="filter" class="text-secondary col-form-label">FILTRO</label>
+     </div>
+    <div class="col-md-2  form-group">
+      
+
+      <select class="custom-select  form-group " id="filter">
+        <option selected>Tutte</option>
+        <option value="Libere">Libere</option>
+        <option value="Occupate">Occupate</option>
+      </select>
+    </div>
+  </div> <!-- row -->
+
+      <table class="table table-striped  table-responsive-md"> <!-- table-sm -->
+            <thead>
+                <tr>
+                    <th scope="col">Apt</th>
+                    <th scope="col">Stanza</th>
+                    <th scope="col">Canone</th>
+                    <th scope="col" class="text-center">In</th>
+                    <th scope="col" class="text-center">Out</th>
+                    <th scope="col" class=" ">Update</th>
+                    <th scope="col" class=" ">Insert</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                   <% for (var appartIndex = 0; appartIndex < appartRoomList.length; appartIndex++){ %>
+                    <% for (var roomIndex = 0; roomIndex < appartRoomList[appartIndex].rooms.length;  roomIndex++) {  %>
+                    <% var apt = parseInt(appartIndex) +1 ; %>
+                    <% var ro  = parseInt(roomIndex) +1;  %>
+                      <tr id="<%=appartRoomList[appartIndex].rooms[roomIndex].contracts.length == 0 ? "libera" : "occupata" %>">
+                        <td> <%= appartRoomList[appartIndex].internalName %> </td>  
+                        <td> STANZA <%= apt  %>- <%= ro %> </td> 
+                        <td>  <%=appartRoomList[appartIndex].rooms[roomIndex].price %> </td>
+                        <!-- <%=appartRoomList[appartIndex].rooms.length %>  -->
+                        <td  class="text-center"> <%=appartRoomList[appartIndex].rooms[roomIndex].contracts.length == 0 ? "libera" : appartRoomList[appartIndex].rooms[roomIndex].contracts[0].inDate.toDateString().substring(3,15) %> </td>
+                        <td class="text-center">  <%=appartRoomList[appartIndex].rooms[roomIndex].contracts.length == 0 ? "libera" : appartRoomList[appartIndex].rooms[roomIndex].contracts[0].outDate.toDateString().substring(3,15)  %> </td>
+                        <td class="d-none" hidden="true"> </td>
+                        <td><a class="fa fa-pen fa-lg text-secondary"  id="<%=appartRoomList[appartIndex]._id %>" href="#divForm"  room="<%=roomIndex%>"></a></td>
+                        <td><a class="fa fa-plus fa-lg text-secondary" id="<%=appartRoomList[appartIndex]._id %>"  href="#divForm" room="<%=roomIndex%>"></a></td>
+                     </tr>
+                     <% } %>
+                    <% } %>
+            </tbody>
+      </table> 
+    </div>
+  </div> <!--row-->
+
+<!-- form per update / insert -->
+<div class="container bg-light mt-4" id="divForm">
+  <form action="#" method="POST" id="contractsform">
+    <div class="form-row mb-4">
+      <label for="roomIdInt" class="text-secondary col-form-label  ">STANZA</label>
+      <div class=" col-md-3 form-group ">
+        <input type="text" class="form-control" name="roomIdInt" id="roomIdInt" value="">
+      </div>
+      <!-- <div class=" col-md-1 form-group "></div> -->
+      <label for="contratto" class="text-secondary col-form-label" id="labelContratto">N. CONTRATTO</label>
+      <div class="col-md-2 form-group">
+        <select class="form-control" name="nContratto" size="1" id="nContratto">
+          <option value="         ">
+          </option>
+        </select>
+      </div>
+    </div> <!-- form-row -->
+
+    <div class="form-row ">
+      <div class="form-group col-md-4">
+        <label for="HolderName" class="text-secondary">Nome</label>
+        <input type="text" class="form-control" name="HolderName" id="HolderName" value="">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="HolderSurname" class="text-secondary">Cognome</label>
+        <input type="text" class="form-control" name="HolderSurname" id="HolderSurname" value="">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="HolderDoB" class="text-secondary">Data Di Nascita</label>
+        <input type="date" class="form-control" name="HolderDoB" id="HolderDoB" value="">
+      </div>
+    </div> <!-- first row -->
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="HolderJob" class="text-secondary">Occupazione</label>
+        <input type="text" class="form-control" name="HolderJob" id="HolderJob" value="">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inDate" class="text-secondary">Check In</label>
+        <input type="date" class="form-control" name="inDate" id="inDate" value="">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="outDate" class="text-secondary">Check Out</label>
+        <input type="date" class="form-control" name="outDate" id="outDate" value="">
+      </div>
+    </div> <!-- second row -->
+    <button id="btninvia" class="btn btn-secondary mb-1" type="submit">INVIA</button>
+  </form>
+</div>
+</div> <!-- first container -->
+
+
+  <script>
+          $(document).ready(function () {
+            document.getElementById('divForm').style.display = 'none';
+            $('#contractsform').trigger('reset');
+
+            function updateSelect(contracts){
+              // add Contracts id and last name holder for each contract of the  room
+
+              $('#nContratto').children().remove().end();
+              for (var i = contracts.length; i >= 0; i--) {
+                // alert(i);
+                $('#nContratto').append($('<option>', {
+                  value: "",
+                  text: i + "--" + contracts[i - 1].holderSurname
+                }));
+              }
+            }
+
+            function fetchRoomData(contracts, index) {
+              $('#contratto').val(index + 1);
+              $('#HolderName').val(contracts[index].holderName);
+              $('#HolderSurname').val(contracts[index].holderSurname);
+              $('#HolderDoB').val(contracts[index].holderDoB.substring(0, 10));
+              $('#HolderJob').val(contracts[index].holderJob);
+              $('#inDate').val(contracts[index].inDate.substring(0, 10));
+              $('#outDate').val(contracts[index].outDate.substring(0, 10));
+            }
+
+            $('#nContratto').on('change',function(){
+              // get contract number and update Contract data
+
+              var nContratto = $('#nContratto option:selected').text().split('--')[0];
+              var roomId = $('#roomIdInt').attr('data-id');
+              var urlContratcts = '/api-roomContracts/'+roomId;
+              $.ajax({
+                    dataType: 'JSON',
+                    type: 'GET',
+                    url: urlContratcts,
+                    success: function (dataj, status) {
+                      fetchRoomData(dataj[0].rooms[0].contracts,parseInt(nContratto)-1);
+                    },
+                    error: function () {
+                        alert("Si è verificato un errore durante l'invio");
+                    }
+               }); // ajax
+            }); // change N.CONTRATTO
+
+            $('.fa-pen').on('click', function () {
+              // alert($(this).attr('id')+"  room : "+$(this).attr('room'));
+              document.getElementById('btninvia').textContent = "UPDATE";
+              document.getElementById('nContratto').style.display = '';
+              document.getElementById('labelContratto').style.display = '';
+              document.getElementById('divForm').style.display = '';
+              var id = $(this).attr('id');   // get id Room
+              var roomIndex = parseInt($(this).attr('room'));
+              var urlRoom = '/api-adminRoomList/' + id;
+              $.ajax({
+                    dataType: 'JSON',
+                    type: 'GET',
+                    url: urlRoom,
+                    success: function (dataj, status) {
+                      var contractIndex = dataj.rooms[roomIndex].contracts.length - 1;
+                      $('#roomIdInt').val('Stanza '+(roomIndex+1)+' -- '+dataj.appartId);
+                      $('#roomIdInt').attr('data-id',dataj.rooms[roomIndex]._id);
+                      fetchRoomData(dataj.rooms[roomIndex].contracts, contractIndex);
+                      updateSelect(dataj.rooms[roomIndex].contracts);
+                    },
+                    error: function () {
+                        alert("Si è verificato un errore durante l'invio");
+                    }
+              }); // ajax
+            }); // .on click  fa-pen
+
+            // generic function call ajax for update and insert contract
+            function callAjax(url,data){
+              $.ajax({
+                dataType: 'JSON',
+                data: data,
+                type: 'POST',
+                url: url,
+                success: function (dataj, status) {
+                  alert("DATI MEMORIZZATI");
+                  $('#contractsform').trigger('reset');
+                  document.getElementById('divForm').style.display = 'none';
+                },
+                error: function () {
+                  alert("Si è verificato un errore durante l'invio");
+                }
+              }); // ajax 
+            }
+
+            $('form#contractsform').submit(function (event) {
+              // submit per insertion
+
+              event.preventDefault();
+              var roomId = $('#roomIdInt').attr('data-id');
+              var data = $(this).serialize();
+              var url = "";
+              if (document.getElementById('btninvia').textContent == "AGGIUNGI") {
+                url = "/api-insertContract/"+roomId;
+                callAjax(url,data);
+
+              } else {
+                var indexContract = $('#nContratto option:selected').text().split('--')[0];
+                url = "/api-updateContract/" + roomId;
+                data += "&indexContract=" + indexContract;
+                callAjax(url,data);
+
+              }
+             }); // submit update
+
+            $('.fa-plus').on('click', function () {
+              // show form for contract insertion
+              document.getElementById('btninvia').textContent = "AGGIUNGI";
+              document.getElementById('nContratto').style.display = 'none';
+              document.getElementById('labelContratto').style.display = 'none';
+              document.getElementById('divForm').style.display = '';
+              $('#contractsform').trigger('reset');
+              var id = $(this).attr('id');  // get id Room
+              var roomIndex = parseInt($(this).attr('room'));
+              var urlRoom = '/api-adminRoomList/' + id;
+
+              $.ajax({
+                dataType: 'JSON',
+                type: 'GET',
+                url: urlRoom,
+                success: function (dataj, status) {
+
+                  var contractIndex = dataj.rooms[roomIndex].contracts.length - 1;
+                  $('#roomIdInt').val('Stanza ' + (roomIndex + 1) + ' -- ' + dataj.appartId);
+                  $('#roomIdInt').attr('data-id', dataj.rooms[roomIndex]._id);
+                },
+                error: function () {
+                  alert("Si è verificato un errore durante l'invio");
+                }
+              }); // ajax
+            }); // click fa-plus
+
+            $('#filter').on('change', function(){
+              
+              // reset previous filters         
+              var tutte = document.querySelectorAll("tr");
+              for (var i = 0; i < tutte.length; i++){
+                tutte[i].style.display = '';
+              }
+              
+              // filter rooms occupate
+              if ($(this).val() == 'Occupate' ){
+              var libere = document.querySelectorAll("#libera");
+              for (var i=0; i < libere.length; i++){
+                libere[i].style.display = 'none';
+                }
+              }
+
+              // filter rooms libere
+              if ($(this).val() == 'Libere' ){
+                var occupate = document.querySelectorAll('#occupata');
+                for (var i=0; i < occupate.length; i++){
+                  occupate[i].style.display = 'none';
+                }
+              }
+            });
+        
+        });
+
+    </script>
+ </body>
+</html>

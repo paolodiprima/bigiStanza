@@ -9,8 +9,11 @@
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/style.css" media="all">
+    <!-- <link rel="stylesheet" type="text/css" href="../../public/css/style.css" media="all"> -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+
    
 </head>
 <body class="bg-info" id="<%= (typeof appart == "undefined") ? "" :  appart._id  ;%>">
@@ -77,7 +80,7 @@
             <div class="form-row ">
                 <div class="form-group col-md-3">
                         <label for="services">Servizi</label>
-                        <select multiple class="form-control" name="services" size="6" id="services" >
+                        <select multiple="multiple" class="form-control select2-services" name="services" size="6" id="services" >
                             <!-- <option value=""></option> -->
                             <option <%= !(typeof appart == "undefined") && (appart.services.includes("tv"))  ? "selected":" "%> >tv </option>
                             <option <%= !(typeof appart == "undefined") && appart.services.includes("wi-fi") ? "selected":""%> >wi-fi</option>
@@ -168,23 +171,34 @@
                     <% }; %> 
                 <% }; %> 
         
-                
             <button id="btninvia" class="btn btn-primary mb-1" type="submit">INVIA</button>
-                
-            
+          
         </form>
-   
 </div> <!-- container formAppart-->
 
 <script
-src="https://code.jquery.com/jquery-3.3.1.min.js"
-integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-crossorigin="anonymous"></script>
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+              crossorigin="anonymous">
+</script>
 
+<!-- <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script> 
 <script>
 
     $(document).ready(function () {
+        
+        // init select 2
+        $('#services').select2();
+        
+        // init room number
         if($('body').attr('id') == "" ) {$('#numRooms').val(1);}
+        
+        // check data insertion before img upload
         $('#addImg1').on('click',function(event){
             if ($(this).attr('href')=="#") {
                 alert("PRIMA DI INSERIRE IMMAGINI \n BISOGNA MEMORIZZARE L'APPARTAMENTO");
@@ -315,25 +329,21 @@ crossorigin="anonymous"></script>
         var url = "/api-add-update-appart";
         var data = $(this).serialize();
         //alert(data);
-        console.log("dentro evento di chiamata ajax");
         data += "&appartid="+idappart;
        
-        // check if user is going to insert imgs
-        // var goToInsertImg = confirm("Vuoi continuare con inserimento immagini?");
-        // if (goToInsertImg==true) {  window.open('/admin/imgappart/'+idappart,"_self")};
         
         // if there is an id appart then pass to mode update
         if (idappart != "") { url = url + "/" + idappart ;}
         
-        // DA RIVEDERE, ABILITARE IMMAGINI SOLO DOPO SUBMIT DATI APPARTAMENTO
+        // img enabled only after data insertion
         $.ajax({
              dataType: 'JSON',
              data: data, 
              type: 'POST',
              url: url ,
              success: function(dataj,status){
-                 // abilitare bottom +IMMAGINI
-                 // aggiungere link '/admin/imgappart/'+idappart
+                 // enable  bottom +IMMAGINI by insert a value on href attribute
+                 
                  $("#addImg1").attr('href','/admin/imgappart/'+dataj._id);
                  $('#addImg1').trigger('click');
                  var goToInsertImg = confirm("Vuoi continuare con inserimento immagini?");

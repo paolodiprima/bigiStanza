@@ -1,4 +1,3 @@
-j
 <!doctype html>
 <html lang="en">
 
@@ -23,8 +22,8 @@ j
     </div>
     <div class="row">
       <div class="col-md-6">
-        <label for="selectApt" class="text-secondary">Appartamento</label>
-        <select name="" id="selectApt" class="form-control">
+        <label for="js-Select2-Apt" class="text-secondary">Appartamento</label>
+        <select name="apt" id="js-Select2-Apt" class="form-control" multiple="multiple">
           <option class="">primoAPT</option>
           <option class="">secondoAPT </option>
           <option class="">terzoAPT</option>
@@ -71,17 +70,17 @@ j
       </div>
     </div> <!-- second row -->
   
-  
+    <button class="btn btn-primary" id="btntest"> test </button>
   </form>
   </div>
 
   <script>
     $(document).ready(function () {
-      $('.js-example-basic-multiple').select2({
+      $('#js-Select2-Apt').select2({
         placeholder: 'selezione servizi'
       });
       $("#btntest").on('click', function () {
-        alert($('#myselect').val());
+        alert($('#js-Select2-Apt').val());
 
       });
     });

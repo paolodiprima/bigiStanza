@@ -219,8 +219,8 @@
     $('form#contatti').submit(function(event){
         event.preventDefault();
         var data = $(this).serialize();
-       // console.log('dati inviati con POST : '+data);
-        
+       
+        // msg insert into db and email sent to BGStanza email's address        
         $.ajax({
             dataType: 'JSON',
             data: data,
