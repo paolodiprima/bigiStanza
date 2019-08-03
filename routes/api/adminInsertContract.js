@@ -20,11 +20,9 @@ router.post('/:idroom', (req,res) => {
          //   indexContract = parseInt(indexContract) - 1;
            
             // insert contract
-            
-      
+    
             // var query = {"rooms._id" :  roomId} ;
             // console.log("query: "+JSON.stringify(query)); 
-           
             // var insertContract = `{ "rooms.$.contracts.${indexContract}.holderName" : "${name}",`;
             // update = update + `"rooms.$.contracts.${indexContract}.holderSurname" : "${surname}",`;
             // update = update + `"rooms.$.contracts.${indexContract}.holderJob" : "${job}",`;

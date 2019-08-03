@@ -34,12 +34,11 @@ const appartModel = require('./models/appartamentiModel');
 //const Joi = require('joi');
 
 //connect to db
-//var uri = "mongodb://paoloDemoAtlas:***REMOVED***@cluster0-shard-00-00-0ega5.azure.mongodb.net:27017,cluster0-shard-00-01-0ega5.azure.mongodb.net:27017,cluster0-shard-00-02-0ega5.azure.mongodb.net:27017/BGStanza?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true"
-mongoose.connect(process.env.DB_CONNECT,{useNewUrlParser:true},function(err){
+mongoose.connect(process.env.DB_CONNECT_MIN,{useNewUrlParser:true},function(err){
                                             if (err) {
-                                                console.log ('ERROR connecting to: ' + process.env.DB_CONNECT + '. ' + err);
+                                                console.log ('ERROR connecting to: ' + process.env.DB_CONNECT_MIN + '. ' + err);
                                             } else {
-                                                console.log ('Succeeded connected to: ' + process.env.DB_CONNECT); 
+                                                console.log ('Succeeded connected to: ' + process.env.DB_CONNECT_MIN); 
                                             }
   });
 

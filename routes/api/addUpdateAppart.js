@@ -3,6 +3,7 @@ const router = new express.Router();
 const mongoose = require('mongoose');
 const newAppartModel = require('../../models/appartamentiModel');
 
+// routers to add or update an appartment's data
 
 router.post('/', (req,res) => {
 

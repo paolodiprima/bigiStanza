@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const appartModel = require('../../models/appartamentiModel');
 
 // return array rooms from appartment id
+
 router.get('/:appartid', (req,res) => {
 
     var id = req.params.appartid;
