@@ -50,13 +50,13 @@ function createMarker(map,lat,lng,address){
     var options = {
         position : {lat:lat,lng:lng},
         map : map,
-        title: address,
-        label: 
-         {
-            text: address,
-            fontSize: "16px",
-            color: "#19325b"
-        }
+        // title: address,
+        // label: 
+        //  {
+        //     text: address,
+        //     fontSize: "16px",
+        //     color: "#19325b"
+        // }
     }
     return new google.maps.Marker(options);
 }

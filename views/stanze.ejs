@@ -68,14 +68,15 @@
                     <div class="card-header">
                         prezzo : <%= appart.rooms[roomIndex].price %>
                     </div>
-                    <div class="card-body">   
+                    <div class="card-body d-flex flex-column">   
 
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">misura: <%= appart.rooms[roomIndex].size %></li>
+                            <li class="list-group-item">misura: <%= appart.rooms[roomIndex].size %> mq</li>
                             <li class="list-group-item">libera dal: <%= (appart.rooms[roomIndex].contracts[0].outDate).substr(0,10) %></li>
-                            <li class="list-group-item">Vestibulum at eros</li>
+                            <li class="list-group-item">indirizzo: <%= appart.address %></li>
+                            <li class="list-group-item">accesso: <%= appart.rooms[roomIndex].extAccess %></li>
                         </ul>
-                            <a href="/api-appartlist" class="btn btn-info mt-3">INFO</a>
+                            <a href="#contatti" class="btn btn-info  mt-auto">INFO</a> <!-- mt-3 -->
                     </div> <!-- card-body -->
                 </div> <!-- card -->
             </div> <!-- col-lg-4-->
@@ -90,18 +91,14 @@
 </div> <!--   rooms list container -->
 
 
-    <h3 class="text-center">Tieniti in Contatto</h3>
-    <div class="container-fluid">
+    <h3 class="text-center  my-3">Tieniti in Contatto</h3>
+    <div class="container-fluid mb-3">
         <div class="row">
-            <div class="col-4 d-none d-md-block">
-                <p>via T. Tasso 4</p>
-                <p>10300</p>
-                <p>Bergamo</p>
-            </div>
-
-            <div class="col-12 col-md-8">
-                
-                <form action="" class="border " id="contatti">
+            <div class="col-3 d-none d-md-block"></div>
+    
+            <div class="col-12 col-md-6 col-sm-offset-3">
+    
+                <form  class="border" action="/api-insert-info" method="POST" id="contatti" autocomplete="on">
                     <div class="container">
                     <div class="form-group">
                         <label for="nome">Nome (*)</label>
@@ -109,7 +106,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-user"></i></span>
                             </div>
-                            <input type="text"  class="form-control" id="nome" placeholder="Nome">
+                            <input type="text"  class="form-control" id="nome" name="name" placeholder="Nome">
                         </div>
                     </div>
 
@@ -119,7 +116,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" id="cognome">
+                        <input type="text" class="form-control" id="cognome" name="cognome" placeholder="Cognome">
                     </div>
                 </div>
                    
@@ -129,44 +126,57 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-at"></i></span>
                         </div>
-                        <input type="email" class="form-control" id="email">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="email">
                     </div>
                 </div>    
                 
-                <div class="form-group">
-                    <label for="numeroTel">Numero Tel.</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                <div class="input-group inline ">
+                    <div class="form-group  flex-fill">
+                        <label for="numeroTel">Numero Tel.</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="numeroTel" name="numeroTel" placeholder="telefono">
                         </div>
-                        <input type="text" class="form-control" id="numeroTel">
                     </div>
-                </div>
-
-               <div class="form-group">
-                    <div class="input-group inline ">
-                        <div class="form-group flex-fill">
-                            <label for="entrata">Entrata</label>
-                            <input type="date" class="form-control" id="entrata">
+                    <div class="form-group  flex-fill">
+                        <label for="attività">Attività</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-address-card"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="attivita" name="attivita" placeholder="attività">
                         </div>
-                        <div class="form-group flex-fill">
-                            <label for="uscita" >Uscita</label>
-                            <input type="date" class="form-control" id="uscita">
-                        </div>
+                    </div>
+                </div> <!--input-group inline -->
+                    
+                <div class="input-group inline ">
+                    <div class="form-group flex-fill">
+                        <label for="entrata">Entrata</label>
+                        <input type="date" class="form-control" id="entrata" name="entrata">
+                    </div>
+                    <div class="form-group flex-fill">
+                        <label for="uscita" >Uscita</label>
+                        <input type="date" class="form-control" id="uscita" name="uscita">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="msg">Messaggio</label>
-                    <textarea name="msg" class="form-control" id="msg"  rows="4"></textarea>
+                    <textarea name="msg" class="form-control" id="msg" name="msg" rows="4" placeholder="scrivi qui le tue domande..."></textarea>
                 </div>
-            
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit" >Submit</button>
+                </div>
                 <small class="text-muted">(*) campi obbligatori</small>
             </div> <!--container form-->
             </form>
             </div>
-        </div>
-    </div>
+        </div> <!-- row -->
+    </div>  <!-- container fluid -->
 
-
+    <!-- footer -->
+    <% include ../views/footer.ejs %>
 
 
 

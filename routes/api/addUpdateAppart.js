@@ -1,17 +1,26 @@
+// routers to add or update an appartment's data
 const express = require('express');
 const router = new express.Router();
-const mongoose = require('mongoose');
 const newAppartModel = require('../../models/appartamentiModel');
+const Joi = require('@hapi/joi');
+const  { schemaValidationAppart } = require('../../models/validationModels');
 
-// routers to add or update an appartment's data
-
+// add appartment
 router.post('/', (req,res) => {
+
+    //  input validation
+    const resultValidation = Joi.validate(req.body,schemaValidationAppart);
+    if (resultValidation.error){
+        res.send(resultValidation.error.details[0].message);
+        return;
+    } 
 
     async function addAppart(){
         try{
             const newAppart = new newAppartModel({
                 internalName : req.body.internalName ,
                 address : req.body.address,
+                city: req.body.city,
                 cap : req.body.cap,
                 floor : req.body.floor,
                 numRooms : req.body.numRooms,
@@ -23,14 +32,9 @@ router.post('/', (req,res) => {
             });
 
             // insert array of rooms and append into the Model
-
             var objRoom = {};
             for (i=1;i<=parseInt(req.body.numRooms);i++) {
               
-                var roomsize = "roomsize"+i;
-                var price = "price"+i;
-                var accesso = "accesso"+i;
-               
                 objRoom.size = req.body["roomsize"+i];
                 objRoom.price = req.body["price"+i];
                 objRoom.extAccess = req.body["accesso"+i];
@@ -38,9 +42,6 @@ router.post('/', (req,res) => {
             }
 
             const result = await newAppart.save();
-            var id = result._id;
-            //console.log("result id = "+id);
-
             res.send(result);
             
         }
@@ -52,7 +53,15 @@ router.post('/', (req,res) => {
   addAppart();   
 });
 
+// update appart
 router.post('/:idappart', (req,res) => {
+    
+    //  input validation
+    const resultValidation = Joi.validate(req.body,schemaValidationAppart);
+    if (resultValidation.error){
+        res.send(resultValidation.error.details[0].message);
+        return;
+    } 
 
     async function updateAppart(){
         try{
@@ -60,6 +69,7 @@ router.post('/:idappart', (req,res) => {
             var    idappart = req.body.appartid;
             var    internalName = req.body.internalName ;
             var    address =  req.body.address;
+            var    city = req.body.city;
             var    cap =  req.body.cap;
             var    floor =  req.body.floor;
             var    numRooms =  req.body.numRooms;
@@ -69,9 +79,10 @@ router.post('/:idappart', (req,res) => {
             var    description =  req.body.description;
               
             // update data appartment
-
+            
             var result = await newAppartModel.findOneAndUpdate({"_id" : idappart},{$set : { "internalName": internalName, 
                                                                                             "address": address, 
+                                                                                            "city": city,
                                                                                             "cap": cap,
                                                                                             "floor": floor,
                                                                                             "numBathRooms": numBathRooms,
@@ -81,7 +92,7 @@ router.post('/:idappart', (req,res) => {
             // update data rooms
             // one update for each room
                         
-            for (var i=0;i<parseInt(req.body.numRooms);i++) {
+            for (var i=0;i<parseInt(numRooms);i++) {
                 var roomsize = req.body["roomsize"+(i+1)];
                 var price = req.body["price"+(i+1)];
                 var accesso = req.body["accesso"+(i+1)];
@@ -101,6 +112,7 @@ router.post('/:idappart', (req,res) => {
     }
     updateAppart();  
 });
+
 module.exports = router;
     
 

@@ -21,6 +21,7 @@ var appartSchema = new mongoose.Schema({
   //  _id:mongoose.Schema.Types.ObjectId,
     internalName :  String,
     address :       String,
+    city:           String,
     cap :           Number,
     floor:          Number,
     appartSize:     Number,

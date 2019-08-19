@@ -1,10 +1,22 @@
 const express = require('express');
 const router = new express.Router();
 const roomModel = require('../../models/appartamentiModel');
+const Joi = require('@hapi/joi');
+const { schemaValidationContract } = require('../../models/validationModels');
+const checkDate = require('../../middleware/midCheckDataContract');
 
+ 
 // update contracts  from id room and contracts index
 
-router.post('/:idroom', (req,res) => {
+router.post('/:idroom', checkDate, (req,res) => {
+
+    //  input validation
+    const resultValidation = Joi.validate(req.body,schemaValidationContract);
+    console.log('error result obj : ' + resultValidation.error);
+    if (resultValidation.error){
+        res.send(resultValidation.error.details[0].message);
+        return;
+    } 
 
     async function updateContract(){
         
@@ -12,7 +24,6 @@ router.post('/:idroom', (req,res) => {
             var    roomId = req.params.idroom;
             var    name = req.body.HolderName ;
             var    surname =  req.body.HolderSurname;
-           // var    DoB =  new Date(req.body.HolderDoB);
             var    DoB =  req.body.HolderDoB;
             var    job =  req.body.HolderJob;
             var    inDate =  req.body.inDate;
@@ -23,7 +34,7 @@ router.post('/:idroom', (req,res) => {
             // update data contract
             
             var query = {"rooms._id" :  roomId} ;
-            //console.log("query: "+JSON.stringify(query)); 
+             
             var update = `{ "rooms.$.contracts.${indexContract}.holderName" : "${name}",`;
             update = update + `"rooms.$.contracts.${indexContract}.holderSurname" : "${surname}",`;
             update = update + `"rooms.$.contracts.${indexContract}.holderJob" : "${job}",`;

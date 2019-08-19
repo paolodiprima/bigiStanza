@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BiGi Stanza Home Site</title>
     
-    <!-- <link rel="stylesheet" href="../css/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css" media="all">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
@@ -109,83 +109,111 @@
 </div> <!--   appart list container -->
 
 
-    <h3 class="text-center">Tieniti in Contatto</h3>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-4 d-none d-md-block">
-                <p>via T. Tasso 4</p>
-                <p>10300</p>
-                <p>Bergamo</p>
-            </div>
+<h3 class="text-center  my-3">Tieniti in Contatto</h3>
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class="col-3 d-none d-md-block"></div>
 
-            <div class="col-12 col-md-8">
+        <div class="col-12 col-md-6 col-md-offset-3 border">
                 
-                <form  class="border" action="/api-insert-info" method="POST" id="contatti" autocomplete="on">
+                <form class=" needs-validation mt-3 " novalidate action="/api-insert-info" method="POST" id="contatti"
+                    autocomplete="on">
                     <div class="container">
-                    <div class="form-group">
-                        <label for="nome">Nome (*)</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-user"></i></span>
-                            </div>
-                            <input type="text"  class="form-control" id="nome" name="name" placeholder="Nome">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                    <label for="cognome">Cognome (*)</label>
-                    <div class="input-group" id="test">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control" id="cognome" name="cognome">
-                    </div>
-                </div>
-                   
-                <div class="form-group">
-                    <label for="email">Email (*)</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-at"></i></span>
-                        </div>
-                        <input type="email" class="form-control" id="email" name="email">
-                    </div>
-                </div>    
+                        <div class="form-row">
+                            <div class="input-group inline ">
+                                <div class="form-group col-md-6">
+                                    <label for="nome">Nome *</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="nome" name="name" placeholder="nome" required>
+                                        <div class="invalid-feedback">
+                                            campo nome obbligatorio
+                                        </div>
+                                    </div>
                 
-                <div class="input-group inline ">
-                    <div class="form-group  flex-fill">
-                        <label for="numeroTel">Numero Tel.</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="cognome">Cognome *</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="cognome" name="cognome" placeholder="cognome"
+                                            required>
+                                        <div class="invalid-feedback">
+                                            campo cognome obbligatorio
+                                        </div>
+                                    </div>
+                
+                                </div>
                             </div>
-                            <input type="text" class="form-control" id="numeroTel" name="numeroTel">
                         </div>
-                    </div>
-                    <div class="form-group  flex-fill">
-                        <label for="attività">Attività</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="far fa-address-card"></i></span>
+                        <div class="form-row">
+                            <div class="input-group inline ">
+                                <div class="form-group col-md-12">
+                                    <label for="email">Email *</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-at"></i></span>
+                                        </div>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="email" required>
+                                        <div class="invalid-feedback">
+                                            formato email non valido
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <input type="text" class="form-control" id="attivita" name="attivita">
                         </div>
-                    </div>
-                </div> <!--input-group inline -->
-                    
-                <div class="input-group inline ">
-                    <div class="form-group flex-fill">
-                        <label for="entrata">Entrata</label>
-                        <input type="date" class="form-control" id="entrata" name="entrata">
-                    </div>
-                    <div class="form-group flex-fill">
-                        <label for="uscita" >Uscita</label>
-                        <input type="date" class="form-control" id="uscita" name="uscita">
+
+                <div class="form-row">
+                    <div class="input-group inline">
+                        <div class="form-group col-md-6">
+                            <label for="numeroTel">Numero Tel.</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="numeroTel" name="numeroTel" placeholder="telefono">
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="attività">Attività</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-address-card"></i></span>
+                                </div>
+                                <select class="custom-select form-control" id="attività">
+                                    <option selected>studente o lavoratore...</option>
+                                    <option>Studente</option>
+                                    <option>Lavoratore</option>
+                                </select>
+                            </div>
+                
+                        </div> <!-- col-6 -->
+                    </div> <!-- form row -->
+                </div>
+                <!--input-group inline -->
+                <div class="form-row">
+                    <div class="input-group inline ">
+                        <div class="form-group col-md-6">
+                            <div class="form-group flex-fill">
+                                <label for="entrata">Check In</label>
+                                <input type="date" class="form-control" id="entrata" name="entrata">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="form-group flex-fill">
+                                <label for="uscita">Check Out</label>
+                                <input type="date" class="form-control" id="uscita" name="uscita">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="msg">Messaggio</label>
-                    <textarea name="msg" class="form-control" id="msg" name="msg" rows="4"></textarea>
+                    <textarea name="msg" class="form-control" id="msg" name="msg" rows="4" placeholder="scrivi qui le tue domande..."></textarea>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit" >Submit</button>
@@ -196,6 +224,9 @@
             </div>
         </div> <!--row-->
     </div> <!--container-->
+    
+    <!-- footer -->
+    <% include ../views/footer.ejs %>
 <script
 			  src="https://code.jquery.com/jquery-3.3.1.min.js"
 			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -211,33 +242,62 @@
 
         });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<script src="./mapGenerator.js"></script>
-<script async defer  src="" ></script>   
-<script>
-    $('form#contatti').submit(function(event){
-        event.preventDefault();
-        var data = $(this).serialize();
-       
-        // msg insert into db and email sent to BGStanza email's address        
-        $.ajax({
-            dataType: 'JSON',
-            data: data,
-            type: 'POST',
-            url: '/api-insert-info',
-            success: function(dataj,status){
-                 console.log(JSON.stringify(dataj));
-                 console.log('status from API: '+status);
-                 $('form#contatti').trigger('reset');
-                 alert("MESSAGGIO INVIATO!");
-            },
-            error: function(){
-                alert("Si è verificato un errore durante l'invio");
-            }
-        });
-    });
 
+
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="./mapGenerator.js"></script>
+<script async defer  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWbQcqeMjibE9fuCHj7eUSLki9Ukbo34M&callback=initMap" ></script>   
+<script>
+     
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var form = document.getElementById('contatti');
+                    // Loop over them and prevent submission
+                   // alert(form.getAttribute('id'));
+                    
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault();
+                        if (form.checkValidity() === false) {
+                            form.classList.add('was-validated');
+                            event.stopPropagation();
+                        } else {
+                            event.stopPropagation();
+                            callAjax(event);
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                }, false);
+            })();
+
+           function callAjax (event){     
+                let data = $('#contatti').serialize();
+
+                // msg insert into db and email sent to BGStanza email's address        
+                $.ajax({
+                    dataType: 'JSON',
+                    data: data,
+                    type: 'POST',
+                    url: '/api-insert-info',
+                    success: function (dataj, status) {
+
+                        $('form#contatti').trigger('reset');
+                        $('form#contatti').removeClass('was-validated');  // remove validation msg after submit success
+                        alert("MESSAGGIO INVIATO!");
+                    },
+                    error: function (error) {
+                        alert("Si è verificato un errore durante l'invio \n" + error.responseText);
+                        $('form#contatti').removeClass('was-validated');
+
+                    }
+                });
+            } 
+ 
 </script>
 </body>
 </html>

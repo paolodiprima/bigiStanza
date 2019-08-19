@@ -16,12 +16,26 @@ body {
  	/*background-color: lightgray;*/
 }
 
+
 .annuncio{
 	background-color: white;
 
 }
+/* 
+.select2-container .select2-selection--single {
+   
+	width: 100% !important;
+   
+}  */
+.select2 {
+   
+	width: 100% !important;
 
+   
+}
 
+.select2-selection { overflow: hidden; }
+.select2-selection__rendered { white-space: normal; word-break: break-all; }
 
 p.lead{
 	

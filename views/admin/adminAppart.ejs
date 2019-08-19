@@ -15,6 +15,26 @@
 
 </head>
 <body class="bg-info">
+    <div class="modal fade  text-danger " tabindex="-1" role="dialog" id="modalCancel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog bg-danger" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Conferma Cancellazione</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="msgConferma" >
+                  Conferma Cancellazione         
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnAnnulla">Annulla</button>
+                    <button type="button" class="btn btn-primary btn-danger" data-room="" id="btnDelete">Cancella</button>
+                    
+                </div>
+            </div>
+        </div>
+      </div>
   <% include ../views/admin/admin-nav.ejs %>
   <div class="container bg-light mt-4" id="tableAppart">
     <div class="row">
@@ -41,7 +61,7 @@
                       <td class="text-center"><%= appartList[appartIndex].numBathRooms %></td>
                       <td class="d-none" hidden="true"><%= appartList[appartIndex]._id %></td>
                       <td><a class="fa fa-pen fa-lg"  href="/admin/add-update-appart/<%=appartList[appartIndex]._id%>"></a></td>
-                      <td><a class="fa fa-trash fa-lg" href=""></a></td>
+                      <td><span><a class="fa fa-trash fa-lg cancel" data-internalId="<%= appartList[appartIndex].internalName %>" data-id="<%=appartList[appartIndex]._id%>" href=""  ></a></span></td>
                   </tr>
                   <% } %>
 
@@ -50,6 +70,60 @@
       </div>
     </div> <!--row-->
 </div> <!-- container tableAppart-->
-    
+<!-- <div class="alert alert-danger alert-dismissible fade  show " role="alert" id="alertMsg">
+  Elemento Cancellato Definitivamente!
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div> -->
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ 
+<script>
+        $(document).ready(function () {
+
+          $(document).on('click', '.cancel', function (e) {
+            e.preventDefault();
+            let internalId = $(this).attr('data-internalId')
+            $('#msgConferma').html('sicuro di cancellare con ID : ' + internalId);
+            
+            // pass mongo id to button attribute
+            $('#btnDelete').attr('data-id',  $(this).attr('data-id'))
+           
+            $('#modalCancel').modal('show');
+          });
+
+          $(document).on('click', '#btnDelete', function (e) {
+            e.preventDefault();
+            let appId = $(this).attr('data-id')
+            $('#modalCancel').modal('hide')
+            callAjax(appId);
+          });
+
+          function callAjax(id) {
+            let url = "/api/deleteAppart/" + id;
+            
+            $.ajax({
+              type: 'DELETE',
+              url: url,
+              success: function (result, status) {
+                setTimeout( ()=> { alert('APPARTAMENTO ELIMINATO');
+                                   location.reload(true); },
+                                   1500);
+              },
+              error: function () {
+                alert('Si è verificato un errore durante la cancellazione')
+              }
+            });
+          } // callAjax
+
+        }); // $(document).ready
+</script>
+
 </body>
 </html>
