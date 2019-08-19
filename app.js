@@ -37,6 +37,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
 const appartModel = require('./models/appartamentiModel');
+// from git
  
 
 //connect to db
