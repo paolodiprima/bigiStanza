@@ -65,15 +65,12 @@ const rangeDateValidation = function (newDateIn,newDateOut,contracts){
                     console.log('interno valid range 1: ' + validRange);
                     continue;
                 }
-                    
                  else if  (newDateOut <  contracts[i].inDate) {
                      
                      console.log(`${newDateOut} < ${contracts[i].inDate}`);
                      console.log('interno valid range 2: ' + validRange);
                      continue;
-
-                 }
-                    
+                }
                     else {
                             validRange = false;
                             break;
@@ -83,9 +80,32 @@ const rangeDateValidation = function (newDateIn,newDateOut,contracts){
         return validRange;
 }
 
+
+const validationUserSchema =  {
+        name:      Joi.string().min(3).required(),
+        email :    Joi.string().min(6).email()
+                        .options({
+                            language: {
+                                string: { min: ' minimo di 6 caratteri',
+                                email : 'indirizzo email non valido'},
+                            }
+                        }),
+        password : Joi.string().min(8).required(),
+        role         : Joi.string()
+    };
+
+ const validationLoginSchema =  {
+        name:      Joi.string().min(3).required(),
+        password : Joi.string().required(),
+ };
+  
+
+
 module.exports = {
     "schemaValidationAppart"  : schemaValidationAppart,
     "schemaValildationSender" : schemaValildationSender,
     "schemaValidationContract": schemaValidationContract,
-    "rangeDateValidation"     : rangeDateValidation
+    "rangeDateValidation"     : rangeDateValidation,
+    "validationUserSchema"    : validationUserSchema,
+    "validationLoginSchema"   : validationLoginSchema
 };

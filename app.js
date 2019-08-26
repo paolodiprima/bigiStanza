@@ -1,10 +1,18 @@
 // init
 const express = require('express');
 const app = new express();
+const session = require('express-session');
 
 // manage  Environment variables
 const dotenv = require('dotenv');
 dotenv.config();
+
+//session constant
+const ONE_HOUR = 1000 * 60 * 60 // 1000 msec = 1 sec ; 60 sec = 1 min ; 60 min = one hour
+const SECURE_VALUE = process.env.NODE_ENV === 'production';
+const SESSION_SECRET = process.env.SESSION_SECRET;
+
+
 
 //routes to view
 const home = require('./routes/home');
@@ -14,6 +22,7 @@ const addUpdateAppart = require('./routes/adminAddUpdateAppart');
 const adminImgAppart = require('./routes/adminImgAppart');
 const delImgAppart = require('./routes/api/deleteImg');
 const adminContracts = require('./routes/adminContracts');
+const adminLogin = require('./routes/adminLogin');
 
 //api
 const appartList = require('./routes/api/appartList');
@@ -29,6 +38,7 @@ const apiRoomContracts = require('./routes/api/adminRoomContract');
 const apiAdminUpdateContract = require('./routes/api/adminUpdateContract');
 const apiAdminInsertContract = require('./routes/api/adminInsertContract');
 const apiCheckDateContract = require('./routes/checkDateContract');
+const adminLogout = require('./routes/adminLogout');
 
 //middlewere
 const checkDateContract = require('./routes/checkDateContract');
@@ -36,8 +46,8 @@ const checkDateContract = require('./routes/checkDateContract');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
-const appartModel = require('./models/appartamentiModel');
-// from git
+
+ 
  
 
 //connect to db
@@ -55,9 +65,22 @@ app.use(express.json());                          //  take data from body json a
 app.use(express.static('public'));                //  set public folder
 
 
+
 // set render engine ejs
 app.set('views',[path.resolve(__dirname,'views'),path.resolve(__dirname,'views/admin')]);  //setup rendering engine ejs
 app.set('view engine','ejs');
+app.use(session({
+    name : process.env.SESSION_NAME,
+    resave: false,
+    saveUninitialized : false,
+    secret : SESSION_SECRET,
+    cookie : {
+        maxAge : ONE_HOUR,
+        path : '/',
+        sameSite : true,
+        secure : SECURE_VALUE
+    }
+}));
 
 app.use('/api-appartlist',appartList);   
 app.use('/api-admin-appart',adminAppart);
@@ -80,6 +103,8 @@ app.use('/admin/appartlist',homeAdminAppart);
 app.use('/admin/add-update-appart',addUpdateAppart);
 app.use('/admin/imgappart',adminImgAppart);
 app.use('/admin/contracts',adminContracts);
+app.use('/admin/',adminLogin);
+app.use('/admin/',adminLogout)
 
 
 var port = process.env.PORT || 3000 ;

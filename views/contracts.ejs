@@ -294,7 +294,8 @@
               if ($(this).val() == 'Libere' ){
                 var occupate = document.querySelectorAll('#occupata');
                 for (var i=0; i < occupate.length; i++){
-                  occupate[i].style.display = 'none';
+                  $(occupate[i]).toggle();
+                  // occupate[i].style.display = 'none';
                 }
               }
             });
@@ -307,9 +308,7 @@
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
               });
             });
-            // $('.datepicker').datepicker({
-            //   uiLibrary: 'bootstrap4'
-            // });
+     
         });
 
 
