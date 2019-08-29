@@ -1,9 +1,9 @@
 const express = require('express');
 const router = new express.Router();
-const mongoose = require('mongoose');
 const appartModel = require('../../models/appartamentiModel');
 
-// return array rooms from appartment id
+// return array rooms from appartment id 
+// used in form contract management
 
 router.get('/:appartid', (req,res) => {
 
@@ -13,7 +13,7 @@ router.get('/:appartid', (req,res) => {
     appartModel.findById(id)
         .then((data)=>{
             
-        // return array of rooms
+        // return array of rooms 
             res.send({ "appartId": data.internalName , "rooms": data.rooms});  
   
         })

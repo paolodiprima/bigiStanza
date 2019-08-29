@@ -2,6 +2,8 @@
 const express = require('express');
 const app = new express();
 const session = require('express-session');
+const flash = require('connect-flash');
+const MongoStore = require('connect-mongo')(session);
 
 // manage  Environment variables
 const dotenv = require('dotenv');
@@ -69,11 +71,14 @@ app.use(express.static('public'));                //  set public folder
 // set render engine ejs
 app.set('views',[path.resolve(__dirname,'views'),path.resolve(__dirname,'views/admin')]);  //setup rendering engine ejs
 app.set('view engine','ejs');
+// app.use(cookieParser());
 app.use(session({
     name : process.env.SESSION_NAME,
     resave: false,
     saveUninitialized : false,
+    unset: 'destroy',
     secret : SESSION_SECRET,
+    store: new MongoStore({ url:process.env.DB_CONNECT }),
     cookie : {
         maxAge : ONE_HOUR,
         path : '/',

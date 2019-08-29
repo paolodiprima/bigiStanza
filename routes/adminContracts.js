@@ -1,9 +1,9 @@
 const express = require('express');
 const router = new express.Router();
-const mongoose = require('mongoose');
+const checkAuth = require('../middleware/checkAuth');
 const appartModel = require('../models/appartamentiModel');
 
-router.get('/', (req,res) => {
+router.get('/',checkAuth, (req,res) => {
 
     appartModel.find({},{"internalName":1, "rooms":1   })
     .then((data)=>{
@@ -12,10 +12,9 @@ router.get('/', (req,res) => {
         for (var i =0; i < data.length ; i++){  // per quanti appartamenti ci sono
         
              for (var j=0; j < data[i].rooms.length; j++ ){  // per quante stanze in un appartamento
-        
-                 var arrayContracts = [];
-                 for (var l=0; l < data[i].rooms[j].contracts.length; l++){ // per quanti contratti in una stanza
-                     console.log('LETTURA: --' + data[i].internalName +'  from room ' + j + ' ' +  data[i].rooms[j].contracts[l].inDate + ' --- ' + data[i].rooms[j].contracts[l].outDate );
+                 
+                 for (var l=0; l < data[i].rooms[j].contracts.length; l++){ // per quanti contratti di una stanza
+              
                     
                     // if today there is a valid contract, insert data into the array
                      if ((today < data[i].rooms[j].contracts[l].outDate)  && (today > data[i].rooms[j].contracts[l].inDate))  {

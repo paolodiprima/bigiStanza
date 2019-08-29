@@ -30,8 +30,6 @@ body {
 .select2 {
    
 	width: 100% !important;
-
-   
 }
 
 .select2-selection { overflow: hidden; }
@@ -59,7 +57,7 @@ p.lead{
 }
 .carousel-item .img-fluid {
   width:100%;
-  height:100%; /* 100vh */
+  height:100%; /*  100hv */
 }
 
 .nav-pills .pill-1 .nav-link:not(.active){
@@ -76,8 +74,8 @@ p.lead{
 
 
 .icon {
-	width: 2em;
-	height: 2em;
+	width: 1.5em;
+	height: 1.5em;
   }
   
 #map-container {

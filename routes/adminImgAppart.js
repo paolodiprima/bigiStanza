@@ -1,9 +1,9 @@
 const express = require('express');
 const router = new express.Router();
-const mongoose = require('mongoose');
+const checkAuth = require('../middleware/checkAuth');
 const appartModel = require('../models/appartamentiModel');
 
-router.get('/:appartid', (req,res) => {
+router.get('/:appartid',checkAuth, (req,res) => {
 
     var id = req.params.appartid;
     

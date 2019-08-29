@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BiGi Stanza Home Site</title>
-    
-   <link rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/4/spacelab/bootstrap.min.css">
+   <!-- <link rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="../css/style.css" media="all">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -22,19 +22,29 @@
 <!-- main container -->
 
     <div class="container-fluid" id="appartamenti">
-       <!-- <div class="container container-fluid" id="stanze"> -->
+      
         <% for (indexAppart in appartList) {  %>
+        <div class="container bg-light my-2">
+            
         <!-- start list of rooms -->
+        <div class="row">
+                <div class="col-lg-1"></div>   
+                <div class="col-lg-10 d-flex col-lg-offset-1 ">
+                <h4 class="text-primary">Appartamento 5 Stanze  <%=appartList[indexAppart].address%>, <%=appartList[indexAppart].city.trim()%> </h4>
+                 </div>
+            </div>
         
         <div class="row">
-            <div class="col-lg-8 d-flex">
+               
+            <div class="col-lg-1"></div>   
+            <div class="col-lg-6 d-flex 100-vh">
                 <div id="carouselIndicator<%=indexAppart%>" class="carousel slide border  shadow flex-fill">
                     <ol class="carousel-indicators">
 
                         <% for (indexImgAppart in appartList[indexAppart].imgAppart) { %>
+                          
                             <li data-target="#carouselIndicator<%=indexAppart%>" data-slide-to="<%=indexImgAppart%>"  ></li>
                         <% } %>
-
                     </ol>                    
                     <div class="carousel-inner" role="listbox">
                         <% for (indexImgAppart in appartList[indexAppart].imgAppart){ %>
@@ -62,24 +72,46 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div> <!-- carousel -->
-             </div> <!--col-lg-8-->
+             </div> <!--col-lg-6-->
 
-            <div class="col-lg-4 d-flex"> <!-- d-flex -->
-                <div class="card  border shadow flex-fill"> <!--flex-fill-->
-                    <div class="card-body">       
-                    
-                        <div id="map-container<%=indexAppart%>" 
-                            data-address="<%=appartList[indexAppart].address%> <%=appartList[indexAppart].cap%> Bergamo" class="z-depth-1 map-container embed-responsive embed-responsive-16by9" > <!--style="height: 40%"-->
+            <div class="col-lg-4 d-flex col-lg-offset-1"> 
+                <div class="card  border shadow flex-fill"> 
+                    <div class="card-body">
+                        <div class="row">
+                            <div id="map-container<%=indexAppart%>"
+                                data-address="<%=appartList[indexAppart].address%> <%=appartList[indexAppart].cap%> Bergamo"
+                                class="z-depth-1 map-container embed-responsive embed-responsive-16by9">
+                                <!--style="height: 40%"-->
+                            </div>
                         </div>
-                        
-                            <p class="card-header"> <%= appartList[indexAppart].address %></p>
+                        <!-- <div class="row mt-2">
+                            <div class="col-12">
+                                <p class="card-header"> <%= appartList[indexAppart].address %>, <%= appartList[indexAppart].city %></p>
+                            </div>
+                        </div> -->
+                        <div class="row mt-1">
                             <p class="card-text">
-                                <% for (icon of appartList[indexAppart].services){ %>
-                                    <p> <img class="icon" src="../img/icon/<%=icon%>.png"><span class="text-center px-4"><%=icon%></span></p>
-                                <% } %>
+                                <div class="col-6">
+                                    <% for (var i=0; i < appartList[indexAppart].services.length ; i+=2){ %>
+                                    <% var icon = appartList[indexAppart].services[i]  %>
+                                    <p> <img class="icon" src="../img/icon/<%=appartList[indexAppart].services[i]%>.png"><span
+                                            class="text-center px-2"><%=icon%></span></p>
+                                    <% } %>
+                                </div>
+                                <div class="col-6">
+                    
+                                    <% for (var i=1; i < appartList[indexAppart].services.length ; i+=2){ %>
+                                    <% var icon = appartList[indexAppart].services[i]  %>
+                                    <p> <img class="icon" src="../img/icon/<%=appartList[indexAppart].services[i]%>.png"><span
+                                            class="text-center px-2"><%=icon%></span></p>
+                                    <% } %>
+                                </div>
                             </p>
-                            <a href="/stanze/<%= appartList[indexAppart]._id %>" class="btn btn-info mt-3">STANZE</a>
-                        </div> <!-- card-body -->
+                        </div>
+                    
+                        <a href="/stanze/<%= appartList[indexAppart]._id %>" class="btn btn-info mt-3">STANZE</a>
+                    
+                    </div> <!-- card-body -->
                 </div> <!-- card -->
             </div> <!-- col-lg-4-->
         </div> <!-- row -->
@@ -90,13 +122,13 @@
 
     <div class="container-fluid ">
         <div class="row">
-            <div class="col-12 border"> <!-- d-flex -->
+            <div class="col-lg-1"></div>
+            <div class=" col-lg-10 border"> <!-- d-flex -->
                 <div class="card flex-fill border shadow mx-n3">
                     <div class="card-body">
                         <p class="card-text">
                             <%= appartList[indexAppart].description %> 
-                            <%= indexAppart %>
-                            <%= appartList[indexAppart]._id %>
+                           
                         </p>
                     </div>
                 </div>
@@ -105,6 +137,8 @@
         </div>  <!-- row description -->
    
     </div> <!-- container descr annuncio-->
+
+</div> <!-- container to create background for each apaprt -->
     <% } %> <!-- main for -->
 </div> <!--   appart list container -->
 
@@ -178,7 +212,7 @@
                                 <input type="text" class="form-control" id="numeroTel" name="numeroTel" placeholder="telefono">
                             </div>
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label for="attività">Attività</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -233,6 +267,7 @@
 			  crossorigin="anonymous"></script>
 <script>
         $(document).ready(function(){
+         h
             bgImageTotal= 6;
             randomNumber = Math.floor(Math.random()*(bgImageTotal-1))+1;
             randomNumber = 7;
@@ -250,7 +285,7 @@ integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="ano
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="./mapGenerator.js"></script>
-<script async defer  src="https://maps.googleapis.com/maps/api/js?key=**Removed**&callback=initMap" ></script>   
+<script async defer  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWbQcqeMjibE9fuCHj7eUSLki9Ukbo34M&callback=initMap" ></script>   
 <script>
      
             (function () {
@@ -277,6 +312,7 @@ integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="ano
 
            function callAjax (event){     
                 let data = $('#contatti').serialize();
+                
 
                 // msg insert into db and email sent to BGStanza email's address        
                 $.ajax({

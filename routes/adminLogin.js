@@ -10,6 +10,7 @@ router.get('/login', (req,res) => {
 
 });
 
+//TODO: da progettere o eliminare
 router.post('/register',async (req,res)=> {
  
     //  input validation

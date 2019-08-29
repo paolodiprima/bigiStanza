@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BiGi Stanza Home Site</title>
     
-   <link rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/4/spacelab/bootstrap.min.css"> 
+   <!-- <link rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="../css/style.css" media="all">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -14,11 +15,11 @@
 </head>
 <body>
     <% include ../views/admin/admin-nav.ejs %>
-    <div class="container mt-5">
-        <div id="formContent"  class="container mt-5"  >
+     <div class="container  h-100 ">
+        <div id="formContent"  class="row h-100 justify-content-center align-items-center mt-3  "  >
           <!-- Login Form -->
-          <div class="container  bg-light border shadow form-group ">
-            <form id="loginForm"   method="POST"  action="/admin/login"  >
+          <div class="col-12   bg-light border shadow form-group  ">
+            <form id="loginForm"   method="POST"   action="/admin/login"  >
               <div class="row m-3">
                 
                 <div class="col-md-6 offset-md-3">
@@ -59,11 +60,11 @@
                   <input type="submit" class="btn btn btn-secondary" value="Log In">
                 </div>
               </div>
-            </form>
+            <!-- </form> -->
           </div>
           </div>
-
         </div>
+         
          <% include ../views/footer.ejs %>
 
          <script src="https://code.jquery.com/jquery-3.3.1.min.js"
