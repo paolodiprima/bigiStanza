@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title> Custom File Input test</title>
+  <title> Contratti</title>
   <link rel="stylesheet" href="https://bootswatch.com/4/spacelab/bootstrap.min.css"> 
   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" -->
     <!-- integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
@@ -70,8 +70,8 @@
                         <td  class="text-center"> <%=appartRoomList[appartIndex].rooms[roomIndex].contracts.length == 0 ? "libera" : appartRoomList[appartIndex].rooms[roomIndex].contracts[0].inDate.toDateString().substring(3,15) %> </td>
                         <td class="text-center">  <%=appartRoomList[appartIndex].rooms[roomIndex].contracts.length == 0 ? "libera" : appartRoomList[appartIndex].rooms[roomIndex].contracts[0].outDate.toDateString().substring(3,15)  %> </td>
                         <td class="d-none" hidden="true"> </td>
-                        <td><a class="fa fa-pen fa-lg text-secondary"  id="<%=appartRoomList[appartIndex]._id %>" href="#divForm"  room="<%=roomIndex%>"></a></td>
-                        <td><a class="fa fa-plus fa-lg text-secondary" id="<%=appartRoomList[appartIndex]._id %>"  href="#divForm" room="<%=roomIndex%>"></a></td>
+                        <td><a class="fa fa-pen fa-lg text-secondary"  id="<%=appartRoomList[appartIndex]._id %>" href="#divForm"  room="<%=roomIndex%>" data-toggle="tooltip" title="Modifica"></a></td>
+                        <td><a class="fa fa-plus fa-lg text-secondary" id="<%=appartRoomList[appartIndex]._id %>"  href="#divForm" room="<%=roomIndex%>" data-toggle="tooltip" title="Aggiungi"  ></a></td>
                      </tr>
                      <% } %>
                     <% } %>
@@ -81,7 +81,7 @@
     <!-- </div> --row-->
 
 <!-- form per update / insert -->
-<div class="container bg-light mt-4 pt-3" id="divForm">
+<div class="container bg-light my-4 pt-3" id="divForm">
   <form action="#" method="POST" id="contractsform">
     <div class="form-row mb-4">
       <label for="roomIdInt" class="text-secondary col-form-label  ">STANZA</label>
@@ -99,23 +99,37 @@
     </div> <!-- form-row -->
 
     <div class="form-row ">
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-3">
         <label for="HolderName" class="text-secondary">Nome</label>
         <input type="text" class="form-control" name="HolderName" id="HolderName" value="" required>  
       </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-3">
         <label for="HolderSurname" class="text-secondary">Cognome</label>
         <input type="text" class="form-control" name="HolderSurname" id="HolderSurname" value="" required>
       </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-3">
         <label for="HolderDoB" class="text-secondary">Data Di Nascita</label>
         <input type="date" class="form-control" name="HolderDoB" id="HolderDoB" value="">
       </div>
+      <div class="form-group col-md-3">
+          <label for="sesso" class="text-secondary">Sesso</label>
+          <select class="custom-select" id="sesso" name="sesso">
+              <option selected></option>
+              <option value="Uomo">Uomo</option>
+              <option value="Donna">Donna</option>
+            </select>
+      </div>
+
+
     </div> <!-- first row -->
     <div class="form-row">
       <div class="form-group col-md-4">
-        <label for="HolderJob" class="text-secondary">Occupazione</label>
-        <input type="text" class="form-control" name="HolderJob" id="HolderJob" value="">
+        <label for="HolderJob" class="text-secondary">Attività</label>
+        <select class="custom-select" id="HolderJob" name="HolderJob">
+            <option selected></option>
+            <option value="Lavoratore">Lavoratore</option>
+            <option value="Studente">Studente</option>
+          </select>
       </div>
       <div class="form-group col-md-4">
         <label for="inDate" class="text-secondary">Check In</label>
@@ -160,6 +174,7 @@
               $('#HolderJob').val(contracts[index].holderJob);
               $('#inDate').val(contracts[index].inDate.substring(0, 10));
               $('#outDate').val(contracts[index].outDate.substring(0, 10));
+              $('#sesso').val(contracts[index].sex);
             }
 
             $('#nContratto').on('change',function(){

@@ -8,7 +8,8 @@ const schemaValidationContract = {
     HolderJob: Joi.string().valid(['Studente','Lavoratore']),
     inDate: Joi.date().empty(''),
     outDate: Joi.date().empty('').greater(Joi.ref('inDate')),
-    indexContract: Joi.number().integer()
+    indexContract: Joi.number().integer(),
+    sesso: Joi.string().valid(['Uomo','Donna'])
 
 }
 
@@ -42,17 +43,26 @@ const schemaValidationAppart = {
     accesso5:Joi.any().optional(),
     roomsize6:Joi.any().optional(),
     price6:Joi.any().optional(),
-    accesso6:Joi.any().optional()
+    accesso6:Joi.any().optional(),
+    descriptionRoom1 :Joi.any().optional(),
+    descriptionRoom2 :Joi.any().optional(),
+    descriptionRoom3 :Joi.any().optional(),
+    descriptionRoom4 :Joi.any().optional(),
+    descriptionRoom5 :Joi.any().optional(),
+    descriptionRoom6 :Joi.any().optional()
 }
 
 const schemaValildationSender = {
-    name: Joi.string().min(3).max(20).required(),
-    cognome: Joi.string().min(3).max(20).required(),
+    name: Joi.string().min(3).max(20).required().options({language: {string:
+                                                                       { min: ' minimo di 3 caratteri',
+                                                                        max : 'massimo 20 caratteri'},}}),
+                                                                        
+    cognome: Joi.string().min(3).max(20).optional(),
     email: Joi.string().email().required(),
     numeroTel: Joi.any().optional(),
-    attivita: Joi.string().valid(['Studente','Lavoratore']),
-    entrata: Joi.date().empty(''),
-    uscita: Joi.date().empty('').greater(Joi.ref('entrata')),
+    attivita: Joi.string().optional().valid(['Studente','Lavoratore']),
+    entrata: Joi.date().empty('').optional(),
+    uscita: Joi.date().empty('').greater(Joi.ref('entrata')).optional(),
     msg : Joi.string().max(256)
 }
 

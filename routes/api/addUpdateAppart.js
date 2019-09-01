@@ -96,9 +96,11 @@ router.post('/:idappart', (req,res) => {
                 var roomsize = req.body["roomsize"+(i+1)];
                 var price = req.body["price"+(i+1)];
                 var accesso = req.body["accesso"+(i+1)];
+                var descrRoom = req.body["descriptionRoom"+(i+1)];
                 var query = `{"_id" : "${idappart}"}`;
                 var jsonquery = JSON.parse(query);
-                var update = `{ "rooms.${i}.size": ${roomsize},"rooms.${i}.price":${price},"rooms.${i}.extAccess":"${accesso}"}`;
+                var update = `{ "rooms.${i}.size": ${roomsize},"rooms.${i}.price":${price},"rooms.${i}.extAccess":"${accesso}","rooms.${i}.descrStanza":"${descrRoom}" }`;
+                
                 var jsonupdate = JSON.parse(update);
                 result = await newAppartModel.findOneAndUpdate(jsonquery,jsonupdate);
             }

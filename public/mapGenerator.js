@@ -10,9 +10,9 @@ function initMap() {
         
             var geocoder = new google.maps.Geocoder();               
             var  coords =  await findLatLng(address[mapIndex], geocoder);  
-            var map = createMap(mapsContainerIds[mapIndex],coords.lat,coords.lng,14);
+            var map = createMap(mapsContainerIds[mapIndex],coords.lat,coords.lng,15);
             var marker = createMarker(map,coords.lat,coords.lng,address[mapIndex]);
-            //addInfo(address[mapIndex],map,marker);
+            addInfo(address[mapIndex],map,marker);
           
             }
         }
@@ -40,6 +40,7 @@ function createMap(elem,lat,lng,zoom){
                 style: google.maps.ZoomControlStyle.SMALL
             },
             fullscreenControl: false,
+
             mapTypeControl: false
         } 
     return new google.maps.Map(document.getElementById(elem),options);
@@ -50,7 +51,7 @@ function createMarker(map,lat,lng,address){
     var options = {
         position : {lat:lat,lng:lng},
         map : map,
-        // title: address,
+         title: address,
         // label: 
         //  {
         //     text: address,

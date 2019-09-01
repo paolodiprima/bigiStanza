@@ -22,7 +22,7 @@ router.post('/', (req,res) => {
     var roomId = req.body.roomId;
     var nameImg = req.body.nameImg;
     
-    removeFile(nameImg);
+    
 
     if (!roomId){
     
@@ -30,7 +30,7 @@ router.post('/', (req,res) => {
         appartModel.findOneAndUpdate({_id:appartId},{ $pull: { imgAppart: nameImg }},{new:true})
             .then((data)=>{
                 const dataJSON = JSON.parse(JSON.stringify(data));
-              //  fs.unlinkSync(fileName);
+                removeFile(nameImg);
                 res.json(data);
             })
             .catch((err)=>{
@@ -38,13 +38,13 @@ router.post('/', (req,res) => {
             });
         
     } else {
-        // console.log("dentro cancellazione file immagine1");
+       
         // remove link image room from db
         appartModel.findOneAndUpdate({ _id: appartId, 'rooms._id': roomId }, 
                                     { $pull: { 'rooms.$.img': nameImg }})
             .then((data)=>{
                 const dataJSON = JSON.parse(JSON.stringify(data));
-             //   fs.unlinkSync(fileName);
+                removeFile(nameImg);
                 res.json(data);
             })
             .catch((err)=>{

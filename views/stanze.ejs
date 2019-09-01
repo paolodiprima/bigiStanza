@@ -6,29 +6,138 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BiGi Stanza Home Site</title>
     
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="../fonts/icomoon/style.css">
+
     <link rel="stylesheet" href="https://bootswatch.com/4/spacelab/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
-    <!-- <link rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="../css/style.css" media="all">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-    crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="../css/jquery-ui.css">
+     
+    <link rel="stylesheet" href="../css/owl.carousel.min.css">
+
+    <link rel="stylesheet" href="../css/owl.theme.default.min.css">
+    
+    <link rel="stylesheet" href="../css/jquery.fancybox.min.css">
+
+    <link rel="stylesheet" href="../css/bootstrap-datepicker.css">
+
+    <link rel="stylesheet" href="../fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="../css/aos.css">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <link rel="stylesheet" href="../css/customStyle.css">
+    
+
 
 </head>
-<body data-spy="scroll" data-target="#navbar"> <!-- data-offset="50" -->
+
+<script src="../stanzeSendMsg.js"></script>
+<body   data-spy="scroll" data-target=".site-navbar-target" data-offset="300" data-id=<%=appart._id%>  >     
   <!-- navigation bar --> 
-    <% include ../views/home-nav.ejs %>
+  <div class="site-wrap">
+  <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+      </div>
+     
+      <div class="top-bar py-3 bg-light d-none d-md-block  " id="home-section">
+        <div class="container">
+          <div class="row align-items-center">
+           
+            <div class="col-6 text-left">
+              <ul class="social-media">
+                <li><a href="#" class=""><span class="icon-facebook"></span></a></li>
+                <li><a href="#" class=""><span class="icon-twitter"></span></a></li>
+                <li><a href="#" class=""><span class="icon-instagram"></span></a></li>
+                <li><a href="#" class=""><span class="icon-linkedin"></span></a></li>
+              </ul>
+            </div>
+            <div class="col-6">
+              <p class="mb-0 float-right">
+                <span class="mr-3"><a href="tel://#"> <span class="icon-phone mr-2" style="position: relative; top: 2px;"></span><span class="d-none d-lg-inline-block text-black"> +39 3889883460</span></a></span>
+                <span><a href="#"><span class="icon-envelope mr-2" style="position: relative; top: 2px;"></span><span class="d-none d-lg-inline-block text-black"> info@bigistanza.com </span></a></span>
+              </p>
+              
+            </div>
+          </div>
+        </div> 
+      </div>
+  
+      <header class="site-navbar py-3 bg-white js-sticky-header site-navbar-target" data-offset="" role="banner">
+  
+        <div class="container ">
+          <div class="row align-items-center  ">
+            
+            <div class="col-6 col-xl-2">
+              <h1 class="mb-0 site-logo"><a href="index.html" class="text-black mb-0">BiGiSTANZA <span class="text-primary"></span> </a></h1>
+            </div>
+            <div class="col-12 col-md-10 d-none d-xl-block">
+              <nav class="site-navigation position-relative text-right" role="navigation">
+  
+                <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                  <li><a href="/" class="nav-link">Home</a></li>
+                  <li><a href="/#products-section" class="nav-link">Appartamenti</a></li>
+                  
+                  <!-- <li><a href="#special-section" class="nav-link">Special</a></li> -->
+                  <!-- <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li> -->
+                  <!-- <li><a href="#blog-section" class="nav-link">Blog</a></li> -->
+                  <li><a href="#contact-section" class="nav-link">Contatti</a></li>
+                </ul>
+              </nav>
+            </div>
+  
+            <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+          </div>
+        </div>
+        
+      </header>   
+
+
+  <!-- end navigation bar-->
 
 
 <!-- main container -->
 
     <div class="container-fluid" id="appartamenti">
+        <div class="row mt-5 pt-5">
+            <div class="offset-md-1"></div>
+            <div class="col-lg-10 d-flex bg-light">
+                <h3 class="text-primary text-center mt-5">Appartamento <%=appart.address%>, <%=appart.city%> </h3>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="offset-md-1"></div>
+            <div class="col-lg-10 d-flex bg-light flex-fill">
+                <ul class="list-group list-group-horizontal-md mb-3 ">
+                    <li class="list-group-item text-primary">Dimensioni: <%=appart.appartSize%>mq</li>
+                    <li class="list-group-item text-primary">Stanze: <%=appart.numRooms%></li>
+                    <li class="list-group-item text-primary">Piano: <%=appart.floor%></li>
+                    <li class="list-group-item text-primary">Bagni: <%=appart.numBathRooms%></li>
+                    <li class="list-group-item text-primary">Coinquilini: 4 </li>
+                </ul>
+              </div>
+        </div>
+
+        <!-- <i class="fas fa-male"></i> 2 <i class="fas fa-female"></i> -->
+            
+ 
     
         <% for (roomIndex in appart.rooms) {  %>
         <!-- start list of rooms -->
-    
-        <div class="row">
+      
+        <div class="row  "> <!--no-gutters-->
+            <!-- <div class="container bg-danger py-4">  -->
             <div class="offset-md-1"></div>
-            <div class="col-lg-6 d-flex">
+            <div class="col-lg-6 d-flex bg-light">
+                
                 <div id="carouselIndicator<%= roomIndex %>" class="carousel slide border  shadow flex-fill">
                     <ol class="carousel-indicators">
                         <% for (indexImgRoom in appart.rooms[roomIndex].img) { %>
@@ -40,14 +149,14 @@
                         <% if (indexImgRoom==0){ %>
                         <div class="carousel-item active">
                             <div class="img">
-                                <img class="d-block img-fluid"
+                                <img class="d-block img-fluid <%= (appart.rooms[roomIndex].contracts.length == 1) ? "notavailable" : " "  %> "
                                     src="../img/<%= appart.rooms[roomIndex].img[indexImgRoom] %>">
                             </div>
                         </div>
                         <% } else { %>
                         <div class="carousel-item">
                             <div class="img">
-                                <img class="d-block img-fluid"
+                                <img class="d-block img-fluid  <%= (appart.rooms[roomIndex].contracts.length == 1) ? "notavailable" : " "  %>"
                                     src="../img/<%= appart.rooms[roomIndex].img[indexImgRoom] %>">
                             </div>
                         </div>
@@ -67,10 +176,10 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div> <!-- carousel -->
-            </div>
-            <!--col-lg-8-->
-    
-            <div class="col-lg-4 d-flex">
+            </div>  <!--col-lg-8-->
+           
+           
+            <div class="col-lg-4 d-flex bg-light ">
                 <!-- d-flex -->
                 <div class="card  border shadow flex-fill">
                     <!--flex-fill-->
@@ -89,46 +198,60 @@
                                         <%  }  else {  %>
                                         <span class="font-weight-bold"> <mark> Libera  </mark>    </span>   
                                         <%    }  %>
-
                             </li>
                             <li class="list-group-item">indirizzo: <%= appart.address %></li>
                             <li class="list-group-item">accesso: <%= appart.rooms[roomIndex].extAccess %></li>
+                            <% if ( appart.rooms[roomIndex].contracts.length  ) { %>
+                            <li class="list-group-item"> occupata:  <%= appart.rooms[roomIndex].contracts[0].holderJob %>  
+                                <img class="px-2" src="../../img/icon/<%=appart.rooms[roomIndex].contracts[0].sex%>.png" alt="">  <script>document.write(getAge("<%= appart.rooms[roomIndex].contracts[0].holderDoB%>".substr(0,10)));</script> anni</li>
+                            <%    }  %>
+                            <!-- <img src="http://icons.iconarchive.com/icons/semlabs/web-blog/24/user-male-white-blue-brown-icon.png" alt=""></i>  -->
                         </ul>
                         <a href="#contatti" class="btn btn-info  mt-auto">INFO</a> <!-- mt-3 -->
                     </div> <!-- card-body -->
                 </div> <!-- card -->
             </div> <!-- col-lg-4-->
-        </div> <!-- row -->
-    
-        <% } %>
-        <!-- main for -->
+        <!-- </div> container internal -->
+     
+    </div>  <!-- row -->
+        <% } %>   <!-- main for -->
+       
+     
     </div> <!--   rooms list container -->
-    <h3 class="text-center  my-3">Tieniti in Contatto</h3>
-    <div class="container-fluid mb-3">
+
+    <section id="contact-section">
+    <h3 class="text-center  my-5">Tieniti in Contatto</h3>
+    <div class="container-fluid mb-3" id="contact">
         <div class="row">
             <div class="col-3 d-none d-md-block"></div>
     
             <div class="col-12 col-md-6 col-sm-offset-3">
     
-                <form class="border" action="/api-insert-info" method="POST" id="contatti" autocomplete="on">
+                <form class="border p-5" action="/api-insert-info" method="POST" id="contatti" autocomplete="on"  novalidate needs-validation>
                     <div class="container">
                         <div class="form-group">
-                            <label for="nome">Nome (*)</label>
+                            <label for="nome">Nome *</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    <span class="input-group-text"><i class="icon-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="nome" name="name" placeholder="Nome">
+                                <input type="text" class="form-control" id="nome" name="name" placeholder="nome" required>
+                                <div class="invalid-feedback">
+                                        campo nome obbligatorio
+                                </div>
                             </div>
                         </div>
                    
                 <div class="form-group">
-                    <label for="email">Email (*)</label>
+                    <label for="email">Email *</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-at"></i></span>
+                            <span class="input-group-text"><i class="icon-at"></i></span>
                         </div>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="email">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="email" required>
+                        <div class="invalid-feedback">
+                                formato email non valido
+                        </div>
                     </div>
                 </div>    
                 
@@ -137,7 +260,7 @@
                         <label for="numeroTel">Numero Tel.</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                <span class="input-group-text"><i class="icon-phone"></i></span>
                             </div>
                             <input type="text" class="form-control" id="numeroTel" name="numeroTel" placeholder="telefono">
                         </div>
@@ -146,58 +269,73 @@
                         <label for="attività">Attività</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="far fa-address-card"></i></span>
+                                <span class="input-group-text"><i class="icon-work"></i></span>
                             </div>
                             <input type="text" class="form-control" id="attivita" name="attivita" placeholder="attività">
                         </div>
                     </div>
-                </div> <!--input-group inline -->
-                    
+                </div>
+                <!--input-group inline -->
+                
                 <div class="input-group inline ">
                     <div class="form-group flex-fill">
                         <label for="entrata">Entrata</label>
-                        <input type="date" class="form-control" id="entrata" name="entrata">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="icon-calendar"></i></span>
+                            </div>
+                            <input type="date" class="form-control" id="entrata" name="entrata">
+                        </div>
                     </div>
                     <div class="form-group flex-fill">
-                        <label for="uscita" >Uscita</label>
-                        <input type="date" class="form-control" id="uscita" name="uscita">
+                            <label for="uscita">Uscita</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-calendar"></i></span>
+                                </div> 
+                                <input type="date" class="form-control" id="uscita" name="uscita">
+                                
+                            </div>
                     </div>
                 </div>
+                    <!--input-group inline -->
                 <div class="form-group">
                     <label for="msg">Messaggio</label>
-                    <textarea name="msg" class="form-control" id="msg" name="msg" rows="4" placeholder="scrivi qui le tue domande..."></textarea>
+                    <textarea name="msg" class="form-control" id="msg" name="msg" rows="4" placeholder="scrivi qui le tue domande..." required></textarea>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit" >Submit</button>
+                    <button class="btn  btn-primary btn-lg px-5" type="submit" >INVIA</button>
                 </div>
                 <small class="text-muted">(*) campi obbligatori</small>
             </div> <!--container form-->
             </form>
             </div>
         </div> <!-- row -->
-    </div>  <!-- container fluid -->
-
+    </div>  <!-- container fluid contact -->
+</section>
+</div> <!-- .site-wrap -->
     <!-- footer -->
-    <% include ../views/footer.ejs %>
+    <!-- <% include ../views/footer.ejs %> -->
 
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script>
-        $(document).ready(function(){
-            bgImageTotal= 6;
-            randomNumber = Math.floor(Math.random()*(bgImageTotal-1))+1;
-            randomNumber = 7;
-            imgPath="../img/bg/imgBg"+randomNumber+".jpg";
-         //   $('#jumbo1').css('background', ('url("'+imgPath+'")'));
-            $('#jumbo1').css('background-size', 'cover');
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/jquery.stellar.min.js"></script>
+    <script src="../js/jquery.countdown.min.js"></script>
+    <script src="../js/bootstrap-datepicker.min.js"></script>
+    <script src="../js/jquery.easing.1.3.js"></script>
+    <script src="../js/aos.js"></script>
+    <script src="../js/jquery.fancybox.min.js"></script>
+    <script src="../js/jquery.sticky.js"></script>
+    <script src="../js/main.js"></script>
 
-        });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/locale/it.js">  </script> -->
 
-
+     
+ 
 </body>
 </html>

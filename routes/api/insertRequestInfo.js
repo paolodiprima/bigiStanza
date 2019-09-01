@@ -13,7 +13,7 @@ const DOMAIN = process.env.DOMAIN;
 const dataMail = {
     from: 'BGStanza User <me@samples.mailgun.org>',
     to: 'paolo.diprima@gmail.com',
-    subject: 'richiesta info da BGStanza',
+    subject: 'richiesta info per BGStanza',
     text: ''
   };
 
@@ -26,12 +26,54 @@ router.post('/', (req,res) => {
     // });
 
     async function addInfoRequest() {
-        console.log(typeof req.body.entrata);
+
+        // input validation
+        const resultValidation = Joi.validate(req.body,schemaValildationSender);
+        if (resultValidation.error){
+            res.status(400).send(resultValidation.error.details[0].message);
+            return;
+        }  
+        
+        // save msg into db
         const newInfoRequest = new infoRequest({
             name : req.body.name,
-            surname: req.body.cognome,
             email: req.body.email,
-            job: req.body.job,
+            // job: req.body.job,
+            // inDate: req.body.entrata,
+            // outDate: req.body.uscita,
+            msg: req.body.msg
+        });
+        const result = await newInfoRequest.save();
+        res.send(result);
+    } 
+    // call async function
+    addInfoRequest();
+
+});
+
+router.post('/:idAppart', (req,res) => {
+
+        // dataMail.text = "msg from:" +req.body.email+"\n\n"+req.body.msg+"\n\n check-in"+req.body.entrata+"--check-out"+req.body.uscita;
+        // mailgun.messages().send(dataMail, (error, body) => {
+        //     console.log(body);
+        //     console.log("nel send mail addinfoRequest");
+        // });
+
+        async function addInfoRequest() {
+
+
+        // input validation
+        const resultValidation = Joi.validate(req.body,schemaValildationSender);
+        if (resultValidation.error){
+            res.status(400).send(resultValidation.error.details[0].message);
+            return;
+        }  
+        
+        // save msg into db
+        const newInfoRequest = new infoRequest({
+            name : req.body.name,
+            email: req.body.email,
+            // job: req.body.job,
             inDate: req.body.entrata,
             outDate: req.body.uscita,
             msg: req.body.msg
@@ -39,13 +81,9 @@ router.post('/', (req,res) => {
         const result = await newInfoRequest.save();
         res.send(result);
     } 
-    const resultValidation = Joi.validate(req.body,schemaValildationSender);
-    if (resultValidation.error){
-       // console.log(typeof req.body.entrata);
-        res.status(400).send(resultValidation.error.details[0].message);
-        return;
-    }  
+
     addInfoRequest();
+
 });
 
 

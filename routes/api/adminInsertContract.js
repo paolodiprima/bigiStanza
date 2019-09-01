@@ -26,10 +26,11 @@ router.post('/:idroom',checkDate, (req,res) => {
             var    job =  req.body.HolderJob;
             var    inDate =  req.body.inDate;
             var    outDate =  req.body.outDate;
+            var    sesso = req.body.sesso;
             var    indexContract = req.body.indexContract;
 
-            result = await roomModel.findOneAndUpdate({"rooms._id":roomId},{$push: {"rooms.$.contracts":{"holderName":name,"holderSurname":surname,"holderDoB":DoB,"holderJob":job,"inDate":inDate,"outDate":outDate}}} );
-            console.log('dentro update add contract');
+            result = await roomModel.findOneAndUpdate({"rooms._id":roomId},{$push: {"rooms.$.contracts":{"holderName":name,"holderSurname":surname,"holderDoB":DoB,"sex":sesso,"holderJob":job,"inDate":inDate,"outDate":outDate}}} );
+            // console.log('dentro update add contract');
             res.send(result);
          }
          catch (error) {

@@ -6,6 +6,7 @@ var contract = new mongoose.Schema({
     holderSurname:  String,
     holderDoB:      Date,
     holderJob:      String,
+    sex:            String,
     inDate:         Date,
     outDate:        Date
 });
@@ -15,6 +16,7 @@ var room = new mongoose.Schema({
     price:  Number,
     extAccess: String,
     img:    [String],
+    descrStanza : String,
     contracts: [contract]
 });
 var appartSchema = new mongoose.Schema({

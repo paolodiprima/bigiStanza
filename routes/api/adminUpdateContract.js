@@ -11,6 +11,7 @@ const checkDate = require('../../middleware/midCheckDataContract');
 router.post('/:idroom', checkDate, (req,res) => {
 
     //  input validation
+  //  console.log(`name ${req.body.HolderName} -- surname : ${req.body.HolderSurname} -- nato : ${req.body.HolderDoB} -- job : ${req.body.HolderJob} -- sesso : ${req.body.sesso}`);
     const resultValidation = Joi.validate(req.body,schemaValidationContract);
     console.log('error result obj : ' + resultValidation.error);
     if (resultValidation.error){
@@ -26,19 +27,20 @@ router.post('/:idroom', checkDate, (req,res) => {
             var    surname =  req.body.HolderSurname;
             var    DoB =  req.body.HolderDoB;
             var    job =  req.body.HolderJob;
+            var    sesso = req.body.sesso;
             var    inDate =  req.body.inDate;
             var    outDate =  req.body.outDate;
             var    indexContract = req.body.indexContract;
             indexContract = parseInt(indexContract) - 1;
            
             // update data contract
-            
             var query = {"rooms._id" :  roomId} ;
              
             var update = `{ "rooms.$.contracts.${indexContract}.holderName" : "${name}",`;
             update = update + `"rooms.$.contracts.${indexContract}.holderSurname" : "${surname}",`;
             update = update + `"rooms.$.contracts.${indexContract}.holderJob" : "${job}",`;
             update = update + `"rooms.$.contracts.${indexContract}.holderDoB" :  "${DoB}",`;
+            update = update + `"rooms.$.contracts.${indexContract}.sex" : "${sesso}",`;
             update = update + `"rooms.$.contracts.${indexContract}.inDate" : "${inDate}",`;
             update = update + `"rooms.$.contracts.${indexContract}.outDate" : "${outDate}" }`;
             

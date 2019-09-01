@@ -11,7 +11,7 @@ router.get('/', (req,res) => {
         .then((data)=>{
             
             const dataJSON = JSON.parse(JSON.stringify(data));
-            res.render('index',{appartList:dataJSON}); //pass obj list appartments
+            res.render('home',{appartList:dataJSON}); //pass obj list appartments
         })
         .catch((err)=>{
             console.log(err);
