@@ -371,14 +371,18 @@ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="ano
               let outDate = new Date($(this).serializeArray()[6].value)
               
                // check if contract is active, if yes update table
+
+               let rowIndex = findRowIndex(roomId);
+               let rowsArray = $('#tableRooms tbody tr');
+
                if ( inDate < today  &&  today < outDate ) {
                 
-                let rowIndex = findRowIndex(roomId);
-                let rowsArray = $('#tableRooms tbody tr');
                 rowsArray[rowIndex].getElementsByTagName('td')[3].innerHTML = convertDate(inDate);
                 rowsArray[rowIndex].getElementsByTagName('td')[4].innerHTML = convertDate(outDate);
-
-
+               } else {
+                
+                rowsArray[rowIndex].getElementsByTagName('td')[3].innerHTML = "libera";
+                rowsArray[rowIndex].getElementsByTagName('td')[4].innerHTML = "libera";
                }  
               
               let data = $( this ).serialize();
