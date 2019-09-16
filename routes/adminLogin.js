@@ -57,11 +57,11 @@ router.post('/login',async (req,res) => {
     const validPassword = await bcrypt.compare(password,user.password);
     if (!validPassword)  return  res.render('login',{error_message:'wrong password', confirm_message : ''}) ;
     req.session.userId =  user._id;
-    res.render('login',{ confirm_message : 'logged in',error_message:'',
-                userId : user._id });
-    
+    req.session.userName = user.name;
+    res.redirect('/admin/dashboard');
    
     
 });
+
 
 module.exports = router;

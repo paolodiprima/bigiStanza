@@ -1,6 +1,5 @@
 const express = require('express');
 const router = new express.Router();
-const mongoose = require('mongoose');
 const appartModel = require('../../models/appartamentiModel');
 const multer = require('multer');
 const path = require('path');
@@ -39,7 +38,6 @@ function checkFileType(file,cb){
     }
 }
 
-
 router.post('/',function(req,res){
 
     upload(req,res,(err) =>{
@@ -47,20 +45,11 @@ router.post('/',function(req,res){
         console.log('nome finale'+req.file.filename);
         console.log('appartID: '+req.body.appartId);
         console.log('roomID: ' +req.body.room);
-        if (req.body.room){
-            console.log('uploading img room');
-            // query insert img appart in mongo
 
-
-        } else {
-            console.log('uploading img appart');
-            // query insert img room in mongo
-        }
         if(err) { 
-            res.send(err);
+            res.status(400).send (err );
         } else{
             if(req.file == undefined){
-                console.log('errore: no upload');
                 res.send('Errore: nessun file selezionato');
             } else{
             // file correctly saved    
@@ -70,7 +59,6 @@ router.post('/',function(req,res){
                     appartModel.findOneAndUpdate({ _id: req.body.appartId, 'rooms._id': req.body.room }, 
                     { $push: { 'rooms.$.img': req.file.filename }})
                         .then((data)=>{
-                               
                         })
                         .catch((err)=>{
                         res.status(404).send(err);

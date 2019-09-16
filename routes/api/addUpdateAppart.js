@@ -27,18 +27,18 @@ router.post('/', (req,res) => {
                 numBathRooms : req.body.numBathrooms,
                 appartSize : req.body.appartsize,
                 services : req.body.services,
-                description : req.body.description,
+                description : req.body.description.trim(),
                 rooms : []
             });
 
             // insert array of rooms and append into the Model
-            var objRoom = {};
             for (i=1;i<=parseInt(req.body.numRooms);i++) {
-              
+                let objRoom = {};
                 objRoom.size = req.body["roomsize"+i];
                 objRoom.price = req.body["price"+i];
                 objRoom.extAccess = req.body["accesso"+i];
                 newAppart.rooms[i-1] = objRoom;
+                
             }
 
             const result = await newAppart.save();
@@ -77,6 +77,7 @@ router.post('/:idappart', (req,res) => {
             var    appartSize =  req.body.appartsize;
             var    services =  req.body.services;
             var    description =  req.body.description;
+            description = description.trim();
               
             // update data appartment
             
@@ -84,23 +85,25 @@ router.post('/:idappart', (req,res) => {
                                                                                             "address": address, 
                                                                                             "city": city,
                                                                                             "cap": cap,
-                                                                                            "floor": floor,
+                                                                                            "floor" : floor,
+                                                                                            "appartSize" : appartSize ,
                                                                                             "numBathRooms": numBathRooms,
                                                                                             "services": services,
                                                                                             "description":description}});  
             
             // update data rooms
             // one update for each room
-                        
+                  
             for (var i=0;i<parseInt(numRooms);i++) {
+                
                 var roomsize = req.body["roomsize"+(i+1)];
                 var price = req.body["price"+(i+1)];
                 var accesso = req.body["accesso"+(i+1)];
                 var descrRoom = req.body["descriptionRoom"+(i+1)];
+                descrRoom = descrRoom.trim();
                 var query = `{"_id" : "${idappart}"}`;
                 var jsonquery = JSON.parse(query);
                 var update = `{ "rooms.${i}.size": ${roomsize},"rooms.${i}.price":${price},"rooms.${i}.extAccess":"${accesso}","rooms.${i}.descrStanza":"${descrRoom}" }`;
-                
                 var jsonupdate = JSON.parse(update);
                 result = await newAppartModel.findOneAndUpdate(jsonquery,jsonupdate);
             }

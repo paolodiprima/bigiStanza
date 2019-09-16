@@ -8,14 +8,41 @@
     height:100%; /*  100hv */
   }
   
-  .map-container {
+.map-container {
 	height:100%; 
 }
 .notavailable {
 	opacity: 0.5  
   }
 
-  .select2 {
-   
-	width: 100% !important;
-}
+
+    /* Small devices (tablets, 768px and up) */
+    @media (min-width: 0px) {
+      h4 {
+        font-size: 1rem   ;
+       
+      } 
+      
+    }
+
+    @media (min-width: 768px) {
+      h4 {
+        font-size: 1.1rem   ;
+      } 
+      
+    }
+  
+    /* Medium devices (desktops, 992px and up) */
+    @media (min-width: 992px) {
+      h4 {
+        font-size: 1.3rem   ;
+      }
+    }
+  
+    /* Large devices (large desktops, 1200px and up) */
+    @media (min-width: 1200px) {
+      h4 {
+        font-size: 1.5rem;
+               }
+    }
+    

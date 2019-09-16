@@ -10,7 +10,11 @@ var infoRequestSchema = new mongoose.Schema({
     job:      String,
     inDate:   Date,
     outDate:  Date,
-    msg :     String
+    msg :     String,
+    date : {
+        type : Date,
+        default: Date.now
+    }
 },
 { collection: 'infoRequests' }
 );

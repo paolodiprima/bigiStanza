@@ -1,9 +1,3 @@
-// window.addEventListener('submit',function(event){
-
-//     event.preventDefault();
-//     this.alert($("body").attr("data-id"));
-// });
-
 (function () {
     'use strict';
     window.addEventListener('load', function () {

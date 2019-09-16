@@ -10,7 +10,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 //session constant
-const ONE_HOUR = 1000 * 60 * 60 // 1000 msec = 1 sec ; 60 sec = 1 min ; 60 min = one hour
+const ONE_HOUR = 1000 * 60 * 60 * 2  // 1000 msec = 1 sec ; 60 sec = 1 min ; 60 min  2 times = two hour
 const SECURE_VALUE = process.env.NODE_ENV === 'production';
 const SESSION_SECRET = process.env.SESSION_SECRET;
 
@@ -25,6 +25,7 @@ const adminImgAppart = require('./routes/adminImgAppart');
 const delImgAppart = require('./routes/api/deleteImg');
 const adminContracts = require('./routes/adminContracts');
 const adminLogin = require('./routes/adminLogin');
+
 
 //api
 const appartList = require('./routes/api/appartList');
@@ -41,16 +42,15 @@ const apiAdminUpdateContract = require('./routes/api/adminUpdateContract');
 const apiAdminInsertContract = require('./routes/api/adminInsertContract');
 const apiCheckDateContract = require('./routes/checkDateContract');
 const adminLogout = require('./routes/adminLogout');
+const adminDashboard = require('./routes/adminDashboard');
 
 //middlewere
 const checkDateContract = require('./routes/checkDateContract');
-
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
 
- 
- 
+mongoose.set('useFindAndModify', false);
 
 //connect to db
 mongoose.connect(process.env.DB_CONNECT_MIN,{useNewUrlParser:true},function(err){
@@ -69,8 +69,12 @@ app.use(express.static('public'));                //  set public folder
 
 
 // set render engine ejs
+app.engine('.html',require('ejs').renderFile);
+app.set('view engine','html');
 app.set('views',[path.resolve(__dirname,'views'),path.resolve(__dirname,'views/admin')]);  //setup rendering engine ejs
-app.set('view engine','ejs');
+// app.set('view engine','ejs');
+
+
 // app.use(cookieParser());
 app.use(session({
     name : process.env.SESSION_NAME,
@@ -87,7 +91,7 @@ app.use(session({
     }
 }));
 
-app.use('/api-appartlist',appartList);   
+app.use('/api/appartlist',appartList);   
 app.use('/api-admin-appart',adminAppart);
 app.use('/api-add-update-appart',apiAddUpdateAppart);
 app.use('/api-upload',apiUpload);
@@ -97,8 +101,8 @@ app.use('/api/deleteAppart',apiDeleteAppart);
 app.use('/api-appartNameList',apiAppartNameList);
 app.use('/api-adminRoomList',apiAppartRoomsList);
 app.use('/api-roomContracts',apiRoomContracts);
-app.use('/api/addUpdateContract/',apiAdminUpdateContract); // aggiungere middleware ?
-app.use('/api-insertContract',apiAdminInsertContract);  // aggiungere middleware ?
+app.use('/api/addUpdateContract/',apiAdminUpdateContract); 
+app.use('/api/insertContract',apiAdminInsertContract);  
 app.use('/api/checkdatecontract',apiCheckDateContract);
 
 app.use('/',home);
@@ -109,8 +113,9 @@ app.use('/admin/add-update-appart',addUpdateAppart);
 app.use('/admin/imgappart',adminImgAppart);
 app.use('/admin/contracts',adminContracts);
 app.use('/admin/',adminLogin);
-app.use('/admin/',adminLogout)
+app.use('/admin/',adminLogout);
+app.use('/admin/',adminDashboard);
 
 
 var port = process.env.PORT || 3000 ;
-app.listen(port,function(){console.log(`listening at port ${port}...`)});
+app.listen(port,function(){console.log(`Server Up, listening at port ${port}...`)});

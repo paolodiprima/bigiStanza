@@ -11,7 +11,7 @@ router.get('/:appartid',checkAuth, (req,res) => {
         .then((data)=>{
             
             const dataJSON = JSON.parse(JSON.stringify(data));
-            res.render('adminImgAppart',{appart:dataJSON}); //pass obj with appartmes selected
+            res.render('adminImgAppart',{appart:dataJSON,user:req.session.userName}); //pass obj with appartmes selected
           
         })
         .catch((err)=>{

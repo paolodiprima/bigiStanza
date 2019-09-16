@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/spur.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="../../js/chart-js-config.js"></script>
+    <title>Bigi Stanza Gestione Immagini</title>
+    <style>
+
+    #mydiv#mydiv.divfile{
+        opacity: 1;
+        width: 1px;
+        height: 1px;   
+        display:none 
+
+    }
+    
+    </style>
+</head>
+<body class="">  
+ 
+    <div class="dash">
+        <div class="dash-nav dash-nav-dark">
+            <header>
+                <a href="#!" class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </a>
+                <a href="/" class="spur-logo"><i class="fas fa-bolt"></i> <span>BiGi Stanza</span></a>
+            </header>
+               
+            <nav class="dash-nav-list">
+                <a href="/admin/dashboard" class="dash-nav-item">
+                    <i class="fas fa-home"></i> Dashboard </a>
+              
+                <a href="/admin/appartlist" class="dash-nav-item">
+                    <i class="fas fa-building"></i>Appartamenti</a>
+                
+                
+                <a href="/admin/contracts" class="dash-nav-item">
+                    <i class="fas fa-file-signature"></i>Contratti </a>
+
+
+                <div class="dash-nav-dropdown">
+                    <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+                        <i class="fas fa-info"></i> About </a>
+                    <div class="dash-nav-dropdown-menu">
+                        <a href="https://github.com/HackerThemes/spur-template" target="_blank" class="dash-nav-dropdown-item">GitHub</a>
+                        <a href="http://hackerthemes.com" target="_blank" class="dash-nav-dropdown-item">HackerThemes</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="dash-app">
+            <header class="dash-toolbar">
+                <a href="#!" class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </a>
+
+                <div class="tools align-text">
+
+                    <h4>Benvenuto <%=user%></h4>
+                    <div class="dropdown tools-item">
+                        <a href="#" class="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>  
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                            <a class="dropdown-item" href="#!">Profile</a>
+                            <a class="dropdown-item" href="/admin/logout">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+    <main class="dash-content bg-white">
+    
+        <div class="container border mt-2 bg-light" id="maincontainer" data-appartId="<%=appart._id%>">
+            <p>
+                <h3 class="">
+                    <%= appart.internalName %>
+                </h3>
+    
+                <form action="/api-upload" method="POST" enctype="multipart/form-data" id="formUpload">
+                    <p>
+                        <div class="divfile" id="mydiv">
+                            <input type="file" name="image" class="inputImgFile">
+                            <input type="text" name="room" id="roomInput">
+                        </div>
+                    </p>
+    
+                </form>
+                <button class="btn btn-primary addimg " id="0">Aggiungi Immagine</button>
+            </p>
+            <div class="row">
+    
+                <% for ( imgIndex in appart.imgAppart) { %>
+                <% if (!isNaN(imgIndex)) {  %>
+                <div class="col-sm-6 col-md-3 col-xl-2 d-flex">
+                    <div class="card mb-2">
+                        <img src="../../img/<%=appart.imgAppart[imgIndex]%>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <!--    <h6 class="card-title">Foto num. <%= imgIndex %></h6> -->
+                            <p class="card-text text-center">
+                                <!-- <a class="fa fa-trash fa-lg deleteAppartImg"  id="<%=appart.imgAppart[imgIndex]%>" href="#"></a></p> -->
+                                <button class="btn btn-sm btn-light deleteAppartImg" type="button"
+                                    id="<%=appart.imgAppart[imgIndex]%>"><i class="fa fa-trash fa-lg"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <% }; %>
+                <% }; %>
+            </div>
+        </div>
+        <% for ( roomIndex in appart.rooms ) { %>
+        <% if (!isNaN(roomIndex)) {  %>
+        <div class="container my-1 border bg-light">
+            <% var i = parseInt(roomIndex) + 1 %>
+            <p class="inline">
+                <h5>Stanza <%= i %></h5>
+                <button class="btn btn-primary addimg" data-room="<%=appart.rooms[roomIndex]._id%>" id="<%= i %>">Aggiungi
+                    Immagine</button>
+            </p>
+            <div class="row mb-1">
+                <% for ( imgRoomIndex in appart.rooms[roomIndex].img) { %>
+                <% if (!isNaN(imgRoomIndex)) {  %>
+                <div class="col-sm-6 col-md-3 col-xl-2 d-flex">
+                    <div class="card">
+                        <img src="../../img/<%=appart.rooms[roomIndex].img[imgRoomIndex]%>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <!--   <h6 class="card-title">Foto num. <%= imgRoomIndex %></h6> -->
+                            <p class="card-text text-center ">
+    
+                                <button class="btn btn-sm  btn-light removeroom" type="button"
+                                    data-room="<%=appart.rooms[roomIndex]._id%>"
+                                    id="<%=appart.rooms[roomIndex].img[imgRoomIndex]%>"><i
+                                        class="fa fa-trash fa-lg"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                <% } %>
+            </div>
+        </div>
+        <% }; %>
+        <% }; %>
+        <div class="modal" tabindex="-1" role="dialog" id="modalDialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Anteprima Immagine</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body d-flex" id="anteprima">
+    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-room="" id="btnUpload">Upload</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            id="btnAnnulla">Annulla</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    </div> <!-- dash content-->
+    </div> <!-- dash -->
+        
+        <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="../js/spur.js"></script>
+        
+       
+       
+       <script>
+      //  var i ;
+        function callAjax(currentElem){
+            
+            // collect info for ajax call           
+            var appartId = $('#maincontainer').attr('data-appartId');
+            var roomId = $(currentElem).attr('data-room');
+            var nameImg = $(currentElem).attr('id');
+            var url = "/api/admin/img/delete" 
+             
+            // confirmation control
+            var confirmCancellation = confirm('CONFERMI LA CANCELLAZIONE');
+            if (confirmCancellation){              
+                data = { appartId : appartId,
+                         roomId: roomId,
+                         nameImg : nameImg
+                }
+                // call api that remove img
+                $.ajax({
+                    dataType : 'JSON',
+                    data: data,
+                    type: 'POST',
+                    url: url,
+                    success: function (result,status){
+                        alert('IMMAGINE '+ nameImg + ' CANCELLATA!');
+                        console.log(status);
+                        setTimeout(location.reload(true),1500);
+                    },
+                    error: function(){                           
+                        alert('Si è verificato un errore durante la cancellazione');
+                        setTimeout(location.reload(true),1000);
+                        console.log(status);
+                    }
+                });
+            } else {
+                alert('OPERAZIONE ANNULLATA');
+            }                                        
+        }
+
+        $(document).on('click','.deleteAppartImg',function (){
+            callAjax(this);
+        });
+
+        $(document).on('click','.removeroom',function (){
+            callAjax(this);
+        });
+
+        // update room id and click on input file button
+        $(document).on('click','.addimg',function(){
+            console.log('click');
+            $('#roomInput').val($(this).attr('data-room'));
+            $('.inputImgFile').click();            
+        });
+        
+        $(document).on('change','.inputImgFile',function(){
+            
+            // read image
+            const reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function (event){
+                img = new Image();
+                img.src = reader.result
+
+                // remove previous image
+                if (document.getElementById("anteprima").hasChildNodes){
+                    var modalNode = document.getElementById("anteprima");
+                        while (modalNode.firstChild) {
+                            modalNode.removeChild(modalNode.firstChild);
+                    }
+                }
+
+                // append new image to modal element
+                document.getElementById("anteprima").appendChild(img);
+                $('#modalDialog').modal('show') 
+            }     
+        });
+
+        // on click button upLoad trigger event submit
+        $(document).on('click','#btnUpload',function(){
+            $('form#formUpload').trigger('submit');
+            $('#modalDialog').modal('hide');
+                          
+        });
+
+        $('form#formUpload').submit(function(event){
+            event.preventDefault();
+           
+            console.log("dentro la submit");
+            var appartId = $('#maincontainer').attr('data-appartId');
+          //  var roomId = $('#btnUpload').attr('data-room');
+            var url = '/api-upload';
+            var data = new FormData(this);
+            data.append('appartId',appartId); 
+          
+            $.ajax({
+                    type: 'POST',
+                    enctype : 'multipart/form-data',
+                    url : url,
+                    data : data,
+                    processData : false,
+                    contentType: false,
+                    cache: false,
+                    success: function(result,status){
+                        console.log('successo');
+                        console.log(result);
+                        console.log(status);
+                        $('form#formUpload').trigger('reset');
+                        setTimeout( () => {alert('UPLOAD COMPLETATO');
+                                              location.reload(true);}
+                                     ,1500);
+                    },
+                    error: function(e){
+                        $('form#formUpload').trigger('reset');
+                        console.log('fallito');
+                        console.log(e);
+                    },
+                   
+                });
+
+        });
+        //     $(document).ready(function () {
+            
+
+        // });
+        </script>          
+</body>
+</html>

@@ -15,7 +15,7 @@ router.get('/:appartid', checkAuth, (req, res) => {
     .then((data) => {
       data.update = true;
       const dataJSON = JSON.parse(JSON.stringify(data));
-      res.render('adminAddUpdateAppart', { appart: dataJSON }); //append object appartment list
+      res.render('adminAddUpdateAppart', { appart: dataJSON,user:req.session.userName }); //append object appartment list
 
     })
     .catch((err) => {
@@ -26,7 +26,7 @@ router.get('/:appartid', checkAuth, (req, res) => {
 });
 
 // appartment data mangement in mode update = false
-router.get('/', (req, res) => {
-  res.render('adminAddUpdateAppart');
+router.get('/',checkAuth, (req, res) => {
+  res.render('adminAddUpdateAppart',{user:req.session.userName } );
 });
 module.exports = router;

@@ -40,8 +40,9 @@ function callAjax(event) {
             alert("MESSAGGIO INVIATO!");
         },
         error: function (error) {
-            alert("Si è verificato un errore durante l'invio \n" + error.responseText);
             $('form#contatti').removeClass('was-validated');
+            alert("Si è verificato un errore durante l'invio \n" + error.responseText);
+            
 
         }
     });

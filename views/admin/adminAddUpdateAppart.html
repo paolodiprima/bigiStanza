@@ -3,26 +3,87 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport"   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"  href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous"/>
+    <link rel="stylesheet"  href="https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700">
+    <link rel="stylesheet"  href="../../css/spur.min.css">
 
-    <title>BiGi Stanza Admin</title>
-
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" -->
-        <!-- integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
-        <link rel="stylesheet" href="https://bootswatch.com/4/spacelab/bootstrap.min.css"> 
-    <link rel="stylesheet" href="../../css/style.css" media="all">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet"  href="../../css/customStyle.css">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css">
+    <link rel="stylesheet" href="../../css/select2-bootstrap4.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="../../js/chart-js-config.js"></script>
+    <title>Bigi Stanza DashBoard</title>
 
 </head>
 
 <body class="bg-light" id="<%= (typeof appart == "undefined") ? "" :  appart._id  ;%>">
-    <% include ../views/admin/admin-nav.ejs %>
-    <div class="container bg-light mt-4" id="formAppart">
-        <!-- <div class="row"> -->
+        <div class="dash">
+                <div class="dash-nav dash-nav-dark">
+                    <header>
+                        <a href="#!" class="menu-toggle">
+                            <i class="fas fa-bars"></i>
+                        </a>
+                      
+                        <a href="/admin/dashboard" class="spur-logo"><i class="fas fa-bolt"></i> <span>BiGi Stanza</span></a>
+                    </header>
+                      
+                    <nav class="dash-nav-list">
+                        <a href="/admin/dashboard" class="dash-nav-item">
+                            <i class="fas fa-home"></i> Dashboard </a>
+                      
+                        <a href="/admin/appartlist" class="dash-nav-item">
+                            <i class="fas fa-building"></i>Appartamenti</a>
+                        
+                        
+                        <a href="/admin/contracts" class="dash-nav-item">
+                            <i class="fas fa-file-signature"></i>Contratti </a>
+        
+        
+                        <div class="dash-nav-dropdown">
+                            <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+                                <i class="fas fa-info"></i> About </a>
+                            <div class="dash-nav-dropdown-menu">
+                                <a href="https://github.com/HackerThemes/spur-template" target="_blank" class="dash-nav-dropdown-item">GitHub</a>
+                                <a href="http://hackerthemes.com" target="_blank" class="dash-nav-dropdown-item">HackerThemes</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div class="dash-app">
+                    <header class="dash-toolbar">
+                        <a href="#!" class="menu-toggle">
+                            <i class="fas fa-bars"></i>
+                        </a>
+                        
+                        
+                        
+                            <div class="tools align-item-center">
+                                <p class="text-center text-black  ">
+                                    <h3> DATI  APPARTAMENTI </h3>
+                                </p>
+                            </div>
+                            <div class="tools align-text">
+                            <h4>Benvenuto <%=user%></h4>
+                            <div class="dropdown tools-item">
+                                <a href="#" class="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-user"></i>  
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                                    <a class="dropdown-item" href="#!">Profile</a>
+                                    <a class="dropdown-item" href="/admin/logout">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+
+
+
+ 
+    <div class="container bg-light my-2 mt-4" id="formAppart">
+        
         <form action="/api-add-update-appart" novalidate method="POST" id="mainform">
             <!-- chiamare AJAX per fare inserimento nel db, dopo abilitare 
         il bottone immagini -->
@@ -100,7 +161,7 @@
             <div class="form-row ">
                 <div class="form-group col-md-3">
                     <label for="services">Servizi</label>
-                    <select multiple="multiple" class="form-control select2-services" name="services" size="6"
+                    <select multiple="multiple" class="form-control select2-services  " name="services" size="6"
                         id="services">
                         <!-- <option value=""></option> -->
                         <option
@@ -152,40 +213,34 @@
                         <label for="price">Prezzo</label>
                         <input type="number" class="form-control" name="price1" id="price">
                     </div>
-                    <div class="form-group col-md-2  text-center ">
-                        <!-- align-self-center  -->
-                   
-                        
-                        <div class="form-check-inline   ">
-                            
-                            <input type="radio" class="  form-check-input " id="window" value="finestra" checked name="accesso1">
-                            <label for="window" class="form-check-label mr-1  ">Finestra</label>
-                            <!-- </div> -->
 
-                            
-                            <input type="radio" class="form-check-input " id="balcon" value="balcone" name="accesso1">
-                            <label for="balcon" class="form-check-label "> Balcone</label>
-                        </div>
+                    <div class="form-group col-md-3 align-self-center  text-center ">
+                            <div class="form-check">
+                                <label for="window1" class="form-check-label">
+                                <input type="radio" class="form-check-input" id="window1" value="finestra" checked name="accesso1">
+                                Finestra</label>
+                                <label for="balcon1" class="form-check-label  pl-4 ">
+                                <input type="radio" class="form-check-input" id="balcon1" value="balcone" name="accesso1">
+                                Balcone</label>
+                            </div>
                     </div>
-                     
-                    <div class="form-group col-md-6  mt-auto ">
+
+                    <div class="form-group col-md-5  mt-auto ">
                             <label for=""></label>
                             <label for="descriptionRoom">Descrizione Stanza</label>
-                            <textarea name="descriptionRoom" id="descriptionRoom" class="form-control" rows="1"><%= (typeof appart == "undefined") ? "":appart.description ;%> 
+                            <textarea name="descriptionRoom1" id="descriptionRoom1" class="form-control" rows="1"><%= (typeof appart == "undefined") ? "":appart.description ;%> 
                             </textarea>
                     </div>
                 </div>
             </fieldset>
             <%  }; %>
-            <% if (!(typeof appart == "undefined")) { %>
-            <%   for (stanzaIndex in appart.rooms){ %>
-            <% var index = parseInt(stanzaIndex) + 1%>
+            <% if (!(typeof appart == "undefined")) {           %>  <!-- if there is an appart -->
+            <%   for (stanzaIndex in appart.rooms){             %>
+            <%          var index = parseInt(stanzaIndex) + 1   %>
             <fieldset class="form-group stanze">
                 <div class="form-row border align-items-center">
-                    <legend class="col-form-label">STANZA <%= index %>
-                        <!-- <a href="#" class="btn btn-sm btn-secondary addbtn" id="btnStanza2Add"><i class="fa fa-plus" ></i></a>
-                            <a href="#" class="btn btn-sm btn-secondary removebtn" id="btnStanza2Remove"><i class="fa fa-minus" ></i></a> -->
-                    </legend>
+                    <legend class="col-form-label">STANZA <%= index %> </legend>
+                                
 
                     <div class="form-group col-md-2">
                         <label for="roomsize">Dimensioni(mq)</label>
@@ -226,11 +281,15 @@
 
         </form>
     </div> <!-- container formAppart-->
+    </div> <!-- dash -->
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/js/spur.js"></script>
     <script>
             (function () {
                 'use strict';
@@ -263,7 +322,9 @@
                 $("#cap").val(e.params.args.data.id);
             });
             // init select 2 for services
-            $('#services').select2();
+            $('#services').select2({
+                theme : 'bootstrap4'
+            });
 
             // override  short input message in Italian
             $.fn.select2.defaults.defaults['language'].inputTooShort = function(){
@@ -272,6 +333,7 @@
             
             // init select2 for city, from remote source of comuni
             $('#selectCity').select2({
+                theme : 'bootstrap4',
                 tag: true,
                 placeholder: "Seleziona un citta'",
                 minimumInputLength: 3,
@@ -311,28 +373,33 @@
                                         <a href="#" class="btn btn-sm btn-secondary removebtn" id="btnStanza${nstanze + 1}Remove"><i class="fa fa-minus" ></i></a></legend>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-3">
-                                            <label for="roomsize">Dimensioni(mq)</label>
+                                        <div class="form-group col-md-2">
+                                            <label for="roomsize">Dim(mq)</label>
                                             <input type="number" class="form-control" name="roomsize${nstanze + 1}" id="roomsize${nstanze + 1}">
                                         </div>
-                                        <div class="form-group col-md-3">
+                                        <div class="form-group col-md-2">
                                             <label for="price">Prezzo</label>
                                             <input type="number" class="form-control" name="price${nstanze + 1}" id="price${nstanze + 1}">
                                         </div>
-                                        <div class="form-group col-md-4 align-self-center  text-center ">
+
+
+
+                                        <div class="form-group col-md-3 align-self-center  text-center ">
                                             <div class="form-check">
-                                                <label for="window" class="form-check-label   "></label>
-                                                <input type="radio" class="form-check-input" id="window" value="finestra" checked name="accesso${nstanze + 1}">
+                                                <label for="window${nstanze + 1}" class="form-check-label   ">
+                                                <input type="radio" class="form-check-input" id="window${nstanze + 1}" value="finestra" checked name="accesso${nstanze + 1}">
                                                 Finestra</label>
-                                                <label for="balcon" class="form-check-label  pl-4 "></label>
-                                                <input type="radio" class="form-check-input" id="balcon" value="balcone" name="accesso${nstanze + 1}">
+                                                <label for="balcon${nstanze + 1}" class="form-check-label  pl-4 ">
+                                                <input type="radio" class="form-check-input" id="balcon${nstanze + 1}" value="balcone" name="accesso${nstanze + 1}">
                                                 Balcone</label>
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-2  mt-auto "> <!--d-flex-->
-                                            <label for=""></label>
-                                                <a href="#${nstanze + 1}" class="btn  btn-secondary btn-block immaginiroom" id="addImg1"><i class="fa fa-image"></i>
-                                                + IMMAGINI</a>
+
+                                        <div class="form-group col-md-5  mt-auto "> <!--d-flex-->
+                                                <label for="descriptionRoom">Descrizione Stanza</label>
+                                                <textarea name="descriptionRoom${nstanze + 1}" id="descriptionRoom${nstanze + 1}" class="form-control" rows="1"><%= (typeof appart == "undefined") ? "":appart.description ;%> 
+                                                </textarea>
+                          
                                         </div>
                                     </div>
                                  
@@ -424,7 +491,7 @@
 
         });
 
-     //   $('form#mainform').submit(function (event) {
+    
          function callAjax(event){
             var idappart = $("body").attr("id");
             var city = $("#selectCity :selected").text();
@@ -445,7 +512,7 @@
                 type: 'POST',
                 url: url,
                 success: function (dataj, status) {
-                    // enable  bottom +IMMAGINI by insert a value on href attribute
+                    // enabled  bottom +IMMAGINI by insert a value on href attribute
 
                     $("#addImg1").attr('href', '/admin/imgappart/' + dataj._id);
                     $('#addImg1').trigger('click');

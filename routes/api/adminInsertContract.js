@@ -12,7 +12,7 @@ router.post('/:idroom',checkDate, (req,res) => {
     //  input validation
     const resultValidation = Joi.validate(req.body,schemaValidationContract);
     if (resultValidation.error){
-        res.send(resultValidation.error.details[0].message);
+        res.status(400).send(resultValidation.error.details[0].message);
         return;
     } 
     
@@ -29,12 +29,13 @@ router.post('/:idroom',checkDate, (req,res) => {
             var    sesso = req.body.sesso;
             var    indexContract = req.body.indexContract;
 
-            result = await roomModel.findOneAndUpdate({"rooms._id":roomId},{$push: {"rooms.$.contracts":{"holderName":name,"holderSurname":surname,"holderDoB":DoB,"sex":sesso,"holderJob":job,"inDate":inDate,"outDate":outDate}}} );
-            // console.log('dentro update add contract');
+            result = await roomModel.findOneAndUpdate({"rooms._id":roomId},
+                                                      {$push: {"rooms.$.contracts":{"holderName":name,"holderSurname":surname,"holderDoB":DoB,"sex":sesso,"holderJob":job,"inDate":inDate,"outDate":outDate}}} );
+            
             res.send(result);
          }
          catch (error) {
-            res.send('error',err);
+            res.status(400).send(err);
          }
     }
     insertContract();  

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/spur.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="../../js/chart-js-config.js"></script>
+    <title>Bigi Stanza DashBoard</title>
+</head>
+<style>
+html, body {height: 100%}
+</style>
+<body>
+  
+  <div class="container h-100">
+    <div id="formContent" class="row h-100 justify-content-center align-items-center">
+      <!-- Login Form -->
+     
+      <form id="loginForm" method="POST" class="col-12 " action="/admin/login">
+        <div class="form-group border shadow   ">
+          <div class="row m-3">
+            <div class="col-md-3"></div>
+            <div class="col-md-6   mx-0 offset-md-2">
+              <h2>LOGIN</h2>
+  
+              <% if (error_message!='') { %>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <%= error_message %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <% } %>
+              <% if (confirm_message!='') { %>
+              <div class="alert alert-success" role="alert">
+                <%= confirm_message %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <% } %>
+  
+              <input type="text " class="form-control" id="login" class=" " name="name" placeholder="login">
+            </div>
+          </div>
+          <div class="row m-3">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 mx-0 offset-md-3">
+              <input type="password" class="form-control" id="password" class=" " name="password" placeholder="password">
+            </div>
+          </div>
+  
+          <div class="row m-3">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 mx-0 offset-md-3">
+  
+              <input type="submit" class="btn btn btn-primary" value="Log In">
+            </div>
+          </div>
+        </div>
+</form>
+  
+    </div>
+  </div> 
+
+
+
+         
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

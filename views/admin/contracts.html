@@ -6,22 +6,93 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title> Contratti</title>
-  <link rel="stylesheet" href="https://bootswatch.com/4/spacelab/bootstrap.min.css"> 
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" -->
-    <!-- integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-    crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700" >
+  <link rel="stylesheet" href="../../css/spur.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+  <script src="../../js/chart-js-config.js"></script>
+
+
+    <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <script>
+        function convertDate(date){
+       
+          const options = { 'day' : 'numeric', 'month' : 'short' , 'year' : 'numeric' };
+          if (typeof date !== 'string') {
+              return date.toLocaleString('it-IT',options);
+          }
+          else {
+              let  date = new Date(date);
+              return date.toLocaleString('it-IT',options);
+          }
+        }
+    </script>
+
 </head>
 
-<body class="bg-info">
+<body class="dash-app" >
+    <div class="dash">
+        <div class="dash-nav dash-nav-dark">
+            <header>
+                <a href="#!" class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </a>
+                <a href="/admin/dashboard" class="spur-logo"><i class="fas fa-bolt"></i> <span>BiGi Stanza</span></a>
+            </header>
+            <nav class="dash-nav-list">
+                <a href="/admin/dashboard" class="dash-nav-item">
+                    <i class="fas fa-home"></i> Dashboard </a>
+                
+                <a href="/admin/appartlist" class="dash-nav-item">
+                    <i class="fas fa-building"></i>Appartamenti</a>
+                
+                
+                <a href="/admin/contracts" class="dash-nav-item">
+                    <i class="fas fa-file-signature"></i>Contratti </a>
 
+
+                <div class="dash-nav-dropdown">
+                    <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+                        <i class="fas fa-info"></i> About </a>
+                    <div class="dash-nav-dropdown-menu">
+                        <a href="https://github.com/HackerThemes/spur-template" target="_blank" class="dash-nav-dropdown-item">GitHub</a>
+                        <a href="http://hackerthemes.com" target="_blank" class="dash-nav-dropdown-item">HackerThemes</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+    <header class="dash-toolbar">
+        <a href="#!" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </a>
+        
+        <div class="tools align-item-center">
+            <p class="text-center text-black  ">
+                <h3> GESTIONE CONTRATTI </h3>
+        </p>
+        </div>
+        <div class="tools align-text">
+            <h4>Benvenuto <%=user%></h4>
+            <div class="dropdown tools-item">
+                <a href="#" class="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i>  
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                    <a class="dropdown-item" href="#!">Profile</a>
+                    <a class="dropdown-item" href="/admin/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<main class="dash-content">
 <div class="container bg-light mt-2 p-2">
-  
-  <div class="form-row">
+   <div class="form-row">
     <div class="col-md-3  form-group" >
       <input class="form-control" type="text" id="search" placeholder="cerca...">
 
@@ -29,12 +100,12 @@
   
     <div class="col-md-6 text-center   "> <!-- offset-md-3-->
        
-      <h4 class="mt-1"><span class="pl-3">LISTA STANZE </span></h4><!-- text-center-->
+      <h4 class="mt-1"><span class="pl-3"> </span></h4><!-- LISTA STANZE -->
     </div>
     <!-- <div class="col-md-1 form-group">
       <label for="filter" class="text-secondary col-form-label">FILTRO</label>
     </div> -->
-    <div class="col-md-3  form-group">
+    <div class="col-md-3 d-none  form-group">
 
       <select class="custom-select  form-group " id="filter">
         <option selected>Libere + Occupate</option>
@@ -52,33 +123,34 @@
                     <th scope="col">Canone</th>
                     <th scope="col" class="text-center">In</th>
                     <th scope="col" class="text-center">Out</th>
-                    <th scope="col" class=" ">Update</th>
-                    <th scope="col" class=" ">Insert</th>
+                    <th scope="col" class="text-center">Update</th>
+                    <th scope="col" class="text-center">Insert</th>
 
                 </tr>
             </thead>
             <tbody>
-                   <% for (var appartIndex = 0; appartIndex < appartRoomList.length; appartIndex++){ %>
+                    <% for (var appartIndex = 0; appartIndex < appartRoomList.length; appartIndex++){ %>
                     <% for (var roomIndex = 0; roomIndex < appartRoomList[appartIndex].rooms.length;  roomIndex++) {  %>
-                    <% var apt = parseInt(appartIndex) +1 ; %>
-                    <% var ro  = parseInt(roomIndex) +1;  %>
+                    <%    var apt = parseInt(appartIndex) +1 ; %>
+                    <%    var ro  = parseInt(roomIndex) +1;  %>
                       <tr id="<%=appartRoomList[appartIndex].rooms[roomIndex].contracts.length == 0 ? "libera" : "occupata" %>">
                         <td> <%= appartRoomList[appartIndex].internalName %> </td>  
                         <td> STANZA <%= apt  %>-<%=ro%> </td> 
-                        <td>  <%=appartRoomList[appartIndex].rooms[roomIndex].price %> </td>
-                        <!-- <%=appartRoomList[appartIndex].rooms.length %>  -->
-                        <td  class="text-center"> <%=appartRoomList[appartIndex].rooms[roomIndex].contracts.length == 0 ? "libera" : appartRoomList[appartIndex].rooms[roomIndex].contracts[0].inDate.toDateString().substring(3,15) %> </td>
-                        <td class="text-center">  <%=appartRoomList[appartIndex].rooms[roomIndex].contracts.length == 0 ? "libera" : appartRoomList[appartIndex].rooms[roomIndex].contracts[0].outDate.toDateString().substring(3,15)  %> </td>
-                        <td class="d-none" hidden="true"> </td>
-                        <td><a class="fa fa-pen fa-lg text-secondary"  id="<%=appartRoomList[appartIndex]._id %>" href="#divForm"  room="<%=roomIndex%>" data-toggle="tooltip" title="Modifica"></a></td>
-                        <td><a class="fa fa-plus fa-lg text-secondary" id="<%=appartRoomList[appartIndex]._id %>"  href="#divForm" room="<%=roomIndex%>" data-toggle="tooltip" title="Aggiungi"  ></a></td>
+                        <td>  <%=appartRoomList[appartIndex].rooms[roomIndex].price %> &#8364 </td>
+ 
+                         <% var activeContract = appartRoomList[appartIndex].rooms[roomIndex].contracts.length %>  
+                        <td  class="text-center"> <%=activeContract == 0 ? "libera" : appartRoomList[appartIndex].rooms[roomIndex].contracts[0].inDateF  %> </td>
+                        <td class="text-center">  <%=activeContract == 0 ? "libera" : appartRoomList[appartIndex].rooms[roomIndex].contracts[0].outDateF  %> </td>
+                        <td class="d-none" data-roomID="<%=appartRoomList[appartIndex].rooms[roomIndex]._id%>    "> <%=appartRoomList[appartIndex]._id %></td>
+                        <td class="text-center"><a class="fa fa-pen fa-lg text-secondary"  id="<%=appartRoomList[appartIndex]._id %>" href="#divForm"  room="<%=roomIndex%>" data-toggle="tooltip" title="Modifica"></a></td>
+                        <td class="text-center"><a class="fa fa-plus fa-lg text-secondary" id="<%=appartRoomList[appartIndex]._id %>"  href="#divForm" room="<%=roomIndex%>" data-toggle="tooltip" title="Aggiungi"  ></a></td>
                      </tr>
                      <% } %>
                     <% } %>
             </tbody>
       </table> 
     </div>
-    <!-- </div> --row-->
+  
 
 <!-- form per update / insert -->
 <div class="container bg-light my-4 pt-3" id="divForm">
@@ -114,7 +186,7 @@
       <div class="form-group col-md-3">
           <label for="sesso" class="text-secondary">Sesso</label>
           <select class="custom-select" id="sesso" name="sesso">
-              <option selected></option>
+              <option ></option>
               <option value="Uomo">Uomo</option>
               <option value="Donna">Donna</option>
             </select>
@@ -140,23 +212,36 @@
         <input type="date" class="form-control " name="outDate" id="outDate" value=""required>
       </div>
     </div> <!-- second row -->
-    <button id="btninvia" class="btn btn-secondary mb-1" type="submit">INVIA</button>
+    <button id="btninvia" class="btn btn-primary mb-1" type="submit">INVIA</button>
+    <button id="btnannulla" class="btn btn-secondary mb-1" >ANNULLA</button>
   </form>
 </div> <!-- form container -->
+</main>
 <!--  </div>  main container -->
 
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+</script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="/js/spur.js"></script>
 
   <script>
           $(document).ready(function () {
             document.getElementById('divForm').style.display = 'none';
             $('#contractsform').trigger('reset');
+            $('#btnannulla').on('click',function (e) {
+              e.preventDefault();
+              document.getElementById('divForm').style.display = 'none';
+              displayAll();
+            });
 
             function updateSelect(contracts){
-              // add Contracts id and last name holder for each contract of the  room
+              // add Contracts id and last position name holder for each contract of the  room
 
               $('#nContratto').children().remove().end(); // remove old value
               for (var i = contracts.length; i > 0; i--) {
-               //  alert(i);
+                
                 $('#nContratto').append($('<option>', {
                   value: "",
                   text: i + "--" + contracts[i - 1].holderSurname
@@ -175,11 +260,13 @@
               $('#inDate').val(contracts[index].inDate.substring(0, 10));
               $('#outDate').val(contracts[index].outDate.substring(0, 10));
               $('#sesso').val(contracts[index].sex);
+           
+               
             }
 
             $('#nContratto').on('change',function(){
               // get contract number and update Contract data
-
+              
               var nContratto = $('#nContratto option:selected').text().split('--')[0];
               var roomId = $('#roomIdInt').attr('data-id');
               var urlContratcts = '/api-roomContracts/'+roomId;
@@ -191,20 +278,51 @@
                       fetchRoomData(dataj[0].rooms[0].contracts,parseInt(nContratto)-1);
                     },
                     error: function () {
-                        alert("Si è verificato un errore durante l'invio");
+                        alert("Si è verificato un errore nel recupero dati");
                     }
                }); // ajax
             }); // change on nContratto
 
+
+            function callAjax( url , data ){
+              // generic function call ajax for update and/or insert contract
+              
+              $.ajax({
+                dataType: 'JSON',
+                data: data,
+                type: 'POST',
+                url: url,
+                success: function ( dataj , status ) {
+                  alert("DATI MEMORIZZATI");
+                  document.getElementById('divForm').style.display = 'none';
+                },
+                error: function ( error ) {
+                  alert("Si è verificato un errore durante l'invio\n" + error.responseText);
+                }
+              }); // ajax 
+            }
+
+        
             $('.fa-pen').on('click', function () {
+              
               // open form contract in Update mode and load data into the form
 
+              displayAll();
               document.getElementById('btninvia').textContent = "UPDATE";
               document.getElementById('nContratto').style.display = '';
               document.getElementById('labelContratto').style.display = '';
               document.getElementById('divForm').style.display = '';
-              var id = $(this).attr('id');   // get id Room
-              var roomIndex = parseInt($(this).attr('room'));
+              var id = $( this ).attr('id');   // get id appart
+              
+            
+              // filter only rooms of same apartment
+              $("#tableRooms tr").filter(function () {
+                $( this ).toggle($( this ).text().toLowerCase().indexOf( id ) > -1 )
+              });
+              $('#tableRooms').find('tr').click( function(){
+                    $( this ).addClass("bg-secondary text-light");
+              });
+              var roomIndex = parseInt($( this ).attr('room'));
               var urlRoom = '/api-adminRoomList/' + id;
               $.ajax({
                     dataType: 'JSON',
@@ -216,54 +334,73 @@
                       $('#roomIdInt').attr('data-id',dataj.rooms[roomIndex]._id);
                       fetchRoomData(dataj.rooms[roomIndex].contracts, contractIndex);
                       updateSelect(dataj.rooms[roomIndex].contracts);
+
+
                     },
                     error: function () {
                         alert("Si è verificato un errore durante l'invio");
                     }
               }); // ajax
-            }); // .on click  fa-pen
+            }); 
 
-            
-            function callAjax(url,data){
-              // generic function call ajax for update and/or insert contract
-              
-              $.ajax({
-                dataType: 'JSON',
-                data: data,
-                type: 'POST',
-                url: url,
-                success: function (dataj, status) {
-                  alert("DATI MEMORIZZATI");
-                  $('#contractsform').trigger('reset');
-                  document.getElementById('divForm').style.display = 'none';
-                },
-                error: function (error) {
-                  alert("Si è verificato un errore durante l'invio\n" + error.responseText);
-                }
-              }); // ajax 
-            }
 
+            function findRowIndex(roomId) {
+              // find row index of the update/inserted  room's contract
+
+              let array = $('#tableRooms tbody tr');
+              for (var i = 0; i < array.length; i++) {
+                var rowId = (array[i].getElementsByTagName('td')[5].getAttribute('data-roomID') + "").trim();
+                
+                if (roomId  == rowId) return i;
+                
+              }
+            }  
+
+
+        // ##### INSERT AND UPDATE ####   
             $('form#contractsform').submit(function (event) {
-              // submit per insertion
+              // submit for insertion
 
               event.preventDefault();
-              var roomId = $('#roomIdInt').attr('data-id');
-              var data = $(this).serialize();
-              var url = "";
+              let roomId = $('#roomIdInt').attr('data-id');
+              
+              
+              //    findRowIndex(roomId)
+              let today = new Date();
+              let inDate = new Date($(this).serializeArray()[5].value);
+              let outDate = new Date($(this).serializeArray()[6].value)
+              
+               // check if contract is active, if yes update table
+               if ( inDate < today  &&  today < outDate ) {
+                
+                let rowIndex = findRowIndex(roomId);
+                let rowsArray = $('#tableRooms tbody tr');
+                rowsArray[rowIndex].getElementsByTagName('td')[3].innerHTML = convertDate(inDate);
+                rowsArray[rowIndex].getElementsByTagName('td')[4].innerHTML = convertDate(outDate);
+
+
+               }  
+              
+              let data = $( this ).serialize();
+              let url = "";
               if (document.getElementById('btninvia').textContent == "AGGIUNGI") {
-                url = "/api-insertContract/"+roomId;
-                callAjax(url,data);
+                url = "/api/insertContract/"+roomId;
+               
+                callAjax( url , data );
+                displayAll();
 
               } else {
                 let  indexContract = $('#nContratto option:selected').text().split('--')[0];
                 url = "/api/addUpdateContract/" + roomId;
                 data += "&indexContract=" + indexContract;
-                callAjax(url,data);
+                callAjax( url , data );
+                displayAll();
 
               }
-             }); // submit update
+             });  
 
             $('.fa-plus').on('click', function () {
+              displayAll();
               // show form for contract insertion
               document.getElementById('btninvia').textContent = "AGGIUNGI";
               document.getElementById('nContratto').style.display = 'none';
@@ -273,6 +410,14 @@
               var id = $(this).attr('id');  // get id Room
               var roomIndex = parseInt($(this).attr('room'));
               var urlRoom = '/api-adminRoomList/' + id;
+              
+              // filter only rooms of same apartment
+              $("#tableRooms tr").filter(function () {
+                $( this ).toggle($( this ).text().toLowerCase().indexOf( id ) > -1 )
+              });
+              $('#tableRooms').find('tr').click( function(){
+                    $( this ).addClass("bg-secondary text-light");
+              });
 
               $.ajax({
                 dataType: 'JSON',
@@ -290,6 +435,15 @@
               }); // ajax
             }); // click fa-plus
 
+            function displayAll(){
+                var tutte = document.querySelectorAll("tr");
+                for (var i = 0; i < tutte.length; i++){
+                tutte[i].style.display = '';
+                tutte[i].classList.remove("bg-secondary");
+                tutte[i].classList.remove("text-light");
+              }
+            }
+            
             $('#filter').on('change', function(){
               
               // reset previous filters         
@@ -316,9 +470,10 @@
               }
             });
         
-            $("#search").on("keyup", function () {
-              // search substring and filter those that contains the substring
 
+            // search substring and filter those that contains the substring
+            $("#search").on("keyup", function () {
+              document.getElementById('divForm').style.display = 'none';
               let value = $(this).val().toLowerCase();
               $("#tableRooms tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)

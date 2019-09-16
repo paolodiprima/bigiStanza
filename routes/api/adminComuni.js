@@ -27,9 +27,7 @@ router.get('/', (req, res) => {
             res.send(obj);
         })
         .catch((err) => {
-            console.log('ERRORE:');
-            console.log(err);
-            res.send('error');
+            res.status(400).send(err);
         });
     
 });

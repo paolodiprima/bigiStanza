@@ -11,6 +11,7 @@ router.get('/:appartid', (req,res) => {
     appartModel.findById(id)
     .then((data)=>{
         const today = new Date();
+        let libere = 0;
         for (var j=0; j < data.rooms.length; j++ ){  // per quante stanze in un appartamento
                  
             for (var l=0; l < data.rooms[j].contracts.length; l++){ // per quanti contratti di una stanza
@@ -23,12 +24,16 @@ router.get('/:appartid', (req,res) => {
               
                 }
                 // if arrive at the end of the array, the room is available
-                if (l == data.rooms[j].contracts.length -1 ) data.rooms[j].contracts = [];
+                if (l == data.rooms[j].contracts.length -1 ) {
+                    data.rooms[j].contracts = [];
+                    libere++;
+                } 
             }
         }
-        const dataJSON = JSON.parse(JSON.stringify(data));
-     //   res.send(data);
-       res.render('stanze',{appart:dataJSON});
+        occupanti = data.rooms.length - libere;
+
+       const dataJSON = JSON.parse(JSON.stringify(data));
+       res.render('stanze',{appart:dataJSON,occupanti:occupanti});
 
     })
         .catch((err)=>{
@@ -39,17 +44,3 @@ router.get('/:appartid', (req,res) => {
 });
 
 module.exports = router;
-
-// appartModel.findById(id)
-//     .then((data)=>{
-        
-//         const dataJSON = JSON.parse(JSON.stringify(data));
-//         console.log("internal id " + data.appartid);
-//     //    console.log("contratto Out Date :  " + data.rooms[0].size + " -- " + data.rooms[0].contracts[0].outDate);
-//         res.render('stanze',{appart:dataJSON }); //pass obj with appartment selected
-
-//     })
-//     .catch((err)=>{
-//         console.log("ERRORE",err);
-//         res.send('error',err);
-//     });

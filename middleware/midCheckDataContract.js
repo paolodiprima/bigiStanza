@@ -21,22 +21,15 @@ module.exports = function  (req,res,next)  {
             result = await roomModel.find({ "rooms": { $elemMatch: { _id: roomId } } }, { "rooms.contracts.$": 1, _id: 0 });
             
             // if operation = update remove current contract from check
-            if (req.body.indexContract)  result[0].rooms[0].contracts.splice((parseInt(req.body.indexContract))-1,1)
-            else console.log('faccio inserimento');
-           
+            if (req.body.indexContract)  result[0].rooms[0].contracts.splice((parseInt(req.body.indexContract))-1,1);
            
             const validRange = rangeDateValidation(newDateIn, newDateOut, result[0].rooms[0].contracts);
             
-
-            if (validRange) console.log('VALIDA')
-            else console.log('NON VALIDA');
-            console.log('validRange : ' + validRange);
             if (validRange) next()
             else res.send('errore: periodo richiesto non disponibile...');
 
         }
         catch (error) {
-            console.error(error);
             res.send('error', err);
         }
     }

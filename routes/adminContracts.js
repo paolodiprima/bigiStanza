@@ -3,12 +3,17 @@ const router = new express.Router();
 const checkAuth = require('../middleware/checkAuth');
 const appartModel = require('../models/appartamentiModel');
 
+function convertDate(date){
+    month = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+    return   date.getDate() + ' ' + month[date.getMonth()]+ ' ' + date.getFullYear()
+}
+
 router.get('/',checkAuth, (req,res) => {
 
-    appartModel.find({},{"internalName":1, "rooms":1   })
+    appartModel.find({},{"internalName":1, "rooms":1   }).sort({ internalName : 1})
     .then((data)=>{
         const today = new Date();
-        console.log('numero appartamenti ' + data.length);
+     //   console.log('numero appartamenti ' + data.length);
         for (var i =0; i < data.length ; i++){  // per quanti appartamenti ci sono
         
              for (var j=0; j < data[i].rooms.length; j++ ){  // per quante stanze in un appartamento
@@ -18,6 +23,8 @@ router.get('/',checkAuth, (req,res) => {
                     
                     // if today there is a valid contract, insert data into the array
                      if ((today < data[i].rooms[j].contracts[l].outDate)  && (today > data[i].rooms[j].contracts[l].inDate))  {
+                         data[i].rooms[j].contracts[l].outDateF = convertDate( data[i].rooms[j].contracts[l].outDate) ;
+                         data[i].rooms[j].contracts[l].inDateF = convertDate(data[i].rooms[j].contracts[l].inDate);
                          data[i].rooms[j].contracts = [data[i].rooms[j].contracts[l]];
                          continue;
                    
@@ -27,8 +34,8 @@ router.get('/',checkAuth, (req,res) => {
                  }
              }
         }
-       
-        res.render('contracts',{appartRoomList:data}); 
+       // res.json(data);
+       res.render('contracts',{appartRoomList:data, user:req.session.userName}); 
         })
     .catch((err)=>{
         console.log(err);
