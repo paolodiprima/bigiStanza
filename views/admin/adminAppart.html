@@ -97,7 +97,7 @@
       <div class="col-md-10 offset-md-1 ">
         <h4 class="mt-1"><a href="/admin/add-update-appart" class="btn btn-primary"><i class="fa fa-plus"></i>
              AGGIUNGI APPARTAMENTO</a><span class="text-center pl-3"></span></h4> <!--LISTA APPARTAMENTI -->
-        <table class="table table-striped">
+        <table class="table table-striped" id="tableAparts" >
               <thead>
                   <tr>
                       <th scope="col">id</th>
@@ -149,6 +149,14 @@
 
           $(document).on('click', '.cancel', function (e) {
             e.preventDefault();
+         //     var rowIndex =$(this).parent().parent().parent().index(); funziona
+           //   alert(rowIndex);
+           //   $(this).parent().parent().parent().remove(); funziona
+        //      let row =  $(this).parent().parent().parent();
+        //      $('#tableAparts tr').index(rowIndex)
+            //  let rowsArray = $('#tableAparts tbody tr');
+            //  rowsArray[rowIndex].style.display = "";
+       
             let internalId = $(this).attr('data-internalId')
             $('#msgConferma').html('sicuro di cancellare appartamento : ' + internalId);
             
@@ -161,20 +169,25 @@
           $(document).on('click', '#btnDelete', function (e) {
             e.preventDefault();
             let appId = $(this).attr('data-id')
+            
             $('#modalCancel').modal('hide')
             callAjax(appId);
           });
 
           function callAjax(id) {
             let url = "/api/deleteAppart/" + id;
-            
+
             $.ajax({
               type: 'DELETE',
               url: url,
               success: function (result, status) {
                 setTimeout( ()=> { alert('APPARTAMENTO ELIMINATO');
-                                   location.reload(true); },
-                                   1500);
+                              //     location.reload(true);
+                                   $("#tableAparts tr").filter(function () {
+                                         $( this ).toggle($( this ).text().toLowerCase().indexOf( id ) <= -1 )
+                                         });
+                                 },
+                                   1000);
               },
               error: function () {
                 alert('Si è verificato un errore durante la cancellazione')
