@@ -193,12 +193,13 @@
                             <li class="list-group-item">misura: <%=appart.rooms[roomIndex].size%> mq</li>
                             <li class="list-group-item">  
                                     <% if ( appart.rooms[roomIndex].contracts.length  ) { %>
-                                     libera dal: <%= appart.rooms[roomIndex].contracts[0].outDate.substr(0,10) %>
+                                      
+                                      <% var arrayDate = appart.rooms[roomIndex].contracts[0].outDate.toString().slice(0,10).split('-'); %>
+                                     libera dal: <strong> <%= arrayDate[2] + "/" + arrayDate[1] + "/" + arrayDate[0] %> </strong>
                                      
-                                        <span>    </span> <!--  --> 
-                                        <%  }  else {  %>
+                                    <%  }  else {  %>
                                         <span class="font-weight-bold"> <mark> Libera  </mark>    </span>   
-                                        <%    }  %>
+                                    <%    }  %>
                             </li>
                             <li class="list-group-item">indirizzo: <%= appart.address %></li>
                             <li class="list-group-item">accesso: <%= appart.rooms[roomIndex].extAccess %></li>
@@ -354,6 +355,12 @@
       Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
       <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
     </p>
+    <p  class="small">
+      
+      Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Icons  made by <a href="https://icons8.com/" target="_blank" >Icon8</a>
+      
+    </p>
+
           </div>
         </div>
         

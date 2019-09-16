@@ -3,6 +3,11 @@ const router = new express.Router();
 const mongoose = require('mongoose');
 const appartModel = require('../models/appartamentiModel');
 
+function convertDate(date){
+    month = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+    return   date.getDate() + ' ' + month[date.getMonth()]+ ' ' + date.getFullYear()
+}
+
 router.get('/:appartid', (req,res) => {
 
     var id = req.params.appartid;
@@ -19,7 +24,18 @@ router.get('/:appartid', (req,res) => {
                
                // if today there is a valid contract, insert data into the array
                 if ((today < data.rooms[j].contracts[l].outDate)  && (today > data.rooms[j].contracts[l].inDate))  {
-                    data.rooms[j].contracts = [data.rooms[j].contracts[l]];
+                    let activeContract = new Object();
+                    activeContract = data.rooms[j].contracts[l]
+                    data.rooms[j].contracts = [];
+                    data.rooms[j].contracts.push(activeContract);
+              
+               
+                   
+                  
+
+                    
+                    //data.rooms[j].contracts = [data.rooms[j].contracts[l]];  funziona da tenere!!
+              
                     continue;
               
                 }
@@ -33,7 +49,8 @@ router.get('/:appartid', (req,res) => {
         occupanti = data.rooms.length - libere;
 
        const dataJSON = JSON.parse(JSON.stringify(data));
-       res.render('stanze',{appart:dataJSON,occupanti:occupanti});
+      // res.json(dataJSON);
+        res.render('stanze',{appart:dataJSON,occupanti:occupanti});
 
     })
         .catch((err)=>{

@@ -497,19 +497,23 @@
             var city = $("#selectCity :selected").text();
             var url = "/api-add-update-appart";
             var data = $('form#mainform').serialize();
+            var methodType = 'PUT';
             //alert(data);
             data += "&city=" + city;
             data += "&appartid=" + idappart;
 
 
             // if there is an id appart then pass to mode update
-            if (idappart != "") { url = url + "/" + idappart; }
+            if (idappart != "") { 
+                url = url + "/" + idappart; 
+                methodType = 'POST'
+            }
 
             // img enabled only after data insertion
             $.ajax({
                 dataType: 'JSON',
                 data: data,
-                type: 'POST',
+                type: methodType,
                 url: url,
                 success: function (dataj, status) {
                     // enabled  bottom +IMMAGINI by insert a value on href attribute

@@ -6,7 +6,7 @@ const Joi = require('@hapi/joi');
 const  { schemaValidationAppart } = require('../../models/validationModels');
 
 // add appartment
-router.post('/', (req,res) => {
+router.put('/', (req,res) => {
 
     //  input validation
     const resultValidation = Joi.validate(req.body,schemaValidationAppart);
@@ -52,6 +52,8 @@ router.post('/', (req,res) => {
     }
   addAppart();   
 });
+
+
 
 // update appart
 router.post('/:idappart', (req,res) => {
